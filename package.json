@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "start": "nodemon ./src/app.js",
+    "faker": "node build/faker/index.js",
     "serve:html": "lite-server --baseDir=html-examples",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint  ./src/**/*.js || (exit 0)"
@@ -24,11 +25,14 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
+    "bluebird": "^3.5.0",
     "express": "^4.15.2",
     "express-session": "^1.15.3",
     "faker": "^4.1.0",
     "i18n": "^0.8.3",
     "mongoose": "^4.10.2",
+    "load-json-file": "^2.0.0",
+    "path": "^0.12.7",
     "socket.io": "^1.7.3",
     "underscore": "^1.8.3",
     "winston": "^2.3.1"

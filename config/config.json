@@ -1,0 +1,10 @@
+{
+  "db": {
+    "ip": "localhost",
+    "port": "27017",
+    "base": "fishblock"
+  },
+  "param": {
+    "quantity" : 15
+  }
+}
