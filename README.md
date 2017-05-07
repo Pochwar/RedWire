@@ -8,3 +8,7 @@ a school project
 - install with npm : `npm install`
 - build with npm : `npm run build`
 - launch app with npm : `npm start`
+
+## TVDB
+
+Check index.js to see how it works !
