@@ -30,7 +30,7 @@ loadJsonFile(file)
             })
         }
 
-        connect(config.db.ip, config.db.port, config.db.base)
+        connect(config.db.mongo.ip, config.db.mongo.port, config.db.mongo.base)
             .then(response => {
                 console.log(`==Connected to Mongo DB on ${config.db.ip}:${config.db.port}/${config.db.base}==`);
 
