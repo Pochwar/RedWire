@@ -1,14 +1,14 @@
 /*
 PACKAGES
  */
-import faker from 'faker';
+import FakeUser from './FakeUser';
 import encrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import loadJsonFile  from 'load-json-file';
 import path from 'path';
 import UserModel from './../models/users';
 import Promise from 'bluebird';
-
+import orm from 'orm';
 
 /*
 GET CONFIG
@@ -32,7 +32,7 @@ loadJsonFile(file)
 
         connect(config.db.mongo.ip, config.db.mongo.port, config.db.mongo.base)
             .then(response => {
-                console.log(`==Connected to Mongo DB on ${config.db.ip}:${config.db.port}/${config.db.base}==`);
+                console.log(`==Connected to Mongo DB on ${config.db.mongo.ip}:${config.db.mongo.port}/${config.db.mongo.base}==`);
 
                 /*
                 CREATE FAKE USERS
@@ -64,42 +64,12 @@ loadJsonFile(file)
                     //action
                     () => {
                         return new Promise((resolve, reject) => {
-                            //user lang : random between "fr" and "en"
-                            let locale;
-                            let randLangId = Math.round(Math.random());
-                            switch (randLangId){
-                                case 0:
-                                    locale = "fr";
-                                    break;
 
-                                case 1:
-                                    locale = "en";
-                                    break;
-                            }
-
-                            //user role : random between 0 and 5
-                            let randRoleId =Math.floor(Math.random()*5);
-
-                            //set locale
-                            faker.locale = locale;
-
-                            //generate fake user
-                            let firstname = faker.name.firstName();
-                            let lastname = faker.name.lastName();
-                            let pseudo = faker.internet.userName(firstname, lastname);
-                            let bDay = faker.date.past(50, new Date("Sat Sep 20 1992 21:35:02 GMT+0200 (CEST)"));
-                            let mail = faker.internet.email(firstname, lastname);
-                            let inscrDay = faker.date.recent();
-                            let pass = faker.internet.password();
-                            let avatar = faker.internet.avatar();
-                            let ban = faker.random.boolean();
-                            let lanId = randLangId;
-                            let roleId = randRoleId;
-
+                            const fakeUser = new FakeUser();
 
                             // password encrypt
                             let passwordEncrypt = new Promise((resolve, reject) => {
-                                encrypt.hash(pass, 10, (err, hash) => {
+                                encrypt.hash(fakeUser.pass, 10, (err, hash) => {
                                     let hashPass = hash;
                                     resolve(hashPass);
                                     let error = {
@@ -112,7 +82,7 @@ loadJsonFile(file)
                             passwordEncrypt
                                 .then(hashPass => {
                                     //save user
-                                    user.save(firstname, lastname, pseudo, bDay, mail, inscrDay, hashPass, avatar, ban, lanId, roleId);
+                                    user.save(fakeUser.firstname, fakeUser.lastname, fakeUser.pseudo, fakeUser.bDay, fakeUser.mail, fakeUser.inscrDay, hashPass, fakeUser.avatar, fakeUser.ban, fakeUser.lanId, fakeUser.roleId);
                                 })
                             ;
 
