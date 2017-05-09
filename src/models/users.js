@@ -1,82 +1,64 @@
-//import mongoose
-import mongoose from 'mongoose';
+module.exports = function (db, cb) {
+    db.define('users', {
+        id: {
+            type: 'serial',
+            key: true
+        },
+        firstname: {
+            type: "text",
+            size: 50,
+            required: true,
+        },
+        lastname: {
+            type: "text",
+            size: 50,
+            required: true,
+        },
+        pseudo: {
+            type: "text",
+            size: 50,
+            unique: true,
+            required: true,
+        },
+        bDay: {
+            type: "date",
+            required: true,
+        },
+        mail: {
+            type: "text",
+            unique: true,
+            required: true,
+        },
+        inscrDay: {
+            type: "date",
+            required: true,
+        },
+        pass: {
+            type: "text",
+            required: true,
+        },
+        avatar: {
+            type: "text",
+        },
+        ban: {
+            type: "boolean",
+            required: true,
+        },
+        lanId: {
+            type: "integer",
+            required: true,
+        },
+        roleId: {
+            type: "integer",
+            required: true,
+        },
+    }, {
+        methods : {
+            fullName: function() {
+                return this.firstname + ' ' + this.lastname;
+            }
+        }
+    });
 
-export default class UserModel {
-    constructor() {
-        this.user = mongoose.model('User', {
-            firstname: {
-                type: String,
-                minlength: 3,
-                maxlength: 20,
-                required: true,
-            },
-            lastname: {
-                type: String,
-                minlength: 3,
-                maxlength: 20,
-                required: true,
-            },
-            pseudo: {
-                type: String,
-                minlength: 3,
-                maxlength: 20,
-                required: true,
-                unique: true,
-            },
-            bDay: {
-                type: Date,
-                required: true,
-            },
-            mail: {
-                type: String,
-                required: true,
-                unique: true,
-            },
-            inscrDay: {
-                type: Date,
-                required: true,
-            },
-            pass: {
-                type: String,
-                required: true,
-            },
-            avatar: {
-                type: String,
-                required: true,
-            },
-            ban: {
-                type: Boolean,
-                required: true,
-            },
-            lanId: {
-                type: Number,
-                required: true,
-            },
-            roleId: {
-                type: Number,
-                required: true,
-            },
-        });
-    }
-
-    save(firstname, lastname, pseudo, bDay, mail, inscrDay, pass, avatar, ban, lanId, roleId){
-        this.user.create({
-            firstname: firstname,
-            lastname: lastname,
-            pseudo: pseudo,
-            bDay: bDay,
-            mail: mail,
-            inscrDay: inscrDay,
-            pass: pass,
-            avatar: avatar,
-            ban: ban,
-            lanId: lanId,
-            roleId: roleId,
-        })
-            .then(() => {
-                console.log(`User ${firstname} created`);
-            })
-            .catch(err => console.log(`Error : ${err.message}`))
-        ;
-    }
-}
+    return cb();
+};

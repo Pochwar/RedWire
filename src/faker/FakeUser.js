@@ -1,4 +1,5 @@
 import faker from 'faker';
+import bcrypt from 'bcrypt';
 
 export default class FakeUser {
     constructor(){
@@ -33,5 +34,16 @@ export default class FakeUser {
         this.ban = faker.random.boolean();
         this.lanId = this.randLangId;
         this.roleId = this.randRoleId;
+
+        this.passwordEncrypt = new Promise((resolve, reject) => {
+            bcrypt.hash(this.pass, 10, (err, hash) => {
+                this.hashPass = hash;
+                resolve(this.hashPass);
+                let error = {
+                    message : `error in password encryption : ${err}`,
+                };
+                reject(error);
+            });
+        });
     }
 }

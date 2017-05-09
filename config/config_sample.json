@@ -1,0 +1,22 @@
+{
+  "db": {
+    "mongodb": {
+      "type" : "mongodb",
+      "ip": "localhost",
+      "port": "27017",
+      "base": "base"
+    },
+    "mysql": {
+      "type" : "mysql",
+      "ip": "localhost",
+      "user": "user",
+      "pass": "pass",
+      "port": "3306",
+      "base": "base"
+    }
+  },
+  "default": {
+    "dbtype" : "mysql", // possible values : "mysql" and "mongodb" only
+    "quantity" : 15
+  }
+}
