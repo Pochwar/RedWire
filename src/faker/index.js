@@ -91,7 +91,7 @@ loadJsonFile(file)
                 db.load(path.join(__dirname, '../models/users'), (err) => {
                     const User = db.models.users;
 
-                    //Syncronise DB (add table in !exists)
+                    //Syncronise DB (add table if !exists)
                     db.sync((err) => {
                         if (err) throw err;
 
