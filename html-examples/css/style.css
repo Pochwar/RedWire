@@ -1,0 +1,106 @@
+/* default rules */
+html, body, div, h1, h2, h3, h4, h5, h6, span {
+    color: #333;
+    font-family: 'Open Sans Bold', sans-serif;
+}
+
+/* Bootstrap 3 row's  with equal height columns (flexbox)
+ * Cols based on flexbox to center content horizontally & vertically
+ * see http://getbootstrap.com.vn/examples/equal-height-columns/  
+ * Only on big screen to preserve responsiveness */
+ @media only screen and (min-width : 992px) {
+    .row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    }
+
+    .col-flex-centered {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+ }
+
+/* navbar logo */
+.ct-navbar-brand {
+    display: table;
+}
+
+.ct-navbar-brand > img {
+    display: table-cell;
+    height: 100px;
+    vertical-align: middle;
+}
+
+.ct-navbar-brand > span {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.ct-navbar-brand > span > p{
+    margin: 15px 0 20px 10px;
+}
+
+/* margin / padding */
+.ct-no-padding {
+    padding: 0 !important;
+}
+
+.ct-no-margin {
+    margin: 0;
+}
+
+.ct-mr-1 {
+    margin-right: 1em;
+}
+
+.ct-mb-1 {
+    margin-top: 1em;
+}
+
+/* text */
+.ct-txt-larger {
+    font-size: 2em;
+}
+
+.ct-txt-large {
+    font-size: 1.2em;
+}
+
+.ct-txt-grey {
+    color: #333;
+}
+
+.ct-txt-yellow {
+    color: #FFB125;
+}
+
+.ct-txt-white {
+    color: #fff;
+}
+
+/* bg color */
+.ct-bg-grey {
+    background-color: #333;
+}
+
+/* borders */
+.ct-border-red {
+    border: 1px solid red;
+}
+
+/* full screen block */
+.ct-fs-block {
+    height: 200px;
+    max-height: 200px;
+}
+
+ @media only screen and (min-width : 992px) {
+    .ct-fs-block {
+        height: 400px;
+        max-height: 400px;
+    }
+ }
