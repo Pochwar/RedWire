@@ -25,10 +25,12 @@
   "dependencies": {
     "bcrypt": "^1.0.2",
     "express": "^4.15.2",
+    "express-session": "^1.15.3",
     "faker": "^4.1.0",
     "mongoose": "^4.10.2",
     "socket.io": "^1.7.3",
-    "twig": "^1.10.4"
+    "twig": "^1.10.4",
+    "underscore": "^1.8.3"
   },
   "bugs": {
     "url": "https://github.com/Pochwar/FishBlock/issues"

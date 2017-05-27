@@ -1,3 +1,6 @@
+/*
+ IMPORT PACKAGES
+ */
 import CONF from './../config/config';
 import Server from './Server';
 import mongoose from 'mongoose';
