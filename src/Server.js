@@ -5,8 +5,10 @@ import CONF from './../config/config';
 import express from 'express';
 import path from 'path';
 import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import IndexCtrl from './controllers/IndexCtrl'
 import RegistrationCtrl from './controllers/RegistrationCtrl'
+import i18n from 'i18n';
 
 export default class Server {
     constructor() {
@@ -16,14 +18,27 @@ export default class Server {
         //set public path
         this._app.use(express.static(path.join(__dirname, '/../public')));
 
-        // Use the session middleware
-        this.sessParam = {
-            secret:'secret',
-            cookie: {
-                maxAge: 60000
-            }
-        };
-        this._app.use(session(this.sessParam));
+        //configure i18n
+        i18n.configure({
+            locales:['fr', 'en'],
+            defaultLocale: 'fr',
+            directory: path.join(__dirname, '/../locales'),
+            cookie: 'i18n'
+        });
+
+        //use cookie
+        this._app.use(cookieParser('i18n_fishblock'));
+
+        //use session
+        this._app.use(session({
+            secret: 'i18n_fishblock',
+            resave: true,
+            saveUninitialized: true,
+            cookie: { maxAge: 60000 }
+        }));
+
+        //use i18n
+        this._app.use(i18n.init);
     }
 
     run(port) {
@@ -37,19 +52,19 @@ export default class Server {
         INIT CONTROLLERS
          */
 
-        const indexCtrl = new IndexCtrl(CONF.siteInfo.title);
-        const registrationCtrl = new RegistrationCtrl(CONF.siteInfo.title);
-        // const loginCtrl = new LoginCtrl(this.title);
+        const indexCtrl = new IndexCtrl();
+        const registrationCtrl = new RegistrationCtrl();
+        // const loginCtrl = new LoginCtrl();
 
         /*
          SET ROUTES
          */
 
         //home
-        this._app.get('/', indexCtrl.get.bind(indexCtrl));
+        this._app.get('/', indexCtrl.get);
 
         //registration page
-        this._app.get('/register', registrationCtrl.get.bind(registrationCtrl));
+        this._app.get('/register', registrationCtrl.get);
         this._app.post('/register', registrationCtrl.post);
 
         //login
@@ -61,6 +76,16 @@ export default class Server {
             //destroy session
             req.session.destroy();
             res.redirect('/');
+        });
+
+        //locales
+        this._app.get('/fr', function (req, res) {
+            res.cookie('i18n', 'fr');
+            res.redirect('/')
+        });
+        this._app.get('/en', function (req, res) {
+            res.cookie('i18n', 'en');
+            res.redirect('/')
         });
 
         //404

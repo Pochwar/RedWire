@@ -13,3 +13,10 @@ a school project
 
 - `npm run lint` To apply eslint for code in `./src`
 - to create new rule, go to http://rapilabs.github.io/eslintrc-generator/ and copy new rules in `.eslintrc`, under the `rules` index
+
+## Multilang
+
+- languages files are in `locales` folder
+- default language is 'fr'
+- used language is store in a cookie
+- to change language go to '/fr' or '/en'

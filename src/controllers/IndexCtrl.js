@@ -1,18 +1,16 @@
 export default class IndexCtrl {
-    constructor(title){
-        this.title = title;
-    }
-
     get(req, res) {
-        //connected home page
+        /*
+        CONNECTED
+         */
+        //locales
         if (req.session.connected) {
-            res.render('indexAuth.twig', {
-                title : `${this.title} - Home`,
-                })
+            res.render('indexAuth.twig', {})
         } else {
-            res.render('indexUnauth.twig',{
-                title : `${this.title} - Home`,
-            });
+            /*
+            NOT CONNECTED
+             */
+            res.render('indexUnauth.twig',{});
         }
     }
 }

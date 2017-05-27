@@ -5,9 +5,6 @@ import _ from 'underscore';
 mongoose.Promise = global.Promise;
 
 export default class RegistrationCtrl {
-    constructor(title){
-        this.title = title;
-    }
 
     get(req, res){
         let msg = "";
@@ -15,7 +12,6 @@ export default class RegistrationCtrl {
             msg = req.param("msg");
         }
         res.render('registration.twig', {
-            title: `${this.title} - Register`,
             msg: msg
         })
     }
