@@ -15,5 +15,8 @@
 	"LANG": "Language",
 	"LANG_FR": "French",
 	"LANG_EN": "English",
-	"REGISTER": "Register"
+	"REGISTER": "Register",
+	"LOGIN": "Connection",
+	"LOG": "Connect",
+	"AUTH": "You are connected as "
 }

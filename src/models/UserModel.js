@@ -26,14 +26,13 @@ export default class User {
         })
     }
 
-    connectz(pseudo, pass){
-        const prom = new Promise((resolve, reject) => {
-            AppUserSchema.findOne({
-                username: pseudo
+    findByMail(mail){
+        return new Promise((resolve, reject) => {
+            UserSchema.findOne({
+                mail: mail
             })
                 .then(user => resolve(user))
                 .catch(e => reject(e))
         });
-        return prom;
     }
 }

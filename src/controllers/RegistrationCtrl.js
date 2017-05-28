@@ -1,8 +1,8 @@
+import CONF from './../../config/config';
 import mongoose from 'mongoose';
 import encrypt from 'bcrypt';
 import _ from 'underscore';
 import UserModel from './../models/UserModel';
-import CONF from './../config/config';
 
 mongoose.Promise = global.Promise;
 
@@ -16,7 +16,6 @@ export default class RegistrationCtrl {
             msg: msg
         })
     }
-
 
     post(req, res){
         //check fields

@@ -20,3 +20,8 @@ a school project
 - default language is 'fr'
 - used language is store in a cookie
 - to change language go to '/fr' or '/en'
+
+Usage in twig templates :
+`{{ __("LOCAL_VAR") }}` will display the value of "LOCAL_VAR" from the appropriate locale json file.
+
+If "LOCAL_VAR" entry is not found is not found in the locale json file, it will be automatically created with a default value

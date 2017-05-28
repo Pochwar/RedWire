@@ -6,10 +6,13 @@ import express from 'express';
 import path from 'path';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
-import IndexCtrl from './controllers/IndexCtrl'
-import RegistrationCtrl from './controllers/RegistrationCtrl'
 import i18n from 'i18n';
 import bodyParser from 'body-parser';
+import IndexCtrl from './controllers/IndexCtrl';
+import RegistrationCtrl from './controllers/RegistrationCtrl';
+import LoginCtrl from './controllers/LoginCtrl';
+import SeriesCtrl from './controllers/SeriesCtrl';
+import AdminHomeCtrl from './controllers/AdminHomeCtrl';
 
 export default class Server {
     constructor() {
@@ -61,7 +64,9 @@ export default class Server {
 
         const indexCtrl = new IndexCtrl();
         const registrationCtrl = new RegistrationCtrl();
-        // const loginCtrl = new LoginCtrl();
+        const loginCtrl = new LoginCtrl();
+        const seriesCtrl = new SeriesCtrl();
+        const adminHomeCtrl = new AdminHomeCtrl();
 
         /*
          SET ROUTES
@@ -75,8 +80,14 @@ export default class Server {
         this._app.post('/register', registrationCtrl.post);
 
         //login
-        // this._app.get('/login', loginCtrl.index.bind(loginCtrl));
-        // this._app.post('/login', loginCtrl.form);
+        this._app.get('/login', loginCtrl.get);
+        this._app.post('/login', loginCtrl.post);
+
+        //series
+        this._app.get('/series', seriesCtrl.get);
+
+        //admin home
+        this._app.get('/admin', adminHomeCtrl.get);
 
         //logout
         this._app.get('/logout', (req, res) => {

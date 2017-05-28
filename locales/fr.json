@@ -15,5 +15,8 @@
 	"LANG": "Langue",
 	"LANG_FR": "Français",
 	"LANG_EN": "Anglais",
-	"REGISTER": "S'inscrire"
+	"REGISTER": "S'inscrire",
+	"LOGIN": "Connexion",
+	"LOG": "Se connecter",
+	"AUTH": "Vous êtes connecté en tant que "
 }

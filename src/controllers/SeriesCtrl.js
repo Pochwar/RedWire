@@ -1,18 +1,18 @@
-export default class IndexCtrl {
+export default class SeriesCtrl {
     get(req, res) {
         //Connected
         if (req.session.connected) {
             let lang = "fr";
             if(req.cookies.i18n){lang = req.cookies.i18n}
 
-            res.render('indexAuthenticated.twig', {
+            res.render('series.twig', {
                 lang: lang,
                 pseudo: req.session.user.pseudo
             })
         }
         //not connected
         else {
-            res.render('indexUnauthenticated.twig',{});
+            res.render('unauthentication.twig',{});
         }
     }
 }
