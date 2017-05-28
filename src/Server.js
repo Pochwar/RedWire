@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import IndexCtrl from './controllers/IndexCtrl'
 import RegistrationCtrl from './controllers/RegistrationCtrl'
 import i18n from 'i18n';
+import bodyParser from 'body-parser';
 
 export default class Server {
     constructor() {
@@ -17,6 +18,12 @@ export default class Server {
 
         //set public path
         this._app.use(express.static(path.join(__dirname, '/../public')));
+
+        //use body parser
+        this._app.use(bodyParser.json());
+        this._app.use(bodyParser.urlencoded({
+            extended: true
+        }));
 
         //configure i18n
         i18n.configure({
@@ -44,7 +51,7 @@ export default class Server {
     run(port) {
         this._setRoutes();
 
-        this._app.listen(port, () => console.log(`Server listening on port ${port}`));
+        this._app.listen(port, () => console.log(`### Server listening on localhost:${port} ###`));
     }
 
     _setRoutes() {

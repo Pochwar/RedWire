@@ -16,7 +16,7 @@ const connect = (host, port, db) => {
 
 connect(CONF.db.host, CONF.db.port, CONF.db.base)
     .then(response => {
-        console.log(`Connected to Mongo DB on ${CONF.db.host}:${CONF.db.port}/${CONF.db.base}`);
+        console.log(`### Connected to Mongo DB on ${CONF.db.host}:${CONF.db.port}/${CONF.db.base} ###`);
         const server = new Server();
         server.run(CONF.server.port);
     })
