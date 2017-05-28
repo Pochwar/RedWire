@@ -44,7 +44,7 @@ export default class Server {
             secret: 'i18n_fishblock',
             resave: true,
             saveUninitialized: true,
-            cookie: { maxAge: 60000 }
+            cookie: { maxAge: 3600000}
         }));
 
         //use i18n
