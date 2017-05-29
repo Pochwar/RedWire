@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node build/app.js",
     "nodemon": "nodemon build/app.js --exec babel-node",
+    "serve:html": "lite-server --baseDir=html-examples",
     "build": "./node_modules/.bin/babel src/ --out-dir build/",
     "build:watch": "./node_modules/.bin/babel --watch src/ --out-dir build/",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,6 +24,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^3.19.0",
     "nodemon": "^1.11.0"
+    "lite-server": "^2.3.0"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
