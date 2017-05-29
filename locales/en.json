@@ -1,0 +1,22 @@
+{
+	"SITENAME": "FishBlock",
+	"HOME": "Home",
+	"HELLO": "Welcome to FishBlock's website",
+	"UNAUTH": "You are not connected",
+	"REGISTRATION": "Register",
+	"FIRSTNAME": "Firstname",
+	"LASTNAME": "Lastname",
+	"PSEUDO": "Pseudo",
+	"BDAY": "Birthday",
+	"MAIL": "Mail",
+	"PASSWORD": "Password",
+	"PASSWORD_CONF": "Confirm password",
+	"AVATAR": "Avatar",
+	"LANG": "Language",
+	"LANG_FR": "French",
+	"LANG_EN": "English",
+	"REGISTER": "Register",
+	"LOGIN": "Connection",
+	"LOG": "Connect",
+	"AUTH": "You are connected as "
+}

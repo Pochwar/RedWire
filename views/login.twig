@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ __("SITENAME") }} - {{ __("LOGIN") }}</title>
+</head>
+<body>
+<p>{{ __("LOGIN") }}</p>
+<form action="" method="post">
+    <p>
+        <label for="mail">{{ __("MAIL") }}</label>
+        <input type="email" name="mail" id="mail" placeholder="{{ __("MAIL") }}" required>
+    </p>
+    <p>
+        <label for="pass">{{ __("PASSWORD") }}</label>
+        <input type="password" name="pass" id="pass" placeholder="{{ __("PASSWORD") }}" required>
+    </p>
+    <input type="submit" value="{{ __("LOG") }}">
+</form>
+</body>
+</html>

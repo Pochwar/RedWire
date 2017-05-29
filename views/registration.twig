@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ __("SITENAME") }} - {{ __("REGISTRATION") }}</title>
+</head>
+<body>
+<p>{{ __("REGISTRATION") }}</p>
+<form action="" method="post">
+    <p>
+        <label for="firstname">{{ __("FIRSTNAME") }}</label>
+        <input type="text" name="firstname" id="firstname" placeholder="{{ __("FIRSTNAME") }}" required>
+    </p>
+    <p>
+        <label for="lastname">{{ __("LASTNAME") }}</label>
+        <input type="text" name="lastname" id="lastname" placeholder="{{ __("LASTNAME") }}" required>
+    </p>
+    <p>
+        <label for="pseudo">{{ __("PSEUDO") }}</label>
+        <input type="text" name="pseudo" id="pseudo" placeholder="{{ __("PSEUDO") }}" required>
+    </p>
+    <p>
+        <label for="bDay">{{ __("BDAY") }}</label>
+        <input type="date" name="bDay" id="bDay" placeholder="{{ __("BDAY") }}" required>
+    </p>
+    <p>
+        <label for="mail">{{ __("MAIL") }}</label>
+        <input type="email" name="mail" id="mail" placeholder="{{ __("MAIL") }}" required>
+    </p>
+    <p>
+        <label for="pass">{{ __("PASSWORD") }}</label>
+        <input type="password" name="pass" id="pass" placeholder="{{ __("PASSWORD") }}" required>
+    </p>
+    <p>
+        <label for="passConf">{{ __("PASSWORD_CONF") }}</label>
+        <input type="password" name="passConf" id="passConf" placeholder="{{ __("PASSWORD_CONF") }}" required>
+    </p>
+    <p>
+        <label for="avatar">{{ __("AVATAR") }}</label>
+        <input type="file" name="avatar" id="avatar" placeholder="{{ __("AVATAR") }}">
+    </p>
+    <p>
+        <label for="lanId">{{ __("LANG") }}</label>
+        <select name="lanId" id="lanId">
+            <option value="1">{{ __("LANG_FR") }}</option>
+            <option value="2">{{ __("LANG_EN") }}</option>
+        </select>
+    </p>
+    <input type="submit" value="{{ __("REGISTER") }}">
+</form>
+</body>
+</html>

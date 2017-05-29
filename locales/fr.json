@@ -1,0 +1,22 @@
+{
+	"SITENAME": "FishBlock",
+	"HOME": "Accueil",
+	"HELLO": "Bienvenue sur le site FishBlock",
+	"UNAUTH": "Vous n'êtes pas connecté",
+	"REGISTRATION": "Inscription",
+	"FIRSTNAME": "Prénom",
+	"LASTNAME": "Nom",
+	"PSEUDO": "Pseudo",
+	"BDAY": "Date de naissance",
+	"MAIL": "Email",
+	"PASSWORD": "Mot de passe",
+	"PASSWORD_CONF": "Confirmation mot de passe",
+	"AVATAR": "Avatar",
+	"LANG": "Langue",
+	"LANG_FR": "Français",
+	"LANG_EN": "Anglais",
+	"REGISTER": "S'inscrire",
+	"LOGIN": "Connexion",
+	"LOG": "Se connecter",
+	"AUTH": "Vous êtes connecté en tant que "
+}
