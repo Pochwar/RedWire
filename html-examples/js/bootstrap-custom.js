@@ -27,4 +27,9 @@
     this.BootstrapPlugin = new BootstrapPlugin();
 })();
 
+// init when document ready
+$( document ).ready( function(){
 
+    // init bootstrap library
+    BootstrapPlugin.initNavigation();
+});

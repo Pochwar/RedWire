@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>FishBlock</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- jquery as bs dependency -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- googlefont dependency -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <!-- bs-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- custom style -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- custom js -->
+    <script src="js/bootstrap-custom.js"></script>
+    <script src="js/inscription.js"></script>
+</head>
+
+<body>
+        
+<!-- Navigation -->
+<nav class="navbar white navbar-default ct-no-margin navbar-static-top">
+    
+    <div class="container-fluid">
+        <div class="row row-eq-height">
+
+            <div class="col-md-3">
+                <!--navbar brand-->
+                <div class="navbar-brand ct-navbar-brand" href="#page-top">
+                    <img src="img/logo.png">
+                    <span>
+                        <p class="ct-txt-yellow ct-txt-larger">FishBlock</p>
+                        <p class="ct-txt-large">Le site qu'il est bien pour les séries</p>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-flex-centered">
+                <!-- formulaire de recherche -->
+                <form>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon " id="sizing-addon1">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+
+            <!--bouton toggle -->
+            <div class="col-md-3 col-flex-centered" >
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-responsive">
+                        <span class="sr-only">Menu</span> Menu <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+            
+                <!-- Menu responsive -->
+                <div class="collapse navbar-collapse" id="menu-responsive">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="page-scroll">
+                            <a href="#modal_connection" data-toggle="modal" class="btn btn-default ct-mr-1">Connexion</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#"  class="btn btn-default ct-mr-1">S'inscrire</a>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-primary btn-xs ct-nav-lang">fr</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section>
+    <div class="container-fluid">
+        
+        <div class="row text-center ct-bg-grey">
+            <div class="col-md-offset-3 col-md-6">
+                <h1 class="ct-txt-white">Inscription</h1>
+            </div>
+        </div>
+
+        <div class="row ct-bg-grey">
+            <div class="col-md-offset-3 col-md-6">
+                <form method="post" action="#">
+                   
+                    <div class="form-group">
+                        <label for="inscription_first_name" class="ct-txt-white">Nom</label>
+                        <input 
+                            type="text"
+                            class="form-control"
+                            id="inscription_first_name"
+                            name="inscription_first_name"
+                            placeholder="Nom"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inscription_last_name" class="ct-txt-white">Prénom</label>
+                        <input 
+                            type="text"
+                            class="form-control"
+                            id="inscription_last_name" 
+                            name="inscription_last_name"
+                            placeholder="Prénom" 
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inscription_pseudo" class="ct-txt-white">Pseudo</label>
+                        <input 
+                            type="text"
+                            class="form-control"
+                            id="inscription_pseudo"
+                            name="inscription_pseudo"
+                            placeholder="Pseudo" 
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inscription_birthday" class="ct-txt-white">Date de naissance</label>
+                        <input 
+                            type="text"
+                            class="form-control"
+                            id="inscription_birthday"
+                            name="inscription_birthday"
+                            placeholder="jj/mm/aaaa" 
+                            required 
+                            pattern="\d{1,2}/\d{1,2}/\d{4}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inscription_email" class="ct-txt-white">Email</label>
+                        <input 
+                            type="email"
+                            class="form-control" 
+                            id="inscription_email"
+                            name="inscription_email"
+                            placeholder="email" 
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inscription_email_conf" class="ct-txt-white">Confirmation email</label>
+                        <input 
+                            type="email" 
+                            class="form-control"
+                            id="inscription_email_conf"
+                            name="inscription_email_conf"
+                            placeholder="confirmation email" 
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inscription_pwd" class="ct-txt-white">Mot de passe</label>
+                        <input 
+                            type="password"
+                            class="form-control"
+                            id="inscription_pwd"
+                            name="inscription_pwd"
+                            placeholder="mot de passe" 
+                            required/>
+                    </div>
+
+                     <div class="form-group">
+                        <label for="inscription_pwd" class="ct-txt-white">Mot de passe (confirmation)</label>
+                        <input 
+                            type="password"
+                            class="form-control"
+                            id="inscription_pwd_conf"
+                            name="inscription_pwd_conf"
+                            placeholder="mot de passe" 
+                            required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inscription_lang" class="ct-txt-white">Langue</label>
+                        <select class="form-control" id="inscription_lang" name="inscription_lang">
+                            <option value="fr">Français</option>
+                            <option value="en">Anglais</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" class="ct-txt-white">
+                        <label for="inscription_picture">Photo de profil</label>
+                        <input type="file" id="inscription_picture" name="inscription_picture">
+                        <p class="help-block">Ajoutez une photo à votre profil</p>
+                    </div>
+
+                    <input type="submit" value="Valider" class="btn ct-bg-yellow" />
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- footer -->
+<footer>    
+    <div class="container-fluid">
+        <div class="row ct-bg-grey">
+            <div class="col-md-offset-5 col-md-1">
+                <a href="mailto:contact@site.com">Contact@site.com</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -44,6 +44,16 @@ html, body, div, h1, h2, h3, h4, h5, h6, span {
     margin: 15px 0 20px 10px;
 }
 
+.ct-nav-lang {
+    margin-top: 5px;
+}
+
+ @media only screen and (min-width : 992px) {
+    .ct-nav-lang {
+        margin-top: -50px;
+    }
+}
+
 /* margin / padding */
 .ct-no-padding {
     padding: 0 !important;
@@ -85,6 +95,10 @@ html, body, div, h1, h2, h3, h4, h5, h6, span {
 /* bg color */
 .ct-bg-grey {
     background-color: #333;
+}
+
+.ct-bg-yellow {
+    background-color: #FFB125;
 }
 
 /* borders */
