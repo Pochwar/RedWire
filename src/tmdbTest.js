@@ -5,11 +5,14 @@ const tmdb = new (require('tmdbapi'))({apiv3: CONF.API.tmdb.token});
 /*
  PARAMETERS
  */
-let search = 'Simpson';
+let search = 'saul';
 let lang = 'fr';
+
+/*
 
 console.log(`# Search : ${search}`)
 
+//SEARCH SERIE
 let i = 1;
 tmdb.search.tv({
     query: search,
@@ -40,6 +43,8 @@ tmdb.search.tv({
     .catch(e => console.log(e))
 ;
 
+
+//SEARCH PERSON
 let j = 1;
 tmdb.search.person({
     query: search,
@@ -60,4 +65,23 @@ tmdb.search.person({
         })
     })
     .catch(e => console.log(e))
+;
+
+*/
+//SPECIFIC SERIE DETAIL (with list of seasons)
+tmdb.tv.details({tv_id: 60735, language: lang})
+    .then(response => {
+        console.log('SERIE DETAIL')
+        console.dir(response)
+    })
+    .catch(e => console.log(e))
+;
+
+//SPECIFIC SERIE DETAIL (with list of episodes with air time)
+tmdb.tv.season.details({tv_id: 60735, season: 3, language: lang})
+    .then(response => {
+        console.log('SEASON DETAIL')
+        console.dir(response)
+    })
+    .catch()
 ;
