@@ -1,4 +1,4 @@
-export default class IndexCtrl {
+class IndexCtrl {
     get(req, res) {
         //Connected
         if (req.session.connected) {
@@ -7,7 +7,7 @@ export default class IndexCtrl {
 
             res.render('indexAuthenticated.twig', {
                 lang: lang,
-                pseudo: req.session.user.pseudo
+                pseudo: req.session.user.pseudo,
             })
         }
         //not connected
@@ -16,3 +16,5 @@ export default class IndexCtrl {
         }
     }
 }
+
+module.exports = IndexCtrl;

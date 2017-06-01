@@ -1,19 +1,20 @@
-import CONF from './../../config/config';
-import mongoose from 'mongoose';
-import encrypt from 'bcrypt';
-import _ from 'underscore';
-import UserModel from './../models/UserModel';
+const CONF = require('./../../config/config');
+const mongoose = require( 'mongoose');
+const encrypt = require( 'bcrypt');
+const winston = require('winston');
+const _ = require( 'underscore');
+const UserModel = require( './../models/UserModel');
 
 mongoose.Promise = global.Promise;
 
-export default class RegistrationCtrl {
+class RegistrationCtrl {
     get(req, res){
         let msg = "";
         if (!_.isEmpty(req.param("msg"))) {
             msg = req.param("msg");
         }
         res.render('registration.twig', {
-            msg: msg
+            msg: msg,
         })
     }
 
@@ -67,12 +68,12 @@ export default class RegistrationCtrl {
                 roleId
             )
                 .then(object => {
-                    console.log(`### user ${req.body.pseudo} created ! ###`);
-                    console.log(object);
+                    winston.info(`### user ${req.body.pseudo} created ! ###`);
+                    winston.info(object);
                     res.redirect('/register?msg=ok');
                 })
                 .catch(err => {
-                    console.log(`error :  ${err.message}`);
+                    winston.info(`error :  ${err.message}`);
                     res.redirect('/register?msg=duplicate');
                 })
             ;
@@ -81,3 +82,5 @@ export default class RegistrationCtrl {
     }
 
 }
+
+module.exports = RegistrationCtrl;

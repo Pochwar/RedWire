@@ -1,20 +1,22 @@
 /*
  IMPORT PACKAGES
  */
-import CONF from './../config/config';
-import express from 'express';
-import path from 'path';
-import session from 'express-session';
-import cookieParser from 'cookie-parser';
-import i18n from 'i18n';
-import bodyParser from 'body-parser';
-import IndexCtrl from './controllers/IndexCtrl';
-import RegistrationCtrl from './controllers/RegistrationCtrl';
-import LoginCtrl from './controllers/LoginCtrl';
-import SeriesCtrl from './controllers/SeriesCtrl';
-import AdminHomeCtrl from './controllers/AdminHomeCtrl';
 
-export default class Server {
+const express = require('express');
+const path = require( 'path');
+const session = require( 'express-session');
+const cookieParser = require( 'cookie-parser');
+const i18n = require( 'i18n');
+const winston = require('winston');
+const bodyParser = require( 'body-parser');
+
+const IndexCtrl = require( './controllers/IndexCtrl');
+const RegistrationCtrl = require( './controllers/RegistrationCtrl');
+const LoginCtrl = require( './controllers/LoginCtrl');
+const SeriesCtrl = require( './controllers/SeriesCtrl');
+const AdminHomeCtrl = require( './controllers/AdminHomeCtrl');
+
+class Server {
     constructor() {
         //set express server
         this._app = express();
@@ -25,15 +27,15 @@ export default class Server {
         //use body parser
         this._app.use(bodyParser.json());
         this._app.use(bodyParser.urlencoded({
-            extended: true
+            extended: true,
         }));
 
         //configure i18n
         i18n.configure({
-            locales:['fr', 'en'],
+            locales:['fr', 'en',],
             defaultLocale: 'fr',
             directory: path.join(__dirname, '/../locales'),
-            cookie: 'i18n'
+            cookie: 'i18n',
         });
 
         //use cookie
@@ -44,7 +46,7 @@ export default class Server {
             secret: 'i18n_fishblock',
             resave: true,
             saveUninitialized: true,
-            cookie: { maxAge: 3600000}
+            cookie: { maxAge: 3600000,},
         }));
 
         //use i18n
@@ -54,7 +56,7 @@ export default class Server {
     run(port) {
         this._setRoutes();
 
-        this._app.listen(port, () => console.log(`### Server listening on localhost:${port} ###`));
+        this._app.listen(port, () => winston.info(`### Server listening on localhost:${port} ###`));
     }
 
     _setRoutes() {
@@ -107,11 +109,13 @@ export default class Server {
         });
 
         //404
-        this._app.use((req, res, next) => {
+        this._app.use((req, res) => {
             res.status(404);
             res.render('404.twig', {
-                url: req.url
+                url: req.url,
             })
         })
     }
 }
+
+module.exports = Server;
