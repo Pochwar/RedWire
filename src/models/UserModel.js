@@ -1,6 +1,6 @@
 const UserSchema = require( './../schemas/UserSchema');
 
-class User {
+class UserModel {
 
     registerInDb(firstname, lastname, pseudo, bDay, mail, inscrDay, pass, avatar, ban, lanId, roleId){
         return new Promise((resolve, reject) => {
@@ -37,4 +37,4 @@ class User {
     }
 }
 
-module.exports = User;
+module.exports = UserModel;
