@@ -13,6 +13,17 @@ const CONF = {
             role: 1,
         }
     },
+    API: {
+        tvdb: {
+            token: 'token'
+        },
+        tmdb: {
+            token: 'token'
+        }
+    },
+    faker: {
+        quantity: 15
+    },
 };
 
 module.exports = CONF;

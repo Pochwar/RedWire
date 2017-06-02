@@ -1,7 +1,7 @@
-import faker from 'faker';
-import bcrypt from 'bcrypt';
+const faker = require('faker');
+const encrypt = require('bcrypt');
 
-export default class FakeUser {
+class FakeUser {
     constructor(){
         //user lang : random between "fr" and "en"
         // let locale;
@@ -36,7 +36,7 @@ export default class FakeUser {
         this.roleId = this.randRoleId;
 
         this.passwordEncrypt = new Promise((resolve, reject) => {
-            bcrypt.hash(this.pass, 10, (err, hash) => {
+            encrypt.hash(this.pass, 10, (err, hash) => {
                 this.hashPass = hash;
                 resolve(this.hashPass);
                 let error = {
@@ -47,3 +47,5 @@ export default class FakeUser {
         });
     }
 }
+
+module.exports = FakeUser;

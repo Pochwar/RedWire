@@ -2,12 +2,11 @@
   "name": "fish-block",
   "version": "1.0.0",
   "description": "le site qu'il est bien pour les séries",
-  "main": "build/index.js",
+  "main": "src/app.js",
   "scripts": {
     "start": "nodemon ./src/app.js",
-    "faker": "node build/faker/index.js",
+    "faker": "node ./src/faker/index.js",
     "serve:html": "lite-server --baseDir=html-examples",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint  ./src/**/*.js || (exit 0)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,7 +22,6 @@
     "lite-server": "^2.3.0"
   },
   "dependencies": {
-    "argparse": "^1.0.9",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
@@ -33,10 +31,6 @@
     "faker": "^4.1.0",
     "i18n": "^0.8.3",
     "mongoose": "^4.10.2",
-    "load-json-file": "^2.0.0",
-    "mongodb": "^2.2.26",
-    "mysql": "^2.13.0",
-    "orm": "^3.2.3",
     "path": "^0.12.7",
     "socket.io": "^1.7.3",
     "underscore": "^1.8.3",
