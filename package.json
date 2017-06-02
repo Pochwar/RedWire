@@ -4,8 +4,7 @@
   "description": "le site qu'il est bien pour les séries",
   "main": "build/index.js",
   "scripts": {
-    "start": "node ./src/app.js",
-    "nodemon": "nodemon ./src/app.js",
+    "start": "nodemon ./src/app.js",
     "serve:html": "lite-server --baseDir=html-examples",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint  ./src/**/*.js || (exit 0)"

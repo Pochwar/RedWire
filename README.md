@@ -1,4 +1,4 @@
-# RedWire
+# FishBlock
 
 a school project
 
@@ -6,7 +6,7 @@ a school project
 
 - clone repository
 - install with npm : `npm install`
-- build with npm : `npm run build`
+- set configuration : copy `config/configExample.js` to `config/config.js` and set your DB and server configuration variables
 - launch app with npm : `npm start`
 
 ## Linting code
@@ -14,7 +14,7 @@ a school project
 - `npm run lint` To apply eslint for code in `./src`
 - to create new rule, go to http://rapilabs.github.io/eslintrc-generator/ and copy new rules in `.eslintrc`, under the `rules` index
 
-## Multilang
+## Internationalisation
 
 - languages files are in `locales` folder
 - default language is 'fr'
