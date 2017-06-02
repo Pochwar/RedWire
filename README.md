@@ -29,13 +29,4 @@ If "LOCAL_VAR" entry is not found is not found in the locale json file, it will 
 ##Faker
 
 Faker is used to populate DB with fake users.
-It handles Mysql and Mongo databases.
-- duplicate `config/config_sample.json` to `config/config.json` and set your db connections and defaults params
-- create fake users with npm : `npm run faker`
-
-You can use arguments to override defaults params just for one time :
-- `-t` or `--type` to change db (`mongobd` or `mysql` values allowed)
-- `-q` or `--quantity` to change quantity (integer values allowed)
-
-example : `npm run faker -- -t mongodb -q 50`
-
+Set quantity of fake users to create in config/config.js, then run `npm run faker`
