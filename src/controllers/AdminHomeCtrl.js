@@ -1,4 +1,4 @@
-export default class AdminHomeCtrl {
+class AdminHomeCtrl {
     get(req, res) {
         //Connected
         if (req.session.connected) {
@@ -9,7 +9,7 @@ export default class AdminHomeCtrl {
 
                 res.render('admin.twig', {
                     lang: lang,
-                    pseudo: req.session.user.pseudo
+                    pseudo: req.session.user.pseudo,
                 })
             } else {
                 res.render('unauthorization.twig',{});
@@ -22,3 +22,5 @@ export default class AdminHomeCtrl {
         }
     }
 }
+
+module.exports = AdminHomeCtrl;

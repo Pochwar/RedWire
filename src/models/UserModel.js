@@ -1,6 +1,6 @@
-import UserSchema from './../schemas/UserSchema';
+const UserSchema = require( './../schemas/UserSchema');
 
-export default class User {
+class User {
 
     registerInDb(firstname, lastname, pseudo, bDay, mail, inscrDay, pass, avatar, ban, lanId, roleId){
         return new Promise((resolve, reject) => {
@@ -15,7 +15,7 @@ export default class User {
                 avatar: avatar,
                 ban: ban,
                 lanId: lanId,
-                roleId : roleId
+                roleId : roleId,
             },(err, object) => {
                 if (err) {
                     reject(err)
@@ -29,10 +29,12 @@ export default class User {
     findByMail(mail){
         return new Promise((resolve, reject) => {
             UserSchema.findOne({
-                mail: mail
+                mail: mail,
             })
                 .then(user => resolve(user))
                 .catch(e => reject(e))
         });
     }
 }
+
+module.exports = User;

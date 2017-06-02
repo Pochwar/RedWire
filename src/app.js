@@ -1,9 +1,12 @@
 /*
  IMPORT PACKAGES
  */
-import CONF from './../config/config';
-import Server from './Server';
-import mongoose from 'mongoose';
+const mongoose = require( 'mongoose');
+const winston = require('winston');
+
+const CONF = require( './../config/config');
+const Server = require( './Server');
+
 
 const connect = (host, port, db) => {
     return new Promise((resolve, reject) => {
@@ -15,11 +18,10 @@ const connect = (host, port, db) => {
 };
 
 connect(CONF.db.host, CONF.db.port, CONF.db.base)
-    .then(response => {
-        console.log(`### Connected to Mongo DB on ${CONF.db.host}:${CONF.db.port}/${CONF.db.base} ###`);
+    .then( () => {
+        winston.info(`### Connected to Mongo DB on ${CONF.db.host}:${CONF.db.port}/${CONF.db.base} ###`);
         const server = new Server();
         server.run(CONF.server.port);
     })
-    .catch(e => console.log(e))
-;
+    .catch(e => winston.info(e));
 

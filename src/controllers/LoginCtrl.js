@@ -1,18 +1,19 @@
-import mongoose from 'mongoose';
-import encrypt from 'bcrypt';
-import _ from 'underscore';
-import UserModel from './../models/UserModel';
+const mongoose = require( 'mongoose');
+const encrypt = require( 'bcrypt');
+const winston = require('winston');
+const _ = require( 'underscore');
+const UserModel = require( './../models/UserModel');
 
 mongoose.Promise = global.Promise;
 
-export default class LoginCtrl {
+class LoginCtrl {
     get(req, res){
         let msg = "";
         if (!_.isEmpty(req.param("msg"))) {
             msg = req.param("msg");
         }
         res.render('login.twig', {
-            msg: msg
+            msg: msg,
         });
     }
 
@@ -34,26 +35,28 @@ export default class LoginCtrl {
         const user = new UserModel();
         user.findByMail(req.body.mail)
             .then(user => {
-                console.log(`### find user : ${user.pseudo} ###`)
+                winston.info(`### find user : ${user.pseudo} ###`);
                 //password verification
                 encrypt.compare(req.body.pass, user.pass, (err, resp) => {
                     if (resp) {
-                        console.log(`user connected`)
+                        winston.info(`user connected`);
                         //save session
                         req.session.connected = true;
                         req.session.user = user;
                         res.redirect('/');
                     } else {
-                        console.log(`wrong pass`)
+                        winston.info(`wrong pass`);
                         res.redirect('/login?msg=passError');
                     }
                 });
             })
             .catch(e => {
-                console.log(`### no user found : ${e}`)
+                winston.info(`### no user found : ${e}`);
                 res.redirect('/login?msg=userError');
             })
         ;
     }
 
 }
+
+module.exports = LoginCtrl;
