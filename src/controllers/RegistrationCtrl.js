@@ -47,7 +47,7 @@ class RegistrationCtrl {
         const user = new UserModel();
         //get date of the day
         const now = new Date();
-        const inscrDay = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+        const createdAt = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
         //set default ban status and role id
         const ban = CONF.site.default.ban;
         const roleId = CONF.site.default.role;
@@ -60,7 +60,7 @@ class RegistrationCtrl {
                 req.body.pseudo,
                 req.body.bDay,
                 req.body.mail,
-                inscrDay,
+                createdAt,
                 hash,
                 req.body.avatar,
                 ban,

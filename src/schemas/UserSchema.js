@@ -30,7 +30,11 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
-    inscrDay: {
+    createdAt: {
+        type: Date,
+        required: true,
+    },
+    updatedAt: {
         type: Date,
         required: true,
     },
