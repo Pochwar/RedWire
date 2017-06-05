@@ -11,6 +11,11 @@ const CONF = {
         default: {
             ban: 0,
             role: 1,
+        },
+        roles: {
+            normal: 1,
+            moderator: 2,
+            superadmin: 3,
         }
     },
     API: {
