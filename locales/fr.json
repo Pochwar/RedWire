@@ -18,5 +18,6 @@
 	"REGISTER": "S'inscrire",
 	"LOGIN": "Connexion",
 	"LOG": "Se connecter",
-	"AUTH": "Vous êtes connecté en tant que "
+	"AUTH": "Vous êtes connecté en tant que ",
+	"UNAUTHORIZED": "UNAUTHORIZED"
 }

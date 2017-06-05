@@ -9,6 +9,7 @@ mongoose.Promise = global.Promise;
 class LoginCtrl {
     get(req, res){
         let msg = "";
+        
         if (!_.isEmpty(req.param("msg"))) {
             msg = req.param("msg");
         }
