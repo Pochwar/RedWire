@@ -30,3 +30,8 @@ If "LOCAL_VAR" entry is not found is not found in the locale json file, it will 
 
 Faker is used to populate DB with fake users.
 Set quantity of fake users to create in config/config.js, then run `npm run faker`
+
+## Architecture
+
+Website architecture and routes can be checked here : https://coggle.it/diagram/WTUSkiIjogAB_ihz
+

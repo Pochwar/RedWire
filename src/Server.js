@@ -10,6 +10,10 @@ const i18n = require( 'i18n');
 const winston = require('winston');
 const bodyParser = require( 'body-parser');
 
+const AccessGranted = require('./middleware/AccessGranted');
+
+const unauthorizedRouter = require('./routers/unauthorizedRouter');
+
 const IndexCtrl = require( './controllers/IndexCtrl');
 const RegistrationCtrl = require( './controllers/RegistrationCtrl');
 const LoginCtrl = require( './controllers/LoginCtrl');
@@ -71,9 +75,18 @@ class Server {
         const adminHomeCtrl = new AdminHomeCtrl();
 
         /*
+        * Role checking
+        * Only connected users can access /site/
+        * Only moderators / admin can access /admin
+        * Only super admin can caccess /admin/moderators
+        */
+        this._app.all('/series*', AccessGranted.toSite);
+
+        /*
          SET ROUTES
          */
-
+        
+        
         //home
         this._app.get('/', indexCtrl.get);
 
@@ -97,6 +110,9 @@ class Server {
             req.session.destroy();
             res.redirect('/');
         });
+
+        // authentification failure (using router)
+        this._app.use('/unauthorized', unauthorizedRouter);
 
         //locales
         this._app.get('/fr', function (req, res) {
