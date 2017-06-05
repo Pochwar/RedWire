@@ -28,7 +28,7 @@ class FakeUser {
         this.pseudo = faker.internet.userName(this.firstname, this.lastname);
         this.bDay = faker.date.past(50, new Date("Sat Sep 20 1992 21:35:02 GMT+0200 (CEST)"));
         this.mail = faker.internet.email(this.firstname, this.lastname);
-        this.inscrDay = faker.date.recent();
+        this.createdAt = faker.date.recent();
         this.pass = faker.internet.password();
         this.avatar = faker.internet.avatar();
         this.ban = faker.random.boolean();
