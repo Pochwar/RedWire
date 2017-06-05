@@ -2,10 +2,22 @@
 
 class AccessGranted  {
 
+    // constructor save config
+    constructor( defaultRole, moderatorRole, superAdminRole) {
+        this._defaultRole = defaultRole;
+        this._moderatorRole = moderatorRole;
+        this._superAdminRole = superAdminRole;
+
+        // bind method to this
+        this.toSite = this.toSite.bind(this);
+        this.toAdmin = this.toAdmin.bind(this);
+        this.toSuperAdmin = this.toSuperAdmin.bind(this);
+    }
+
     // can user access site ?
-    static toSite(req, res, next) {
+    toSite(req, res, next) {
        
-         if( req.session.connected) {
+         if( req.session.connected && req.session.user.roleId >= this._defaultRole) {
              next();
          }
          else {
@@ -14,9 +26,9 @@ class AccessGranted  {
     }
 
     // can user access admin ?
-    static toAdmin(req, res, next) {
+    toAdmin(req, res, next) {
         
-        if( req.session.user.roleId >= 3) {
+        if( req.session.connected && req.session.user.roleId >= this._moderatorRole) {
             next();
         }
         else {
@@ -25,9 +37,9 @@ class AccessGranted  {
     }
 
     // can user access super admin ?
-    static toSuperAdmin(req, res, next) {
+    toSuperAdmin(req, res, next) {
 
-        if( req.session.user.roleId >= 4) {
+        if( req.session.connected && req.session.user.roleId >= this.__superAdminRole) {
             next();
         }
         else {
