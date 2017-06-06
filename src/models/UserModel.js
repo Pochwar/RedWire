@@ -2,7 +2,7 @@ const UserSchema = require( './../schemas/UserSchema');
 
 class UserModel {
 
-    registerInDb(firstname, lastname, pseudo, bDay, mail, inscrDay, pass, avatar, ban, lanId, roleId){
+    registerInDb(firstname, lastname, pseudo, bDay, mail, createdAt, pass, avatar, ban, lanId, roleId){
         return new Promise((resolve, reject) => {
             const create = UserSchema.create({
                 firstname: firstname,
@@ -10,7 +10,8 @@ class UserModel {
                 pseudo: pseudo,
                 bDay: bDay,
                 mail: mail,
-                inscrDay: inscrDay,
+                createdAt: createdAt,
+                updatedAt: createdAt,
                 pass: pass,
                 avatar: avatar,
                 ban: ban,

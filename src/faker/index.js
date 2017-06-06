@@ -68,7 +68,7 @@ connect(CONF.db.host, CONF.db.port, CONF.db.base)
                                     fakeUser.pseudo,
                                     fakeUser.bDay,
                                     fakeUser.mail,
-                                    fakeUser.inscrDay,
+                                    fakeUser.createdAt,
                                     hashPass,
                                     fakeUser.avatar,
                                     fakeUser.ban,
