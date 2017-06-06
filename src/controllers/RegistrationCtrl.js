@@ -11,6 +11,9 @@ class RegistrationCtrl {
 
     constructor(conf) {
         this._conf = conf;
+
+        this.get = this.get.bind(this);
+        this.post = this.post.bind(this);
     }
 
     get(req, res){

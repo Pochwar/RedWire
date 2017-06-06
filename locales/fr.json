@@ -19,5 +19,5 @@
 	"LOGIN": "Connexion",
 	"LOG": "Se connecter",
 	"AUTH": "Vous êtes connecté en tant que ",
-	"UNAUTHORIZED": "UNAUTHORIZED"
+	"UNAUTHORIZED": "Accès non autorisé à cette ressource"
 }
