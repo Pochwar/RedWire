@@ -10,16 +10,6 @@ const i18n = require( 'i18n');
 const winston = require('winston');
 const bodyParser = require( 'body-parser');
 
-// conf files
-let CONF;
-if(process.env.NODE_ENV === 'production'){
-    CONF = require( './../config/config_prod');
-} else {
-    CONF = require( './../config/config_dev');
-}
-
-console.log(CONF)
-
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
 
@@ -34,7 +24,10 @@ const SeriesCtrl = require( './controllers/SeriesCtrl');
 const AdminHomeCtrl = require( './controllers/AdminHomeCtrl');
 
 class Server {
-    constructor() {
+    constructor( conf) {
+
+        this._conf = conf;
+
         //set express server
         this._app = express();
 
@@ -70,10 +63,10 @@ class Server {
         this._app.use(i18n.init);
     }
 
-    run(port) {
+    run() {
         this._setRoutes();
 
-        this._app.listen(port, () => winston.info(`### Server listening on localhost:${port} ###`));
+        this._app.listen(this._conf.server.port, () => winston.info(`### Server listening on localhost:${this._conf.server.port} ###`));
     }
 
     _setRoutes() {
@@ -82,7 +75,7 @@ class Server {
          */
 
         const indexCtrl = new IndexCtrl();
-        const registrationCtrl = new RegistrationCtrl();
+        const registrationCtrl = new RegistrationCtrl(this._conf);
         const loginCtrl = new LoginCtrl();
         const seriesCtrl = new SeriesCtrl();
         const adminHomeCtrl = new AdminHomeCtrl();
@@ -94,9 +87,9 @@ class Server {
         * Only super admin can caccess /admin/moderators
         */
         const accessGranted = new AccessGranted(
-            CONF.site.roles.user, 
-            CONF.site.roles.moderator,
-            CONF.site.roles.superadmin
+            this._conf.site.roles.user,
+            this._conf.site.roles.moderator,
+            this._conf.site.roles.superadmin
         );
 
         // Pour le test

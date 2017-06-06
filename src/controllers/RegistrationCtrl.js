@@ -1,10 +1,4 @@
-// conf files
-let CONF;
-if(process.env.NODE_ENV === 'production'){
-    CONF = require( './../../config/config_prod');
-} else {
-    CONF = require( './../../config/config_dev');
-}
+
 const mongoose = require( 'mongoose');
 const encrypt = require( 'bcrypt');
 const winston = require('winston');
@@ -14,6 +8,11 @@ const UserModel = require( './../models/UserModel');
 mongoose.Promise = global.Promise;
 
 class RegistrationCtrl {
+
+    constructor(conf) {
+        this._conf = conf;
+    }
+
     get(req, res){
         let msg = "";
         if (!_.isEmpty(req.param("msg"))) {
@@ -55,8 +54,8 @@ class RegistrationCtrl {
         const now = new Date();
         const createdAt = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
         //set default ban status and role id
-        const ban = CONF.site.default.ban;
-        const roleId = CONF.site.default.role;
+        const ban = this._conf.site.default.ban;
+        const roleId = this._conf.site.default.role;
         //hash password
         const saltRounds = 10;
         encrypt.hash(req.body.pass, saltRounds, (err, hash) => {

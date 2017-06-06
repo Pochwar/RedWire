@@ -27,8 +27,8 @@ const connect = (username, password, host, port, db) => {
 connect(CONF.db.username, CONF.db.password, CONF.db.host, CONF.db.port, CONF.db.base)
     .then( () => {
         winston.info(`### Connected to Mongo DB on ${CONF.db.host}:${CONF.db.port}/${CONF.db.base} ###`);
-        const server = new Server();
-        server.run(CONF.server.port);
+        const server = new Server(CONF);
+        server.run();
     })
     .catch(e => winston.info(e));
 
