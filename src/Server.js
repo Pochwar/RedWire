@@ -26,7 +26,6 @@ const IndexCtrl = require('./controllers/IndexCtrl');
 const TokenService = require('./services/token.js');
 const LangService = require('./services/LangService');
 
-
 class Server {
     constructor(conf) {
 
@@ -97,8 +96,6 @@ class Server {
         const loginCtrl = new LoginCtrl();
         const seriesCtrl = new SeriesCtrl();
         const adminHomeCtrl = new AdminHomeCtrl();
-
-        // init access control
 
         /*
         * Role checking
