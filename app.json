@@ -1,0 +1,41 @@
+{
+  "name": "FishBlock",
+  "scripts": {
+  },
+  "env": {
+    "CONF_MONGO_BASE": {
+      "required": true
+    },
+    "CONF_MONGO_HOST": {
+      "required": true
+    },
+    "CONF_MONGO_PASSWORD": {
+      "required": true
+    },
+    "CONF_MONGO_PORT": {
+      "required": true
+    },
+    "CONF_MONGO_USER": {
+      "required": true
+    },
+    "CONF_SERVER_PORT": {
+      "required": true
+    },
+    "CONF_TMDB_TOKEN": {
+      "required": true
+    },
+    "CONF_TVDB_TOKEN": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
