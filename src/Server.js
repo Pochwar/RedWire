@@ -11,7 +11,7 @@ const winston = require('winston');
 const bodyParser = require( 'body-parser');
 
 // conf files
-const CONF = require('../config/config');
+const CONF = require('../config/configHeroku');
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');

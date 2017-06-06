@@ -7,7 +7,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
 const winston = require('winston');
-const CONF = require('./../../config/config');
+const CONF = require('./../../config/configHeroku');
 
 /*
  BLUEBIRD PROMISES

@@ -4,7 +4,7 @@
 const mongoose = require( 'mongoose');
 const winston = require('winston');
 
-const CONF = require( './../config/config');
+const CONF = require( './../config/configHeroku');
 const Server = require( './Server');
 
 

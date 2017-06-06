@@ -1,4 +1,4 @@
-const CONF = require('./../../config/config');
+const CONF = require('./../../config/configHeroku');
 const mongoose = require( 'mongoose');
 const encrypt = require( 'bcrypt');
 const winston = require('winston');
