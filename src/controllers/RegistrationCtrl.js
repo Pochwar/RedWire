@@ -1,6 +1,6 @@
 // conf files
 let CONF;
-if(process.env.NODE_ENV === 'prod'){
+if(process.env.NODE_ENV === 'production'){
     CONF = require( './../../config/config_prod');
 } else {
     CONF = require( './../../config/config_dev');
