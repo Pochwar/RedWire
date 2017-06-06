@@ -87,7 +87,7 @@ class Server {
         * Only super admin can caccess /admin/moderators
         */
         const accessGranted = new AccessGranted(
-            CONF.site.roles.normal, 
+            CONF.site.roles.user, 
             CONF.site.roles.moderator,
             CONF.site.roles.superadmin
         );
@@ -132,11 +132,11 @@ class Server {
         this._app.use('/unauthorized', unauthorizedRouter);
 
         //locales
-        this._app.get('/fr', function (req, res) {
+        this._app.get('/fr', (req, res) => {
             res.cookie('i18n', 'fr');
             res.redirect('/')
         });
-        this._app.get('/en', function (req, res) {
+        this._app.get('/en', (req, res) => {
             res.cookie('i18n', 'en');
             res.redirect('/')
         });
