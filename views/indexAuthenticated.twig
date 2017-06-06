@@ -1,11 +1,37 @@
-<!DOCTYPE html>
-<html lang="{{ lang }}">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ __("SITENAME") }} - {{ __("HOME") }}</title>
-</head>
-<body>
-<p>{{ __("HELLO") }}</p>
-<p>{{ __("AUTH") }} {{ pseudo }}</p>
-</body>
-</html>
+{% extends "layout/layout.twig" %}
+
+{% block content %}
+
+{% include "includes/navbar-logged.twig" %}
+
+<!-- header section -->
+<header>
+    <div class="container-fluid">
+        <div class="row ct-bg-grey ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                    <p>{{ __("HELLO") }}</p>
+                    <p>{{ __("AUTH") }} {{ pseudo }}</p>
+                </h2>
+                <p class="ct-txt-white">
+                    Discutez, partagez vos critiques avec vos amis.
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- content section -->
+<section>
+     <div class="container-fluid">
+        <div class="row ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                    Suivez, commentez vos séries préférées
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
