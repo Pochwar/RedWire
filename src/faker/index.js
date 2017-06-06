@@ -28,9 +28,9 @@ let promiseWhile = (condition, action) => {
 /*
 MONGO CONNECTION
  */
-const connect = (host, port, db) => {
+const connect = (username, password, host, port, db) => {
     return new Promise((resolve, reject) => {
-        mongoose.connect(`mongodb://${host}:${port}/${db}`, err => {
+        mongoose.connect(`mongodb://${username}:${password}@${host}:${port}/${db}`, err => {
             if(err){reject(err); return}
             resolve(true);
         })
@@ -40,7 +40,7 @@ const connect = (host, port, db) => {
 /*
  CREATE FAKE USERS
  */
-connect(CONF.db.host, CONF.db.port, CONF.db.base)
+connect(CONF.db.username, CONF.db.password, CONF.db.host, CONF.db.port, CONF.db.base)
     .then( () => {
         winston.info(`### Connected to Mongo DB on ${CONF.db.host}:${CONF.db.port}/${CONF.db.base} ###`);
 

@@ -1,5 +1,7 @@
 const CONF = {
     db: {
+        username: "username",
+        password: "password",
         host: "host",
         port: "port",
         base: "base",
