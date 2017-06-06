@@ -7,7 +7,7 @@ const CONF = {
         base: process.env.CONF_MONGO_BASE,
     },
     server: {
-        port: process.env.CONF_SERVER_PORT
+        port: process.env.PORT
     },
     site: {
         default: {
