@@ -18,5 +18,6 @@
 	"REGISTER": "Register",
 	"LOGIN": "Connection",
 	"LOG": "Connect",
-	"AUTH": "You are connected as "
+	"AUTH": "You are connected as ",
+	"UNAUTHORIZED": "Access permission denied"
 }
