@@ -25,6 +25,7 @@ const RegistrationCtrl = require( './controllers/RegistrationCtrl');
 const LoginCtrl = require( './controllers/LoginCtrl');
 const SeriesCtrl = require( './controllers/SeriesCtrl');
 const AdminHomeCtrl = require( './controllers/AdminHomeCtrl');
+const SerieCtrl = require('./controllers/SerieCtrl');
 
 class Server {
     constructor() {
@@ -79,6 +80,7 @@ class Server {
         const loginCtrl = new LoginCtrl();
         const seriesCtrl = new SeriesCtrl();
         const adminHomeCtrl = new AdminHomeCtrl();
+        const serieCtrl = new SerieCtrl();
 
         /*
         * Role checking
@@ -117,6 +119,9 @@ class Server {
 
         //series
         this._app.get('/series', seriesCtrl.get);
+
+        //serie
+        this._app.get('/serie', serieCtrl.get);
 
         //admin home
         this._app.get('/admin', adminHomeCtrl.get);
