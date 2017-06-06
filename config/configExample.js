@@ -13,7 +13,7 @@ const CONF = {
             role: 1,
         },
         roles: {
-            normal: 1,
+            user: 1,
             moderator: 2,
             superadmin: 3,
         }
