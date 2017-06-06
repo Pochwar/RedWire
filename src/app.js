@@ -4,7 +4,14 @@
 const mongoose = require( 'mongoose');
 const winston = require('winston');
 
-const CONF = require( './../config/configHeroku');
+// conf files
+let CONF;
+if(process.env.NODE_ENV === 'prod'){
+    CONF = require( './../config/config_prod');
+} else {
+    CONF = require( './../config/config_dev');
+}
+
 const Server = require( './Server');
 
 

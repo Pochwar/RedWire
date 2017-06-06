@@ -11,7 +11,14 @@ const winston = require('winston');
 const bodyParser = require( 'body-parser');
 
 // conf files
-const CONF = require('../config/configHeroku');
+let CONF;
+if(process.env.NODE_ENV === 'prod'){
+    CONF = require( './../config/config_prod');
+} else {
+    CONF = require( './../config/config_dev');
+}
+
+console.log(CONF)
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');

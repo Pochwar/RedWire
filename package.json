@@ -4,7 +4,8 @@
   "description": "le site qu'il est bien pour les séries",
   "main": "src/app.js",
   "scripts": {
-    "start": "node ./src/app.js",
+    "start": "set NODE_ENV='prod' && node ./src/app.js",
+    "dev": "set NODE_ENV='dev' && node ./src/app.js",
     "nodemon": "nodemon ./src/app.js",
     "faker": "node ./src/faker/index.js",
     "serve:html": "lite-server --baseDir=html-examples",

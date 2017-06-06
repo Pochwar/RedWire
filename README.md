@@ -6,7 +6,7 @@ a school project !
 
 - clone repository
 - install with npm : `npm install`
-- set configuration : copy `config/configExample.js` to `config/config.js` and set your DB and server configuration variables
+- set configuration : copy `config/config_prod.js` to `config/config.js` and set your DB and server configuration variables
 - launch app with npm : `npm start`
 
 ## Linting code

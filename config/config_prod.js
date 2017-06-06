@@ -1,13 +1,13 @@
 const CONF = {
     db: {
-        username: "username",
-        password: "password",
-        host: "host",
-        port: "port",
-        base: "base",
+        username: process.env.CONF_MONGO_USER,
+        password: process.env.CONF_MONGO_PASSWORD,
+        host: process.env.CONF_MONGO_HOST,
+        port: process.env.CONF_MONGO_PORT,
+        base: process.env.CONF_MONGO_BASE,
     },
     server: {
-        port: "port"
+        port: process.env.PORT
     },
     site: {
         default: {
@@ -22,10 +22,10 @@ const CONF = {
     },
     API: {
         tvdb: {
-            token: 'token'
+            token: process.env.CONF_TVDB_TOKEN
         },
         tmdb: {
-            token: 'token'
+            token: process.env.CONF_TMDB_TOKEN
         }
     },
     faker: {
