@@ -1,8 +1,8 @@
-
 const mongoose = require( 'mongoose');
 const encrypt = require( 'bcrypt');
 const winston = require('winston');
 const _ = require( 'underscore');
+const uniqid = require('uniqid');
 const UserModel = require( './../models/UserModel');
 
 mongoose.Promise = global.Promise;
@@ -51,6 +51,14 @@ class RegistrationCtrl {
             res.redirect('/register?msg=dbError');
         }
 
+        //check avatar
+        let filename = "";
+        const avatar = req.files.avatar;
+        if (avatar) {
+            const ext = avatar.mimetype.replace("image/", "");
+            filename = `avatar_${uniqid()}.${ext}`;
+        }
+
         //CREATE NEW USER
         const user = new UserModel();
         //get date of the day
@@ -70,14 +78,21 @@ class RegistrationCtrl {
                 req.body.mail,
                 createdAt,
                 hash,
-                req.body.avatar,
+                filename,
                 ban,
                 req.body.lanId,
                 roleId
             )
                 .then(object => {
-                    winston.info(`### user ${req.body.pseudo} created ! ###`);
-                    winston.info(object);
+                    //save avatar
+                    avatar.mv(`upload/avatars/${filename}`, (err) => {
+                        if (err) {
+                            winston.info(err);
+                        } else {
+                            winston.info('avatar uploaded');
+                        }
+                    });
+                    winston.info(`### user ${object.pseudo} created ! ###`);
                     res.redirect('/register?msg=ok');
                 })
                 .catch(err => {

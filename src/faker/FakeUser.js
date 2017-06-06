@@ -39,7 +39,7 @@ class FakeUser {
             encrypt.hash(this.pass, 10, (err, hash) => {
                 this.hashPass = hash;
                 resolve(this.hashPass);
-                let error = {
+                const error = {
                     message : `error in password encryption : ${err}`,
                 };
                 reject(error);

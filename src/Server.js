@@ -9,6 +9,7 @@ const cookieParser = require( 'cookie-parser');
 const i18n = require( 'i18n');
 const winston = require('winston');
 const bodyParser = require( 'body-parser');
+const fileUpload  = require( 'express-fileupload');
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
@@ -39,6 +40,9 @@ class Server {
         this._app.use(bodyParser.urlencoded({
             extended: true,
         }));
+
+        //use file upload
+        this._app.use(fileUpload());
 
         //configure i18n
         i18n.configure({

@@ -3,7 +3,6 @@
  */
 const FakeUser = require('./FakeUser');
 const UserModel = require ('./../models/UserModel')
-const path = require('path');
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
 const winston = require('winston');
@@ -18,9 +17,9 @@ if(process.env.NODE_ENV === 'prod'){
 /*
  BLUEBIRD PROMISES
  */
-let promiseWhile = (condition, action) => {
-    let resolver = Promise.defer();
-    let loop = () => {
+const promiseWhile = (condition, action) => {
+    const resolver = Promise.defer();
+    const loop = () => {
         if (!condition()) return resolver.resolve();
         return Promise.cast(action())
             .then(loop)
