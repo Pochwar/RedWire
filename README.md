@@ -2,7 +2,7 @@
 
 a school project !
 
-##Installation and launch
+## Installation and launch
 
 - clone repository
 - install with npm : `npm install`
@@ -26,7 +26,12 @@ Usage in twig templates :
 
 If "LOCAL_VAR" entry is not found is not found in the locale json file, it will be automatically created with a default value
 
-##Faker
+## Faker
 
 Faker is used to populate DB with fake users.
 Set quantity of fake users to create in config/config.js, then run `npm run faker`
+
+## Architecture
+
+Website architecture and routes can be checked here : https://coggle.it/diagram/WTUSkiIjogAB_ihz
+

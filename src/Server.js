@@ -10,6 +10,16 @@ const i18n = require( 'i18n');
 const winston = require('winston');
 const bodyParser = require( 'body-parser');
 
+// conf files
+const CONF = require('../config/config');
+
+// middleware
+const AccessGranted = require('./middleware/AccessGranted');
+
+// routers
+const unauthorizedRouter = require('./routers/unauthorizedRouter');
+
+// controllers
 const IndexCtrl = require( './controllers/IndexCtrl');
 const RegistrationCtrl = require( './controllers/RegistrationCtrl');
 const LoginCtrl = require( './controllers/LoginCtrl');
@@ -71,9 +81,29 @@ class Server {
         const adminHomeCtrl = new AdminHomeCtrl();
 
         /*
+        * Role checking
+        * Only connected users can access /site/
+        * Only moderators / admin can access /admin
+        * Only super admin can caccess /admin/moderators
+        */
+        const accessGranted = new AccessGranted(
+            CONF.site.roles.user, 
+            CONF.site.roles.moderator,
+            CONF.site.roles.superadmin
+        );
+
+        // Pour le test
+        this._app.all('/series*', accessGranted.toSite);
+
+        this._app.all('/site*', accessGranted.toSite);
+        this._app.all('/admin*', accessGranted.toAdmin);
+        this._app.all('/admin/moderators*', accessGranted.toSuperAdmin);
+
+        /*
          SET ROUTES
          */
-
+        
+        
         //home
         this._app.get('/', indexCtrl.get);
 
@@ -98,12 +128,15 @@ class Server {
             res.redirect('/');
         });
 
+        // authentification failure (using router)
+        this._app.use('/unauthorized', unauthorizedRouter);
+
         //locales
-        this._app.get('/fr', function (req, res) {
+        this._app.get('/fr', (req, res) => {
             res.cookie('i18n', 'fr');
             res.redirect('/')
         });
-        this._app.get('/en', function (req, res) {
+        this._app.get('/en', (req, res) => {
             res.cookie('i18n', 'en');
             res.redirect('/')
         });
