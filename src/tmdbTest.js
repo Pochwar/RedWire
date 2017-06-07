@@ -1,4 +1,4 @@
-const CONF = require('./../config/config');
+const CONF = require('./../config/config_dev');
 
 const tmdb = new (require('tmdbapi'))({apiv3: CONF.API.tmdb.token});
 
@@ -42,7 +42,7 @@ tmdb.search.tv({
     })
     .catch(e => console.log(e))
 ;
-
+*/
 
 //SEARCH PERSON
 let j = 1;
@@ -67,21 +67,21 @@ tmdb.search.person({
     .catch(e => console.log(e))
 ;
 
-*/
+
 //SPECIFIC SERIE DETAIL (with list of seasons)
-tmdb.tv.details({tv_id: 60735, language: lang})
-    .then(response => {
-        console.log('SERIE DETAIL')
-        console.dir(response)
-    })
-    .catch(e => console.log(e))
-;
+// tmdb.tv.details({tv_id: 60735, language: lang})
+//     .then(response => {
+//         console.log('SERIE DETAIL')
+//         console.dir(response)
+//     })
+//     .catch(e => console.log(e))
+// ;
 
 //SPECIFIC SERIE DETAIL (with list of episodes with air time)
-tmdb.tv.season.details({tv_id: 60735, season: 3, language: lang})
-    .then(response => {
-        console.log('SEASON DETAIL')
-        console.dir(response)
-    })
-    .catch()
-;
+// tmdb.tv.season.details({tv_id: 60735, season: 3, language: lang})
+//     .then(response => {
+//         console.log('SEASON DETAIL')
+//         console.dir(response)
+//     })
+//     .catch()
+// ;
