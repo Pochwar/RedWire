@@ -15,7 +15,7 @@ const AccessGranted = require('./middleware/AccessGranted');
 
 // routers
 const unauthorizedRouter = require('./routers/unauthorizedRouter');
-const SiteRouter = require( './routers/siteRouter');
+const siteRouter = require( './routers/siteRouter');
 
 // controllers
 const RegistrationCtrl = require( './controllers/RegistrationCtrl');
@@ -101,7 +101,7 @@ class Server {
          */
         
          // authentification failure (using router)
-        this._app.use('/site', SiteRouter);
+        this._app.use('/site', siteRouter);
 
         //registration page
         this._app.get('/register', registrationCtrl.get);
