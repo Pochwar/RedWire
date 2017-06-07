@@ -16,9 +16,9 @@ const AccessGranted = require('./middleware/AccessGranted');
 
 // routers
 const unauthorizedRouter = require('./routers/unauthorizedRouter');
+const siteRouter = require( './routers/siteRouter');
 
 // controllers
-const IndexCtrl = require( './controllers/IndexCtrl');
 const RegistrationCtrl = require( './controllers/RegistrationCtrl');
 const LoginCtrl = require( './controllers/LoginCtrl');
 const SeriesCtrl = require( './controllers/SeriesCtrl');
@@ -78,7 +78,6 @@ class Server {
         INIT CONTROLLERS
          */
 
-        const indexCtrl = new IndexCtrl();
         const registrationCtrl = new RegistrationCtrl(this._conf);
         const loginCtrl = new LoginCtrl();
         const seriesCtrl = new SeriesCtrl();
@@ -96,20 +95,17 @@ class Server {
             this._conf.site.roles.superadmin
         );
 
-        // Pour le test
-        this._app.all('/series*', accessGranted.toSite);
-
         this._app.all('/site*', accessGranted.toSite);
         this._app.all('/admin*', accessGranted.toAdmin);
         this._app.all('/admin/moderators*', accessGranted.toSuperAdmin);
 
         /*
          SET ROUTES
+         * /site routing is managed by siteRouter
          */
         
-        
-        //home
-        this._app.get('/', indexCtrl.get);
+         // authentification failure (using router)
+        this._app.use('/site', siteRouter);
 
         //registration page
         this._app.get('/register', registrationCtrl.get);
