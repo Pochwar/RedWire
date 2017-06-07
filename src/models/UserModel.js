@@ -4,7 +4,7 @@ class UserModel {
 
     registerInDb(firstname, lastname, pseudo, bDay, mail, createdAt, pass, avatar, ban, lanId, roleId){
         return new Promise((resolve, reject) => {
-            const create = UserSchema.create({
+            UserSchema.create({
                 firstname: firstname,
                 lastname: lastname,
                 pseudo: pseudo,
