@@ -35,3 +35,10 @@ Set quantity of fake users to create in config/config.js, then run `npm run fake
 
 Website architecture and routes can be checked here : https://coggle.it/diagram/WTUSkiIjogAB_ihz
 
+## Test
+Use testing to see valid routing, unit testing, etc...
+- `npm test` run all tests
+- `npm run test:watch` run all tests and watch files to change
+- `npm run test:public` run tests for public section only
+- `npm run test:member` run tests for members section only
+- `npm run test:admin` run tests for admin section only
