@@ -1,4 +1,6 @@
 // Middleware to restric access 
+const jwt = require('jsonwebtoken');
+const winston = require('winston');
 
 class AccessGranted  {
 
@@ -13,46 +15,63 @@ class AccessGranted  {
         this.member = this.member.bind(this);
         this.admin = this.admin.bind(this);
         this.superAdmin = this.superAdmin.bind(this);
+        this.extractTokenInfo = this.extractTokenInfo.bind(this);
+        this.render403 = this.render403.bind(this);
     }
 
     // public
     everyone(req, res, next) {
+        this.extractTokenInfo(req, res);
         next();
     }
 
     // can user access member's part ?
     member(req, res, next) {
-       
-         if( req.session.connected && req.session.user.roleId >= this._defaultRole) {
-             next();
-         }
-         else {
-             res.redirect('/unauthorized');
-         }
+        if( this.extractTokenInfo(req, res) && res.locals.user.roleId >= this._defaultRole) {
+            next();
+        }
+        else {
+            this.render403(res);
+        }
     }
 
     // can user access admin ?
     admin(req, res, next) {
         
-        if( req.session.connected && req.session.user.roleId >= this._moderatorRole) {
+        if( this.extractTokenInfo(req, res) && res.locals.user.roleId >= this._moderatorRole) {
             next();
         }
         else {
-            res.redirect('/unauthorized');
+            this.render403(res);
         }
     }
 
     // can user access super admin ?
     superAdmin(req, res, next) {
 
-        if( req.session.connected && req.session.user.roleId >= this.__superAdminRole) {
+        if( this.extractTokenInfo(req, res) && res.locals.user.roleId >= this.__superAdminRole) {
             next();
         }
         else {
-            res.redirect('/unauthorized');
+            this.render403(res);
         }
     }
 
+    // validate token
+    extractTokenInfo(req, res) {
+        
+        try {
+            res.locals.user = jwt.verify(req.cookies.token, 'secret');
+            return true;
+        } catch(err) {
+             return false;
+        }
+    }
+
+    // render unauhtorized
+    render403(res) {
+        res.status(403).render('unauthorization.twig',{});
+    }
 }
 
 module.exports = AccessGranted;

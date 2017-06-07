@@ -19,5 +19,6 @@
 	"LOGIN": "Connexion",
 	"LOG": "Se connecter",
 	"AUTH": "Vous êtes connecté en tant que ",
-	"UNAUTHORIZED": "Accès non autorisé à cette ressource"
+	"UNAUTHORIZED": "Accès non autorisé à cette ressource",
+	"SERIES_LIST": "Liste des séries"
 }

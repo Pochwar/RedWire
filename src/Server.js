@@ -13,10 +13,7 @@ const fileUpload  = require( 'express-fileupload');
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
-
-// routers
-const unauthorizedRouter = require('./routers/unauthorizedRouter');
-const siteRouter = require( './routers/siteRouter');
+const ExtractLang = require('./middleware/ExtractLang');
 
 // controllers
 const RegistrationCtrl = require( './controllers/RegistrationCtrl');
@@ -67,6 +64,12 @@ class Server {
 
         //use i18n
         this._app.use(i18n.init);
+
+        // configure lang extraction
+        const extractLang = new ExtractLang( this._conf.site.default.lang);
+
+        // use lang extraction from cookie
+        this._app.use(extractLang.fromCookies);
     }
 
     run() {
@@ -84,14 +87,8 @@ class Server {
         const loginCtrl = new LoginCtrl();
         const seriesCtrl = new SeriesCtrl();
         const adminHomeCtrl = new AdminHomeCtrl();
-
-        /*
-        * Role checking
-        * Only connected users can access /site/
-        * Only moderators / admin can access /admin
-        * Only super admin can caccess /admin/moderators
-        */
         
+        // init access control
         const accessGranted = new AccessGranted(
             this._conf.site.roles.user,
             this._conf.site.roles.moderator,
@@ -142,7 +139,7 @@ class Server {
             res.redirect('/');
         });
 
-        this._app.get('/', UnauthorizedCtrl.indexAction);
+        this._app.get('/unauthorized', UnauthorizedCtrl.indexAction);
 
         //locales
         this._app.get('/fr', (req, res) => {

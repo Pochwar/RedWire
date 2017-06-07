@@ -19,5 +19,6 @@
 	"LOGIN": "Connection",
 	"LOG": "Connect",
 	"AUTH": "You are connected as ",
-	"UNAUTHORIZED": "Access permission denied"
+	"UNAUTHORIZED": "Access permission denied",
+	"SERIES_LIST" : "series list"
 }
