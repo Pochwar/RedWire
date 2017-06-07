@@ -9,13 +9,19 @@ class AccessGranted  {
         this._superAdminRole = superAdminRole;
 
         // bind method to this
-        this.toSite = this.toSite.bind(this);
-        this.toAdmin = this.toAdmin.bind(this);
-        this.toSuperAdmin = this.toSuperAdmin.bind(this);
+        this.everyone = this.everyone.bind(this);
+        this.member = this.member.bind(this);
+        this.admin = this.admin.bind(this);
+        this.superAdmin = this.superAdmin.bind(this);
     }
 
-    // can user access site ?
-    toSite(req, res, next) {
+    // public
+    everyone(req, res, next) {
+        next();
+    }
+
+    // can user access member's part ?
+    member(req, res, next) {
        
          if( req.session.connected && req.session.user.roleId >= this._defaultRole) {
              next();
@@ -26,7 +32,7 @@ class AccessGranted  {
     }
 
     // can user access admin ?
-    toAdmin(req, res, next) {
+    admin(req, res, next) {
         
         if( req.session.connected && req.session.user.roleId >= this._moderatorRole) {
             next();
@@ -37,7 +43,7 @@ class AccessGranted  {
     }
 
     // can user access super admin ?
-    toSuperAdmin(req, res, next) {
+    superAdmin(req, res, next) {
 
         if( req.session.connected && req.session.user.roleId >= this.__superAdminRole) {
             next();
@@ -46,7 +52,7 @@ class AccessGranted  {
             res.redirect('/unauthorized');
         }
     }
-    
+
 }
 
 module.exports = AccessGranted;

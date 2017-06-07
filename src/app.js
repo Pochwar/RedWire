@@ -13,7 +13,7 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 const Server = require( './Server');
-
+const server = new Server(CONF);
 
 const connect = (username, password, host, port, db) => {
     return new Promise((resolve, reject) => {
@@ -27,8 +27,8 @@ const connect = (username, password, host, port, db) => {
 connect(CONF.db.username, CONF.db.password, CONF.db.host, CONF.db.port, CONF.db.base)
     .then( () => {
         winston.info(`### Connected to Mongo DB on ${CONF.db.host}:${CONF.db.port}/${CONF.db.base} ###`);
-        const server = new Server(CONF);
         server.run();
     })
     .catch(e => winston.info(e));
 
+module.exports = server._app;

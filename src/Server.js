@@ -23,6 +23,8 @@ const RegistrationCtrl = require( './controllers/RegistrationCtrl');
 const LoginCtrl = require( './controllers/LoginCtrl');
 const SeriesCtrl = require( './controllers/SeriesCtrl');
 const AdminHomeCtrl = require( './controllers/AdminHomeCtrl');
+const UnauthorizedCtrl = require( './controllers/UnauthorizedCtrl');
+const IndexCtrl = require( './controllers/IndexCtrl');
 
 class Server {
     constructor( conf) {
@@ -89,23 +91,36 @@ class Server {
         * Only moderators / admin can access /admin
         * Only super admin can caccess /admin/moderators
         */
+        
         const accessGranted = new AccessGranted(
             this._conf.site.roles.user,
             this._conf.site.roles.moderator,
             this._conf.site.roles.superadmin
         );
 
-        this._app.all('/site*', accessGranted.toSite);
-        this._app.all('/admin*', accessGranted.toAdmin);
-        this._app.all('/admin/moderators*', accessGranted.toSuperAdmin);
+        // routing exemple for series (only logged user can access)
+        this._app.get('/series', accessGranted.member, seriesCtrl.get);
+
+        /*  examples for admin
+            this._app.get('/admin', accessGranted.admin, adminCtrl.get);
+            
+            example for everyone (non logged)
+            this._app.get('/admin', accessGranted.everyone, indexCtrl.get);
+
+            example for super admin
+            this._app.get('/admin', accessGranted.superAdmin, superAdminCtrl.get);
+
+            example for members (logged)
+            this._app.get('/admin', accessGranted.member, adminCtrl.get);
+        */
 
         /*
          SET ROUTES
          * /site routing is managed by siteRouter
          */
         
-         // authentification failure (using router)
-        this._app.use('/site', siteRouter);
+        this._app.get('/home', IndexCtrl.indexLoggedAction);
+
 
         //registration page
         this._app.get('/register', registrationCtrl.get);
@@ -115,8 +130,7 @@ class Server {
         this._app.get('/login', loginCtrl.get);
         this._app.post('/login', loginCtrl.post);
 
-        //series
-        this._app.get('/series', seriesCtrl.get);
+       
 
         //admin home
         this._app.get('/admin', adminHomeCtrl.get);
@@ -128,8 +142,7 @@ class Server {
             res.redirect('/');
         });
 
-        // authentification failure (using router)
-        this._app.use('/unauthorized', unauthorizedRouter);
+        this._app.get('/', UnauthorizedCtrl.indexAction);
 
         //locales
         this._app.get('/fr', (req, res) => {
