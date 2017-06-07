@@ -23,6 +23,8 @@ const RegistrationCtrl = require( './controllers/RegistrationCtrl');
 const LoginCtrl = require( './controllers/LoginCtrl');
 const SeriesCtrl = require( './controllers/SeriesCtrl');
 const AdminHomeCtrl = require( './controllers/AdminHomeCtrl');
+const UnauthorizedCtrl = require( './controllers/UnauthorizedCtrl');
+const IndexCtrl = require( './controllers/IndexCtrl');
 
 class Server {
     constructor( conf) {
@@ -117,9 +119,7 @@ class Server {
          * /site routing is managed by siteRouter
          */
         
-
-         // /site routing
-        this._app.use('/site', SiteRouter);
+        this._app.get('/home', IndexCtrl.indexLoggedAction);
 
 
         //registration page
@@ -142,8 +142,7 @@ class Server {
             res.redirect('/');
         });
 
-        // authentification failure (using router)
-        this._app.use('/unauthorized', unauthorizedRouter);
+        this._app.get('/', UnauthorizedCtrl.indexAction);
 
         //locales
         this._app.get('/fr', (req, res) => {
