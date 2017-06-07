@@ -89,23 +89,38 @@ class Server {
         * Only moderators / admin can access /admin
         * Only super admin can caccess /admin/moderators
         */
+        
         const accessGranted = new AccessGranted(
             this._conf.site.roles.user,
             this._conf.site.roles.moderator,
             this._conf.site.roles.superadmin
         );
 
-        this._app.all('/site*', accessGranted.toSite);
-        this._app.all('/admin*', accessGranted.toAdmin);
-        this._app.all('/admin/moderators*', accessGranted.toSuperAdmin);
+        // routing exemple for series (only logged user can access)
+        this._app.get('/series', accessGranted.member, seriesCtrl.get);
+
+        /*  examples for admin
+            this._app.get('/admin', accessGranted.admin, adminCtrl.get);
+            
+            example for everyone (non logged)
+            this._app.get('/admin', accessGranted.everyone, indexCtrl.get);
+
+            example for super admin
+            this._app.get('/admin', accessGranted.superAdmin, superAdminCtrl.get);
+
+            example for members (logged)
+            this._app.get('/admin', accessGranted.member, adminCtrl.get);
+        */
 
         /*
          SET ROUTES
          * /site routing is managed by siteRouter
          */
         
-         // authentification failure (using router)
-        this._app.use('/site', siteRouter);
+
+         // /site routing
+        this._app.use('/site', SiteRouter);
+
 
         //registration page
         this._app.get('/register', registrationCtrl.get);
@@ -115,8 +130,7 @@ class Server {
         this._app.get('/login', loginCtrl.get);
         this._app.post('/login', loginCtrl.post);
 
-        //series
-        this._app.get('/series', seriesCtrl.get);
+       
 
         //admin home
         this._app.get('/admin', adminHomeCtrl.get);
