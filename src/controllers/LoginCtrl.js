@@ -10,8 +10,8 @@ class LoginCtrl {
     get(req, res){
         let msg = "";
         
-        if (!_.isEmpty(req.param("msg"))) {
-            msg = req.param("msg");
+        if (!_.isEmpty(req.params.msg)) {
+            msg = req.params.msg;
         }
         res.render('login.twig', {
             msg: msg,

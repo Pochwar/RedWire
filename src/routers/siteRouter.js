@@ -1,4 +1,4 @@
-var router = require('express').Router();
+const router = require('express').Router();
 const IndexCtrl = require( '../controllers/IndexCtrl');
 
 // index
