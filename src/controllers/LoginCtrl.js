@@ -52,7 +52,7 @@ class LoginCtrl {
                         const data = {
                             id : user._id,
                             pseudo : user.pseudo,
-                            roleId: user.roleId
+                            roleId: user.roleId,
                         };
 
                         const token = jwt.sign( data, 'secret');

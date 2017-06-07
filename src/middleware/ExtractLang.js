@@ -10,7 +10,6 @@ class ExtractLang {
         
         if(req.cookies.i18n){
             res.locals.lang = req.cookies.i18n;
-            console.log(res.locals.lang);
         }
         else {
             res.locals.lang = this._defaultLang;

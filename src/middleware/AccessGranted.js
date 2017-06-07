@@ -1,6 +1,5 @@
 // Middleware to restric access 
 const jwt = require('jsonwebtoken');
-const winston = require('winston');
 
 class AccessGranted  {
 
