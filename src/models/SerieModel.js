@@ -33,17 +33,18 @@ class SerieModel {
             Serie.findOne({
                 title: title,
             })
-                .then(serie => resolve(serie))
+                .then(serie => resolve(serie.toObject()))
                 .catch(e => reject(e))
         });
     }
 
+    // a déplacer dans le actorModel
     findByActor(actor) {
         return new Promise((resolve, reject) => {
             Serie.findOne({
                 actor: actor,
             })
-                .then(serie => resolve(serie))
+                .then(serie => resolve(serie.toObject()))
                 .catch(e => reject(e))
         });
     }
