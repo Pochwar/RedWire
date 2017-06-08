@@ -12,7 +12,6 @@ const fileUpload = require('express-fileupload');
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
-const ExtractLang = require('./middleware/ExtractLang');
 const ExtractUser = require('./middleware/ExtractUser');
 
 // controllers
@@ -25,9 +24,9 @@ const IndexCtrl = require('./controllers/IndexCtrl');
 
 // services
 const TokenService = require('./services/token.js');
+const LangService = require('./services/LangService');
 
 class Server {
-
     constructor(conf) {
 
         this._conf = conf;
@@ -50,20 +49,26 @@ class Server {
         // save config in app
         this._app.set('conf', conf);
 
-        // init services
-        const tokenService = new TokenService(this._conf.site.hash.token);
-        this._app.set('tokenService', tokenService);
-
         //configure i18n
         i18n.configure({
-            locales: ['fr', 'en', ],
+            locales: ['fr', 'en',],
+
             defaultLocale: 'fr',
             directory: path.join(__dirname, '/../locales'),
             cookie: this._conf.site.cookies.i18nName,
         });
 
+        // init services
+        const tokenService = new TokenService( this._conf.site.hash.token);
+        this._app.set('tokenService', tokenService);
+
+        const langService = new LangService( this._conf);
+        this._app.set('langService', langService);
+
         //use cookie
+
         this._app.use(cookieParser());
+
 
         //use i18n
         this._app.use(i18n.init);
@@ -71,8 +76,8 @@ class Server {
         // extract user from cookies to res.locals.user
         this._app.use(ExtractUser.fromCookies);
 
-        // extract lang from cookies to res.locals.lang
-        //this._app.use(ExtractLang.fromCookies);
+        // check that user's lang is correctly setted
+        this._app.use(langService.checkCookies);
     }
 
     run() {
@@ -99,8 +104,8 @@ class Server {
             this._conf.site.roles.superadmin
         );
 
-        // routing exemple for series (only logged user can access)
-        this._app.get('/series', accessGranted.member, seriesCtrl.get);
+        // routing exemple for series (everyone can access)
+        this._app.get('/series', accessGranted.everyone, seriesCtrl.get);
 
         /*  examples for admin
             this._app.get('/admin', accessGranted.moderator, adminCtrl.get);
@@ -136,15 +141,16 @@ class Server {
 
         //logout
         this._app.get('/logout', (req, res) => {
-
-            res.cookie(this._conf.site.cookies.i18nName, 'deleted', {
-                maxAge: 0,
-                httpOnly: true
+           
+           res.cookie( this._conf.site.cookies.i18nName, 'deleted', { 
+                maxAge: 0, 
+                httpOnly: true,
             });
 
-            res.cookie(this._conf.site.cookies.tokenName, 'deleted', {
-                maxAge: 0,
-                httpOnly: true
+            res.cookie( this._conf.site.cookies.tokenName, 'deleted', { 
+                maxAge: 0, 
+                httpOnly: true,
+
             });
 
             // destroy cookie
@@ -154,20 +160,18 @@ class Server {
         this._app.get('/unauthorized', UnauthorizedCtrl.indexAction);
 
         //locales
-        this._app.get('/fr', (req, res) => {
-            res.cookie(this._conf.site.cookies.i18nName, 'fr', {
-                maxAge: this._conf.site.cookies.maxAge,
-                httpOnly: true
-            });
-            res.redirect('/')
+        this._app.get('/lang/fr', (req, res) => {
+            // send new cookie 
+            const langService = this._app.get('langService');
+            langService.sendCookie(res, 'fr');
+            res.redirect('/');
         });
 
-        this._app.get('/en', (req, res) => {
-            res.cookie(this._conf.site.cookies.i18nName, 'en', {
-                maxAge: this._conf.site.cookies.maxAge,
-                httpOnly: true
-            });
-            res.redirect('/')
+        this._app.get('/lang/en', (req, res) => {
+            // send new cookie 
+            const langService = this._app.get('langService');
+            langService.sendCookie(res, 'en');
+            res.redirect('/');
         });
 
         //404
