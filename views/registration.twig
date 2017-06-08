@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ __("SITENAME") }} - {{ __("REGISTRATION") }}</title>
-</head>
-<body>
+{% extends "layout/layout.twig" %}
+
+{% block content %}
+
+{% include "includes/navbar-unauthenticated.twig" %}
+
 <p>{{ __("REGISTRATION") }}</p>
 <form action="" method="post" encType="multipart/form-data">
     <p>
@@ -48,5 +47,4 @@
     </p>
     <input type="submit" value="{{ __("REGISTER") }}">
 </form>
-</body>
-</html>
+{% endblock %}
