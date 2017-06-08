@@ -12,7 +12,7 @@ class AccessGranted  {
         // bind method to this
         this.everyone = this.everyone.bind(this);
         this.member = this.member.bind(this);
-        this.admin = this.admin.bind(this);
+        this.moderator = this.moderator.bind(this);
         this.superAdmin = this.superAdmin.bind(this);
         this.extractTokenInfo = this.extractTokenInfo.bind(this);
         this.render403 = this.render403.bind(this);
@@ -35,7 +35,7 @@ class AccessGranted  {
     }
 
     // can user access admin ?
-    admin(req, res, next) {
+    moderator(req, res, next) {
         
         if( this.extractTokenInfo(req, res) && res.locals.user.roleId >= this._moderatorRole) {
             next();

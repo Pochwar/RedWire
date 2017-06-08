@@ -5,6 +5,7 @@ const should = chai.should();
 
 chai.use( chaiHttp );
 
+
 describe('Public section', () => {
 
     const routesExpected= [
@@ -230,3 +231,36 @@ describe('Admin section', () => {
     })
    
 });
+
+
+/*
+describe('Member section', () => {
+
+    before( done => {
+        chai.request(server)
+        .post('/login')
+        .field('mail', 'gabriel@mail.com')
+        .field('pass', 'gabriel')
+        .end( (err, res) => {
+            done();
+        });
+    });
+
+    it('should connect if no right', done => {
+       chai.request(server)
+       .get('/series')
+       .end( (err,res) => {
+            res.should.have.status(403);
+            done();
+       });
+    })
+   
+    after( done => {
+        chai.request(server)
+        .post('/logout')
+        .end( () => {
+            done();
+        });
+    })
+});
+*/
