@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ __("SITENAME") }}</title>
-</head>
-<body>
-Vous n'avez pas les droits pour acceder à cette page
-</body>
-</html>
+{% extends "layout/layout.twig" %}
+
+{% block content %}
+
+{% if user.pseudo %}
+    {% include "includes/navbar-logged.twig" %}
+{% endif %}
+
+{{ __("UNAUTHORIZED")}}
+
+{% endblock %}

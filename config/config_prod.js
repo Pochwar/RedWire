@@ -19,6 +19,14 @@ const CONF = {
             user: 1,
             moderator: 2,
             superadmin: 3,
+        },
+        hash: {
+            token: process.env.CONF_JWT_HASH,
+        },
+        cookies: {
+            i18nName: 'fishblock_i18n',
+            tokenName: 'fishblock_token',
+            maxAge: 1000* 3600 * 60 * 24 * 30,
         }
     },
     API: {

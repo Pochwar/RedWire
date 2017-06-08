@@ -36,6 +36,15 @@ class UserModel {
                 .catch(e => reject(e))
         });
     }
+
+    static findById( id) {
+       
+        return UserSchema.findOne({
+            _id: id,
+        });
+        
+    }
+
 }
 
 module.exports = UserModel;

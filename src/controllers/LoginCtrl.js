@@ -8,6 +8,7 @@ const UserModel = require( './../models/UserModel');
 mongoose.Promise = global.Promise;
 
 class LoginCtrl {
+
     get(req, res){
         let msg = "";
         
@@ -43,26 +44,22 @@ class LoginCtrl {
                     if (resp) {
                         winston.info(`user connected`);
                         
-                        /*
-                        //save session
-                        req.session.connected = true;
-                        req.session.user = user;
-                        */
-
                         const data = {
                             id : user._id,
-                            pseudo : user.pseudo,
-                            roleId: user.roleId,
                         };
 
-                        const token = jwt.sign( data, 'secret');
+                        const tokenService = req.app.get('tokenService');
+
+                        const token = tokenService.create( data);
                         
-                        // save token as header
-                        res.cookie('token', token);
-                        
-                        res.render('indexAuthenticated.twig', {
-                            pseudo: user.pseudo,
+                        // save token as cookie
+                        const conf = req.app.get('conf');
+                        res.cookie( conf.site.cookies.tokenName, token, {
+                            maxAge: conf.site.cookies.maxAge,
+                            httpOnly: true,
                         });
+                        
+                        res.render('indexAuthenticated.twig');
                     } else {
                         winston.info(`wrong pass`);
                         res.redirect('/login?msg=passError');
