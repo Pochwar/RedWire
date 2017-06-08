@@ -54,6 +54,9 @@ const serieSchema = new Schema({
     actors: {
         type: [String,],
     },
+    score: {
+        type: Number,
+    },
     createdAt: {
         type: Date,
         default: Date.now,
