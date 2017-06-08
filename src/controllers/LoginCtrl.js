@@ -59,6 +59,19 @@ class LoginCtrl {
                             httpOnly: true,
                         });
                         
+                        // get user lang
+                        const langService = req.app.get('langService');
+                        const lang = langService.getUserLang( user);
+
+                        // set locale lang
+                        langService.setLocale(res, lang);
+                        
+                        // send lang cookie
+                        langService.sendCookie(res,lang);
+
+                        // save use as local user
+                        res.locals.user = user;
+                        
                         res.render('indexAuthenticated.twig');
                     } else {
                         winston.info(`wrong pass`);
