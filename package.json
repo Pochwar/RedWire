@@ -9,7 +9,11 @@
     "faker": "node ./src/faker/index.js",
     "serve:html": "lite-server --baseDir=html-examples",
     "lint": "eslint  ./src/**/*.js || (exit 0)",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive || (exit 0)",
+    "test:watch": "mocha -w --recursive || (exit 0)",
+    "test:public": "mocha --recursive --grep Public || (exit 0)",
+    "test:member": "mocha --recursive --grep Member || (exit 0)",
+    "test:admin": "mocha --recursive --grep Admin || (exit 0)"
   },
   "repository": {
     "type": "git",
@@ -18,9 +22,12 @@
   "author": "Alex, Clem, Gabi & Poch",
   "license": "GNU GENERAL PUBLIC LICENSE",
   "devDependencies": {
+    "chai": "^4.0.2",
+    "chai-http": "^3.0.0",
     "eslint": "^3.19.0",
-    "nodemon": "^1.11.0",
-    "lite-server": "^2.3.0"
+    "lite-server": "^2.3.0",
+    "mocha": "^3.4.2",
+    "nodemon": "^1.11.0"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -32,6 +39,7 @@
     "express-session": "^1.15.3",
     "faker": "^4.1.0",
     "i18n": "^0.8.3",
+    "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.10.2",
     "socket.io": "^1.7.3",
     "twig": "^1.10.5",

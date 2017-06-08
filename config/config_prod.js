@@ -13,6 +13,7 @@ const CONF = {
         default: {
             ban: 0,
             role: 1,
+            lang: 'fr',
         },
         roles: {
             user: 1,

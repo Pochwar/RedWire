@@ -13,16 +13,15 @@ const fileUpload  = require( 'express-fileupload');
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
-
-// routers
-const unauthorizedRouter = require('./routers/unauthorizedRouter');
-const siteRouter = require( './routers/siteRouter');
+const ExtractLang = require('./middleware/ExtractLang');
 
 // controllers
 const RegistrationCtrl = require( './controllers/RegistrationCtrl');
 const LoginCtrl = require( './controllers/LoginCtrl');
 const SeriesCtrl = require( './controllers/SeriesCtrl');
 const AdminHomeCtrl = require( './controllers/AdminHomeCtrl');
+const UnauthorizedCtrl = require( './controllers/UnauthorizedCtrl');
+const IndexCtrl = require( './controllers/IndexCtrl');
 
 class Server {
     constructor( conf) {
@@ -65,6 +64,12 @@ class Server {
 
         //use i18n
         this._app.use(i18n.init);
+
+        // configure lang extraction
+        const extractLang = new ExtractLang( this._conf.site.default.lang);
+
+        // use lang extraction from cookie
+        this._app.use(extractLang.fromCookies);
     }
 
     run() {
@@ -82,30 +87,37 @@ class Server {
         const loginCtrl = new LoginCtrl();
         const seriesCtrl = new SeriesCtrl();
         const adminHomeCtrl = new AdminHomeCtrl();
-
-        /*
-        * Role checking
-        * Only connected users can access /site/
-        * Only moderators / admin can access /admin
-        * Only super admin can caccess /admin/moderators
-        */
+        
+        // init access control
         const accessGranted = new AccessGranted(
             this._conf.site.roles.user,
             this._conf.site.roles.moderator,
             this._conf.site.roles.superadmin
         );
 
-        this._app.all('/site*', accessGranted.toSite);
-        this._app.all('/admin*', accessGranted.toAdmin);
-        this._app.all('/admin/moderators*', accessGranted.toSuperAdmin);
+        // routing exemple for series (only logged user can access)
+        this._app.get('/series', accessGranted.member, seriesCtrl.get);
+
+        /*  examples for admin
+            this._app.get('/admin', accessGranted.admin, adminCtrl.get);
+            
+            example for everyone (non logged)
+            this._app.get('/admin', accessGranted.everyone, indexCtrl.get);
+
+            example for super admin
+            this._app.get('/admin', accessGranted.superAdmin, superAdminCtrl.get);
+
+            example for members (logged)
+            this._app.get('/admin', accessGranted.member, adminCtrl.get);
+        */
 
         /*
          SET ROUTES
          * /site routing is managed by siteRouter
          */
         
-         // authentification failure (using router)
-        this._app.use('/site', siteRouter);
+        this._app.get('/home', IndexCtrl.indexLoggedAction);
+
 
         //registration page
         this._app.get('/register', registrationCtrl.get);
@@ -115,8 +127,7 @@ class Server {
         this._app.get('/login', loginCtrl.get);
         this._app.post('/login', loginCtrl.post);
 
-        //series
-        this._app.get('/series', seriesCtrl.get);
+       
 
         //admin home
         this._app.get('/admin', adminHomeCtrl.get);
@@ -128,8 +139,7 @@ class Server {
             res.redirect('/');
         });
 
-        // authentification failure (using router)
-        this._app.use('/unauthorized', unauthorizedRouter);
+        this._app.get('/unauthorized', UnauthorizedCtrl.indexAction);
 
         //locales
         this._app.get('/fr', (req, res) => {

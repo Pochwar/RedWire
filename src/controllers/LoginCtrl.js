@@ -1,6 +1,7 @@
 const mongoose = require( 'mongoose');
 const encrypt = require( 'bcrypt');
 const winston = require('winston');
+const jwt = require('jsonwebtoken');
 const _ = require( 'underscore');
 const UserModel = require( './../models/UserModel');
 
@@ -10,8 +11,8 @@ class LoginCtrl {
     get(req, res){
         let msg = "";
         
-        if (!_.isEmpty(req.param("msg"))) {
-            msg = req.param("msg");
+        if (!_.isEmpty(req.params.msg)) {
+            msg = req.params.msg;
         }
         res.render('login.twig', {
             msg: msg,
@@ -41,10 +42,27 @@ class LoginCtrl {
                 encrypt.compare(req.body.pass, user.pass, (err, resp) => {
                     if (resp) {
                         winston.info(`user connected`);
+                        
+                        /*
                         //save session
                         req.session.connected = true;
                         req.session.user = user;
-                        res.redirect('/');
+                        */
+
+                        const data = {
+                            id : user._id,
+                            pseudo : user.pseudo,
+                            roleId: user.roleId,
+                        };
+
+                        const token = jwt.sign( data, 'secret');
+                        
+                        // save token as header
+                        res.cookie('token', token);
+                        
+                        res.render('indexAuthenticated.twig', {
+                            pseudo: user.pseudo,
+                        });
                     } else {
                         winston.info(`wrong pass`);
                         res.redirect('/login?msg=passError');
