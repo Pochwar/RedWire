@@ -42,3 +42,9 @@ Use testing to see valid routing, unit testing, etc...
 - `npm run test:public` run tests for public section only
 - `npm run test:member` run tests for members section only
 - `npm run test:admin` run tests for admin section only
+
+## Documentation
+
+use `npm run documentation` to test the npm module [documentation](https://www.npmjs.com/package/documentation) using [JSDoc](http://usejsdoc.org/) in your code
+
+As-is the actual command build and run a server wich display the generated documentation in HTML. It is strongly advised that you check the documentation manuel to learn how to configure it.
