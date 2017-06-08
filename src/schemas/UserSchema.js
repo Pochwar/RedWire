@@ -75,7 +75,6 @@ const userSchema = new Schema({
     seriesNote: {
         serie: {
             type: Number,
-            required: true,
         },
         note: {
             type: Number,

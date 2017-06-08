@@ -75,7 +75,6 @@ connect(CONF.db.username, CONF.db.password, CONF.db.host, CONF.db.port, CONF.db.
                                     fakeUser.mail,
                                     fakeUser.createdAt,
                                     hashPass,
-                                    fakeUser.avatar,
                                     fakeUser.ban,
                                     fakeUser.lanId,
                                     fakeUser.roleId

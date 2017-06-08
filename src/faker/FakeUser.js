@@ -30,7 +30,6 @@ class FakeUser {
         this.mail = faker.internet.email(this.firstname, this.lastname);
         this.createdAt = faker.date.recent();
         this.pass = faker.internet.password();
-        this.avatar = faker.internet.avatar();
         this.ban = faker.random.boolean();
         this.lanId = this.randLangId;
         this.roleId = this.randRoleId;
