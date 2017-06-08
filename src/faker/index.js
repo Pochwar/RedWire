@@ -6,13 +6,11 @@ const UserModel = require ('./../models/UserModel')
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
 const winston = require('winston');
+//use .env file
+require('dotenv').config();
+
 // conf files
-let CONF;
-if(process.env.NODE_ENV === 'prod'){
-    CONF = require( './../../config/config_prod');
-} else {
-    CONF = require( './../../config/config_dev');
-}
+const CONF = require('./../../config/config');
 
 /*
  BLUEBIRD PROMISES

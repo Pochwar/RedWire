@@ -6,7 +6,10 @@ a school project !
 
 - clone repository
 - install with npm : `npm install`
-- set configuration : `config/config_prod.js` has production configuration for Heroku (app available at "https://fishblock.herokuapp.com/"). To use app in development mode, copy `config/config_prod.js` to `config/config_dev.js` and set your DB, server and API tokens configuration variables
+- set configuration : Create a `.env` file in root directory and define environement variables that are needed in `config/config.js`. Example :
+CONF_MONGO_HOST="localhost"
+CONF_MONGO_PORT=27017
+CONF_MONGO_BASE="fishblock"
 - launch app with npm : `npm start`
 
 ## Linting code

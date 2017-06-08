@@ -3,14 +3,12 @@
  */
 const mongoose = require('mongoose');
 const winston = require('winston');
+//use .env file
+require('dotenv').config();
 
 // conf files
-let CONF;
-if (process.env.NODE_ENV === 'production') {
-    CONF = require('./../config/config_prod');
-} else {
-    CONF = require('./../config/config_dev');
-}
+const CONF = require('./../config/config');
+
 
 const Server = require('./Server');
 const server = new Server(CONF);
