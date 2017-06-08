@@ -82,7 +82,7 @@ const userSchema = new Schema({
         },
 
     },
-    episodeViewed: {
+    episodesViewed: {
         type: [Schema.Types.ObjectId, ],
     },
     comments: {

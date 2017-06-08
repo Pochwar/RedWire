@@ -2,20 +2,19 @@ const UserSchema = require( './../schemas/UserSchema');
 
 class UserModel {
 
-    registerInDb(firstname, lastname, pseudo, bDay, mail, createdAt, pass, avatar, ban, lanId, roleId){
+    registerInDb(firstname, lastname, pseudo, birthday, mail, createdAt, password, ban, langId, roleId){
         return new Promise((resolve, reject) => {
             UserSchema.create({
                 firstname: firstname,
                 lastname: lastname,
                 pseudo: pseudo,
-                bDay: bDay,
+                birthday: birthday,
                 mail: mail,
                 createdAt: createdAt,
                 updatedAt: createdAt,
-                pass: pass,
-                avatar: avatar,
+                password: password,
                 ban: ban,
-                lanId: lanId,
+                langId: langId,
                 roleId : roleId,
             },(err, object) => {
                 if (err) {
