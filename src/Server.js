@@ -142,12 +142,12 @@ class Server {
            
            res.cookie( this._conf.site.cookies.i18nName, 'deleted', { 
                 maxAge: 0, 
-                httpOnly: true 
+                httpOnly: true,
             });
 
             res.cookie( this._conf.site.cookies.tokenName, 'deleted', { 
                 maxAge: 0, 
-                httpOnly: true 
+                httpOnly: true,
             });
 
            // destroy cookie

@@ -35,17 +35,23 @@ class LangService {
 
         // default langId
         let langId = this._conf.site.default.langId;
-       
+        const lang = "";
+
         // user's langId
         if( user.langId ) {
             langId = user.langId;
         }
+
         // check that langId is correct
-        if( !langId in this._conf.site.lang ) {
+        if( langId in this._conf.site.lang ) {
+            lang = this._conf.site.lang[langId];
+        }
+        else {
             langId = Object.keys(this._conf.site.lang)[0];
+            lang = this._conf.site.lang[langId];
         }
         
-        return this._conf.site.lang[langId];
+        return lang;
     }
 
     setLocale(res, lang) {
@@ -55,7 +61,7 @@ class LangService {
     sendCookie(res, lang) {
         res.cookie(  this._conf.site.cookies.i18nName,  lang, { 
             maxAge:  this._conf.site.cookies.maxAge, 
-            httpOnly: true 
+            httpOnly: true,
         });
     }
 }

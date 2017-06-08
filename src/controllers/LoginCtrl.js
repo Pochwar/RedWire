@@ -1,7 +1,6 @@
 const mongoose = require( 'mongoose');
 const encrypt = require( 'bcrypt');
 const winston = require('winston');
-const jwt = require('jsonwebtoken');
 const _ = require( 'underscore');
 const UserModel = require( './../models/UserModel');
 
