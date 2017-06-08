@@ -1,21 +1,41 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ __("SITENAME") }} - {{ __("LOGIN") }}</title>
-</head>
-<body>
+{% extends "layout/layout.twig" %}
+
+{% block content %}
+
+{% include "includes/navbar-logged.twig" %}
+
+<!-- Login Form -->
 <p>{{ __("LOGIN") }}</p>
+<p>
+{% if msg == "loginError" %}
+
+        {{ __("LOGINERROR") }}
+
+{% endif %}
+   
+{% if msg == "dbError" %}
+        
+        {{ __("DBERROR") }}
+
+{% endif %}
+
+{% if msg == "emptyError" %}
+        
+        {{ __("EMPTYERROR") }}
+
+{% endif %}
+</p>
 <form action="" method="post">
     <p>
         <label for="mail">{{ __("MAIL") }}</label>
         <input type="email" name="mail" id="mail" placeholder="{{ __("MAIL") }}" required>
     </p>
+
     <p>
         <label for="pass">{{ __("PASSWORD") }}</label>
         <input type="password" name="pass" id="pass" placeholder="{{ __("PASSWORD") }}" required>
     </p>
     <input type="submit" value="{{ __("LOG") }}">
 </form>
-</body>
-</html>
+
+{% endblock %}

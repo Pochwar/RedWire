@@ -1,5 +1,6 @@
-const mongoose = require( 'mongoose');
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = mongoose.Types.ObjectId;
 
 const userSchema = new Schema({
     firstname: {
@@ -21,7 +22,7 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
-    bDay: {
+    birthday: {
         type: Date,
         required: true,
     },
@@ -38,7 +39,7 @@ const userSchema = new Schema({
         type: Date,
         required: true,
     },
-    pass: {
+    password: {
         type: String,
         required: true,
     },
@@ -56,6 +57,44 @@ const userSchema = new Schema({
     roleId: {
         type: Number,
         required: true,
+    },
+    seriesFollowed: {
+        type: [Schema.Types.ObjectId, ],
+    },
+    seriesModified: {
+        type: [{
+            serie: {
+                type: Number,
+                required: true,
+            },
+            version: {
+                type: ObjectId,
+            },
+        }, ],
+    },
+    seriesNote: {
+        serie: {
+            type: Number,
+            required: true,
+        },
+        note: {
+            type: Number,
+        },
+
+    },
+    episodeViewed: {
+        type: [Schema.Types.ObjectId, ],
+    },
+    comments: {
+        type: [Schema.Types.ObjectId, ],
+
+    },
+    commentsLike: {
+        type: [{
+            comments: {
+                type: Schema.Types.ObjectId,
+            },
+        }, ],
     },
 });
 module.exports = mongoose.model('User', userSchema);

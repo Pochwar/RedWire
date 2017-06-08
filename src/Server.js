@@ -52,6 +52,7 @@ class Server {
         //configure i18n
         i18n.configure({
             locales: ['fr', 'en',],
+
             defaultLocale: 'fr',
             directory: path.join(__dirname, '/../locales'),
             cookie: this._conf.site.cookies.i18nName,
