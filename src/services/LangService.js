@@ -35,7 +35,7 @@ class LangService {
 
         // default langId
         let langId = this._conf.site.default.langId;
-        const lang = "";
+        let lang = "";
 
         // user's langId
         if( user.langId ) {
