@@ -3,12 +3,12 @@
  */
 
 const express = require('express');
-const path = require( 'path');
-const cookieParser = require( 'cookie-parser');
-const i18n = require( 'i18n');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const i18n = require('i18n');
 const winston = require('winston');
-const bodyParser = require( 'body-parser');
-const fileUpload  = require( 'express-fileupload');
+const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
@@ -16,19 +16,19 @@ const ExtractLang = require('./middleware/ExtractLang');
 const ExtractUser = require('./middleware/ExtractUser');
 
 // controllers
-const RegistrationCtrl = require( './controllers/RegistrationCtrl');
-const LoginCtrl = require( './controllers/LoginCtrl');
-const SeriesCtrl = require( './controllers/SeriesCtrl');
-const AdminHomeCtrl = require( './controllers/AdminHomeCtrl');
-const UnauthorizedCtrl = require( './controllers/UnauthorizedCtrl');
-const IndexCtrl = require( './controllers/IndexCtrl');
+const RegistrationCtrl = require('./controllers/RegistrationCtrl');
+const LoginCtrl = require('./controllers/LoginCtrl');
+const SeriesCtrl = require('./controllers/SeriesCtrl');
+const AdminHomeCtrl = require('./controllers/AdminHomeCtrl');
+const UnauthorizedCtrl = require('./controllers/UnauthorizedCtrl');
+const IndexCtrl = require('./controllers/IndexCtrl');
 
 // services
 const TokenService = require('./services/token.js');
 
 class Server {
-    
-    constructor( conf) {
+
+    constructor(conf) {
 
         this._conf = conf;
 
@@ -51,12 +51,12 @@ class Server {
         this._app.set('conf', conf);
 
         // init services
-        const tokenService = new TokenService( this._conf.site.hash.token);
+        const tokenService = new TokenService(this._conf.site.hash.token);
         this._app.set('tokenService', tokenService);
 
         //configure i18n
         i18n.configure({
-            locales:['fr', 'en',],
+            locales: ['fr', 'en', ],
             defaultLocale: 'fr',
             directory: path.join(__dirname, '/../locales'),
             cookie: this._conf.site.cookies.i18nName,
@@ -67,7 +67,7 @@ class Server {
 
         //use i18n
         this._app.use(i18n.init);
-        
+
         // extract user from cookies to res.locals.user
         this._app.use(ExtractUser.fromCookies);
 
@@ -91,7 +91,7 @@ class Server {
         const loginCtrl = new LoginCtrl();
         const seriesCtrl = new SeriesCtrl();
         const adminHomeCtrl = new AdminHomeCtrl();
-        
+
         // init access control
         const accessGranted = new AccessGranted(
             this._conf.site.roles.user,
@@ -119,7 +119,7 @@ class Server {
          SET ROUTES
          * /site routing is managed by siteRouter
          */
-        
+
         this._app.get('/home', IndexCtrl.indexLoggedAction);
 
 
@@ -136,18 +136,18 @@ class Server {
 
         //logout
         this._app.get('/logout', (req, res) => {
-           
-           res.cookie( this._conf.site.cookies.i18nName, 'deleted', { 
-                maxAge: 0, 
-                httpOnly: true 
+
+            res.cookie(this._conf.site.cookies.i18nName, 'deleted', {
+                maxAge: 0,
+                httpOnly: true
             });
 
-            res.cookie( this._conf.site.cookies.tokenName, 'deleted', { 
-                maxAge: 0, 
-                httpOnly: true 
+            res.cookie(this._conf.site.cookies.tokenName, 'deleted', {
+                maxAge: 0,
+                httpOnly: true
             });
 
-           // destroy cookie
+            // destroy cookie
             res.redirect('/');
         });
 
@@ -155,17 +155,17 @@ class Server {
 
         //locales
         this._app.get('/fr', (req, res) => {
-            res.cookie( this._conf.site.cookies.i18nName, 'fr', { 
-                maxAge: this._conf.site.cookies.maxAge, 
-                httpOnly: true 
+            res.cookie(this._conf.site.cookies.i18nName, 'fr', {
+                maxAge: this._conf.site.cookies.maxAge,
+                httpOnly: true
             });
             res.redirect('/')
         });
 
         this._app.get('/en', (req, res) => {
-             res.cookie( this._conf.site.cookies.i18nName, 'en', { 
-                maxAge: this._conf.site.cookies.maxAge, 
-                httpOnly: true 
+            res.cookie(this._conf.site.cookies.i18nName, 'en', {
+                maxAge: this._conf.site.cookies.maxAge,
+                httpOnly: true
             });
             res.redirect('/')
         });
