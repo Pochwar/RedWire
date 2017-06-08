@@ -68,7 +68,7 @@ const userSchema = new Schema({
                 required: true,
             },
             version: {
-                type: ObjectId,
+                type: Schema.Types.ObjectId,
             },
         }, ],
     },
