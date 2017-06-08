@@ -1,10 +1,11 @@
-// Middleware to restric access 
-const jwt = require('jsonwebtoken');
+// Middleware to restrict route access 
 
 class AccessGranted  {
 
     // constructor save config
     constructor( defaultRole, moderatorRole, superAdminRole) {
+        
+        // roles
         this._defaultRole = defaultRole;
         this._moderatorRole = moderatorRole;
         this._superAdminRole = superAdminRole;
@@ -14,62 +15,55 @@ class AccessGranted  {
         this.member = this.member.bind(this);
         this.moderator = this.moderator.bind(this);
         this.superAdmin = this.superAdmin.bind(this);
-        this.extractTokenInfo = this.extractTokenInfo.bind(this);
         this.render403 = this.render403.bind(this);
     }
 
     // public
     everyone(req, res, next) {
-        this.extractTokenInfo(req, res);
         next();
     }
 
     // can user access member's part ?
     member(req, res, next) {
-        if( this.extractTokenInfo(req, res) && res.locals.user.roleId >= this._defaultRole) {
-            next();
+        
+        // invalid req
+        if( !res.locals.user || !res.locals.user.roleId || res.locals.user.roleId < this._defaultRole) {
+            this.render403(res);
         }
         else {
-            this.render403(res);
+            next();
         }
     }
 
     // can user access admin ?
     moderator(req, res, next) {
         
-        if( this.extractTokenInfo(req, res) && res.locals.user.roleId >= this._moderatorRole) {
-            next();
+        // invalid req
+        if( !res.locals.user || ! res.locals.user.roleId || res.locals.user.roleId < this._moderatorRole) {
+            this.render403(res);
         }
         else {
-            this.render403(res);
+            next();
         }
     }
 
     // can user access super admin ?
     superAdmin(req, res, next) {
 
-        if( this.extractTokenInfo(req, res) && res.locals.user.roleId >= this.__superAdminRole) {
-            next();
-        }
-        else {
+        // invalid req
+        if( !res.locals.user || ! res.locals.user.roleId || res.locals.user.roleId < this._superAdminRole) {
             this.render403(res);
         }
-    }
-
-    // validate token
-    extractTokenInfo(req, res) {
-        
-        try {
-            res.locals.user = jwt.verify(req.cookies.token, 'secret');
-            return true;
-        } catch(err) {
-             return false;
+        else {
+            next();
         }
     }
 
     // render unauhtorized
     render403(res) {
-        res.status(403).render('unauthorization.twig',{});
+        res.status(403).render('unauthorization.twig',{
+            lang: res.locals.lang,
+        });
     }
 }
 

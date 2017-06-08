@@ -3,7 +3,7 @@
 class UnauthorizedCtrl {
 
     static indexAction(req, res) {
-        res.status(403).render('unauthorization.twig',{});
+        res.status(403).render('unauthorization.twig');
     }
 }
 

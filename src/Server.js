@@ -4,7 +4,6 @@
 
 const express = require('express');
 const path = require( 'path');
-const session = require( 'express-session');
 const cookieParser = require( 'cookie-parser');
 const i18n = require( 'i18n');
 const winston = require('winston');
@@ -14,6 +13,7 @@ const fileUpload  = require( 'express-fileupload');
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
 const ExtractLang = require('./middleware/ExtractLang');
+const ExtractUser = require('./middleware/ExtractUser');
 
 // controllers
 const RegistrationCtrl = require( './controllers/RegistrationCtrl');
@@ -23,7 +23,11 @@ const AdminHomeCtrl = require( './controllers/AdminHomeCtrl');
 const UnauthorizedCtrl = require( './controllers/UnauthorizedCtrl');
 const IndexCtrl = require( './controllers/IndexCtrl');
 
+// services
+const TokenService = require('./services/token.js');
+
 class Server {
+    
     constructor( conf) {
 
         this._conf = conf;
@@ -43,33 +47,32 @@ class Server {
         //use file upload
         this._app.use(fileUpload());
 
+        // save config in app
+        this._app.set('conf', conf);
+
+        // init services
+        const tokenService = new TokenService( this._conf.site.hash.token);
+        this._app.set('tokenService', tokenService);
+
         //configure i18n
         i18n.configure({
             locales:['fr', 'en',],
             defaultLocale: 'fr',
             directory: path.join(__dirname, '/../locales'),
-            cookie: 'i18n',
+            cookie: this._conf.site.cookies.i18nName,
         });
 
         //use cookie
-        this._app.use(cookieParser('i18n_fishblock'));
-
-        //use session
-        this._app.use(session({
-            secret: 'i18n_fishblock',
-            resave: true,
-            saveUninitialized: true,
-            cookie: { maxAge: 3600000,},
-        }));
+        this._app.use(cookieParser());
 
         //use i18n
         this._app.use(i18n.init);
+        
+        // extract user from cookies to res.locals.user
+        this._app.use(ExtractUser.fromCookies);
 
-        // configure lang extraction
-        const extractLang = new ExtractLang( this._conf.site.default.lang);
-
-        // use lang extraction from cookie
-        this._app.use(extractLang.fromCookies);
+        // extract lang from cookies to res.locals.lang
+        //this._app.use(ExtractLang.fromCookies);
     }
 
     run() {
@@ -79,6 +82,7 @@ class Server {
     }
 
     _setRoutes() {
+
         /*
         INIT CONTROLLERS
          */
@@ -127,15 +131,23 @@ class Server {
         this._app.get('/login', loginCtrl.get);
         this._app.post('/login', loginCtrl.post);
 
-       
-
         //admin home
-        this._app.get('/admin', adminHomeCtrl.get);
+        this._app.get('/admin', accessGranted.moderator, adminHomeCtrl.get);
 
         //logout
         this._app.get('/logout', (req, res) => {
-            //destroy session
-            req.session.destroy();
+           
+           res.cookie( this._conf.site.cookies.i18nName, 'deleted', { 
+                maxAge: 0, 
+                httpOnly: true 
+            });
+
+            res.cookie( this._conf.site.cookies.tokenName, 'deleted', { 
+                maxAge: 0, 
+                httpOnly: true 
+            });
+
+           // destroy cookie
             res.redirect('/');
         });
 
@@ -143,11 +155,18 @@ class Server {
 
         //locales
         this._app.get('/fr', (req, res) => {
-            res.cookie('i18n', 'fr');
+            res.cookie( this._conf.site.cookies.i18nName, 'fr', { 
+                maxAge: this._conf.site.cookies.maxAge, 
+                httpOnly: true 
+            });
             res.redirect('/')
         });
+
         this._app.get('/en', (req, res) => {
-            res.cookie('i18n', 'en');
+             res.cookie( this._conf.site.cookies.i18nName, 'en', { 
+                maxAge: this._conf.site.cookies.maxAge, 
+                httpOnly: true 
+            });
             res.redirect('/')
         });
 

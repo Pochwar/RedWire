@@ -1,18 +1,18 @@
 class ExtractLang {
 
-    constructor( defaultLang) {
-        this._defaultLang = defaultLang;
-
-        this.fromCookies = this.fromCookies.bind(this);
-    }
-
-    fromCookies(req, res, next) {
+    static fromCookies(req, res, next) {
         
-        if(req.cookies.i18n){
+        // default
+        res.locals.lang = req.app.get('conf').site.default.lang;
+
+        // extract data from cookies
+        if(req.cookies && req.cookies.i18n) {
             res.locals.lang = req.cookies.i18n;
         }
-        else {
-            res.locals.lang = this._defaultLang;
+
+        // fallback to user default lang
+        else if (res.locals.user && res.locals.user.lang) {
+            res.locals.lang = res.locals.user.lang;
         }
 
         next();
