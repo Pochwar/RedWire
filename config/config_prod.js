@@ -13,7 +13,7 @@ const CONF = {
         default: {
             ban: 0,
             role: 1,
-            lang: 'fr',
+            langId: 1,
         },
         roles: {
             user: 1,
@@ -27,7 +27,11 @@ const CONF = {
             i18nName: 'fishblock_i18n',
             tokenName: 'fishblock_token',
             maxAge: 1000* 3600 * 60 * 24 * 30,
-        }
+        },
+        lang: {
+            1: "fr",
+            2: "en",
+        },
     },
     API: {
         tvdb: {

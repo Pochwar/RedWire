@@ -49,7 +49,7 @@ const userSchema = new Schema({
         type: Boolean,
         required: true,
     },
-    lanId: {
+    langId: {
         type: Number,
         required: true,
     },
