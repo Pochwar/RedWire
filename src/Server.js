@@ -99,7 +99,7 @@ class Server {
         this._app.get('/series', accessGranted.member, seriesCtrl.get);
 
         /*  examples for admin
-            this._app.get('/admin', accessGranted.admin, adminCtrl.get);
+            this._app.get('/admin', accessGranted.moderator, adminCtrl.get);
             
             example for everyone (non logged)
             this._app.get('/admin', accessGranted.everyone, indexCtrl.get);
