@@ -1,31 +1,44 @@
 /*
  IMPORT PACKAGES
  */
-const mongoose = require( 'mongoose');
+const mongoose = require('mongoose');
 const winston = require('winston');
 
 // conf files
 let CONF;
-if(process.env.NODE_ENV === 'production'){
-    CONF = require( './../config/config_prod');
+if (process.env.NODE_ENV === 'production') {
+    CONF = require('./../config/config_prod');
 } else {
-    CONF = require( './../config/config_dev');
+    CONF = require('./../config/config_dev');
 }
 
-const Server = require( './Server');
+const Server = require('./Server');
 const server = new Server(CONF);
 
+
+/**
+ * Connect to MongoDB and run server
+ * @function
+ * 
+ * @param {string} username - DB user
+ * @param {string} password - DB user password
+ * @param {string} host - DB adress
+ * @param {number} port - DB port
+ * @param {string} db - DB name
+ * 
+ * @return {Promise} - Success: call the run() method of Server Object
+ */
 const connect = (username, password, host, port, db) => {
     return new Promise((resolve, reject) => {
         mongoose.connect(`mongodb://${username}:${password}@${host}:${port}/${db}`, err => {
-            if(err){reject(err); return}
+            if (err) { reject(err); return }
             resolve(true);
         })
     })
 };
 
 connect(CONF.db.username, CONF.db.password, CONF.db.host, CONF.db.port, CONF.db.base)
-    .then( () => {
+    .then(() => {
         winston.info(`### Connected to Mongo DB on ${CONF.db.host}:${CONF.db.port}/${CONF.db.base} ###`);
         server.run();
     })
