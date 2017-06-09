@@ -15,30 +15,53 @@ class TmdbService {
                 language: lang
             })
             .then( response => {
-
-                resolve( response);
-
-                /*
-                response.results.forEach(serie => {
-
-                    this._tmdb.tv.credits( {tv_id: serie.id} )
-                    .then(actors => {
-                        
-                        series.actors = [];
-                        if(actors !== null) {
-                            series.actors = actors;
-                        }
-
-                        resolve( series );
-                    })
-                    .catch(e => reject(e) );
-                    
-                });
-                */
+                resolve( response.results);
             })
             .catch(e => reject(e) );
         });
     }
+
+    searchByActors( name, lang ) {
+        return new Promise ( (resolve, reject) => {
+            this._tmdb.search.person({
+                query: name,
+                language: lang,
+            })
+            .then(response => {
+                
+                resolve(response.results);
+            })
+            .catch(e => reject(e));
+        });
+    }
+
+    getSerie( id, lang ) {
+        return new Promise ( (resolve, reject) => {
+            this._tmdb.tv.details({
+                tv_id: id, 
+                language: lang
+            })
+            .then(response => {
+                resolve(response);
+            })
+            .catch(e => reject(e));
+        });
+    }
+
+    /*
+    getSeason( id, numSeason,lang ) {
+        return new Promise ( (resolve, reject) => {
+            this._tmdb.tv.season.details({
+                tv_id: id, 
+                season: numSeason, 
+            })
+            .then(response => {
+                resolve(response);
+            })
+            .catch(e => reject(e));
+        });
+    }
+    */
 }
 
 module.exports = TmdbService;
