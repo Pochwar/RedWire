@@ -107,6 +107,47 @@ class SerieModel {
                 .catch(e => reject(e))
         });
     }
+
+    /**
+     * @method
+     * @param {Integer} apiId - serie's Id in the api
+     * @return {Promise<Array|String>} A array containing the series matching the tmdbId param
+     */
+    findByApiId(apiId) {
+        return new Promise((resolve, reject) => {
+            Serie.findOne({
+                api_id: apiId
+            })
+            .then(series => {
+                if( series) {
+                    resolve(series.toObject() );
+                }
+                else {
+                    resolve( {} );
+                }
+            })
+            .catch(e => reject(e));
+        });
+    }
+
+    /**
+     * @method
+     * @param {Object} serie - serie returned from the distant api
+     * @return {Promise<bool>} Promise with boolean
+     */
+    addIfNotExits(serie) {
+         return new Promise((resolve, reject) => {
+            Serie.update(
+                {api_id: serie.api_id}, 
+                {$setOnInsert: serie}, 
+                {upsert: true}
+            )
+            .then(result => {
+               resolve();
+            })
+            .catch(e => reject(e));
+        });
+    }
 }
 
 module.exports = SerieModel;
