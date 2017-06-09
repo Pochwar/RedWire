@@ -17,13 +17,7 @@ class RegistrationCtrl {
     }
 
     get(req, res){
-        let msg = "";
-        if (!_.isEmpty(req.params.msg)) {
-            msg = req.params.msg;
-        }
-        res.render('registration.twig', {
-            msg: msg,
-        })
+        res.render('registration.twig')
     }
 
     post(req, res){
@@ -38,17 +32,23 @@ class RegistrationCtrl {
             _.isEmpty(req.body.passwordConf) ||
             _.isEmpty(req.body.langId)
         ) {
-            res.redirect('/register?msg=emptyError');
+            res.render('registration.twig',{
+                msg: "emptyError",
+            });
         }
 
         //check passwords
         if (req.body.password !== req.body.passwordConf) {
-            res.redirect('/register?msg=passError');
+            res.render('registration.twig',{
+                msg: "passError",
+            });
         }
 
         //check db connection
         if (mongoose.connection._readyState !== 1) {
-            res.redirect('/register?msg=dbError');
+            res.render('registration.twig',{
+                msg: "dbError",
+            });
         }
 
         //CREATE NEW USER
@@ -79,13 +79,17 @@ class RegistrationCtrl {
             )
                 .then(object => {
                     winston.info(`### user ${object.pseudo} created ! ###`);
-                    res.redirect('/register?msg=ok');
+                    res.render('registration.twig',{
+                        msg: "ok",
+                    });
                 })
                 .catch(err => {
                     winston.info(`error :  ${err.message}`);
                     if(err.message.match(/duplicate/i)){
                         if(err.message.match(/pseudo/i)){
-                            res.redirect('/register?msg=duplicatePseudo');
+                            res.render('registration.twig',{
+                                msg: "duplicatePseudo",
+                            });
                         }
                         else if(err.message.match(/mail/i)){
                             res.redirect('/register?msg=duplicateMail');
