@@ -14,7 +14,7 @@ class SerieModel {
         })
     }
 
-    registerSerie(local_id, title, overview, poster, genres, actors, createdAt, langCode, validated, episodes, comments) {
+    registerSerie(local_id, title, createdAt, langCode, validated) {
         return new Promise((resolve, reject) => {
             Serie.create({
                 local_id: local_id,
@@ -23,8 +23,6 @@ class SerieModel {
                 updatedAt: createdAt,
                 langCode: langCode,
                 validated: validated,
-                episodes: episodes, // là je suis pas sûr
-                comments: comments,
             }, (err, object) => {
                 if (err) {
                     reject(err)
@@ -37,19 +35,18 @@ class SerieModel {
 
     findByTitle(title) {
         return new Promise((resolve, reject) => {
-            Serie.findOne({
-                title: title,
+            Serie.find({
+                title: new RegExp(title, 'i'),
             })
                 .then(serie => resolve(serie.toObject()))
                 .catch(e => reject(e))
         });
     }
 
-    // a déplacer dans le actorModel
     findByActor(actor) {
         return new Promise((resolve, reject) => {
-            Serie.findOne({
-                actor: actor,
+            Serie.find({
+                actor: new RegExp(actor, 'i'),
             })
                 .then(serie => resolve(serie.toObject()))
                 .catch(e => reject(e))
