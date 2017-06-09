@@ -1,5 +1,7 @@
 # Git Workflow
 
+PENSEZ A FAIRE RÉGULIÈREMENT DES PULL DE DEV :)
+
 ## Developper une fonctionnalité
 
 - Depuis la branche 'dev' créer une branche perso ('perso' pour l'exemple) : `git checkout -b perso`
@@ -12,7 +14,6 @@
 
 - `git add .`
 - `git commit -m "message de commit"`
-- `git push -u origin perso`
 
 2/ Rebaser la branche 'dev'
 
@@ -30,7 +31,7 @@ PS : 'rebase' reprend la dernière version de 'dev' et applique TOUS les commits
 
 4/ Pusher la branche perso rebasée
 
-- `git push --force`
+- `git push origin perso --force`
 
 5/ Faire une Pull Request via github depuis la branche 'perso' vers la branche 'dev' (et pas 'master' !)
 
