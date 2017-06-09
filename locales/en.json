@@ -21,5 +21,7 @@
     "AUTH": "You are connected as ",
     "UNAUTHORIZED": "Access permission denied",
     "SERIES_LIST": "series list",
-    "LOGINERROR": "Email or password incorrect"
+    "LOGINERROR": "Email or password incorrect",
+    "REQUIREDFIELDS": "REQUIREDFIELDS",
+    "PASSMUSTBEEQUAL": "Password must be the same"
 }

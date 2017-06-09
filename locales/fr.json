@@ -22,5 +22,7 @@
     "UNAUTHORIZED": "Accès non autorisé à cette ressource",
     "SERIES_LIST": "Liste des séries",
     "LOGINERROR": "L'email ou le mot de passe est incorrect",
-    "EMPTYERROR": ""
+    "EMPTYERROR": "",
+    "REQUIREDFIELDS": "REQUIREDFIELDS",
+    "PASSMUSTBEEQUAL": "Les mots de passe doivent être identiques"
 }
