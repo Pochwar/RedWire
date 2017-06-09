@@ -2,6 +2,23 @@
 
 {% block content %}
 
+    <h1>😺 Chat</h1>
+    <p id="pseudo">{{ user.pseudo }}</p>
+    <div id="superChat">
+        <div id="chat"></div>
+        <textarea name="msg" id="msg" cols="30" rows="10" onkeypress="return validForm(event)"></textarea>
+        <div id="info"></div>
+        <button id="send">SEND</button>
+    </div>
 
+    <div id="clients">
+        <h3>Connected users</h3>
+        <div id="users"></div>
+    </div>
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/chat.js"></script>
 
 {% endblock %}

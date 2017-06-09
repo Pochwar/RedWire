@@ -1,7 +1,8 @@
 /*
  IMPORT PACKAGES
  */
-
+const socket = require('socket.io');
+const http = require('http');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -33,6 +34,9 @@ const SerieModel = require("./models/SerieModel");
 const TokenService = require('./services/token.js');
 const LangService = require('./services/LangService');
 
+//chat
+const Chat = require('./services/Chat');
+
 class Server {
     constructor(conf) {
 
@@ -40,6 +44,9 @@ class Server {
 
         //set express server
         this._app = express();
+
+        //set http server (for the chat)
+        this._server = http.createServer(this._app);
 
         //set public path
         this._app.use(express.static(path.join(__dirname, '/../public')));
@@ -73,9 +80,7 @@ class Server {
         this._app.set('langService', langService);
 
         //use cookie
-
         this._app.use(cookieParser());
-
 
         //use i18n
         this._app.use(i18n.init);
@@ -85,12 +90,15 @@ class Server {
 
         // check that user's lang is correctly setted
         this._app.use(langService.checkCookies);
+
+        //chat
+        const chat = new Chat(this._server);
     }
 
     run() {
         this._setRoutes();
 
-        this._app.listen(this._conf.server.port, () => winston.info(`### Server listening on localhost:${this._conf.server.port} ###`));
+        this._server.listen(this._conf.server.port, () => winston.info(`### Server listening on localhost:${this._conf.server.port} ###`));
     }
 
     _setRoutes() {

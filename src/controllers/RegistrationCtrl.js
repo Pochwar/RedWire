@@ -2,7 +2,6 @@ const mongoose = require( 'mongoose');
 const encrypt = require( 'bcrypt');
 const winston = require('winston');
 const _ = require( 'underscore');
-const uniqid = require('uniqid');
 const UserModel = require( './../models/UserModel');
 
 mongoose.Promise = global.Promise;
