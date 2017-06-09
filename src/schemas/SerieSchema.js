@@ -32,6 +32,7 @@ const serieSchema = new Schema({
     local_id: {
         type: Number,
         required: true,
+        unique: true,
     },
     api_id: {
         type: Number,
@@ -75,7 +76,7 @@ const serieSchema = new Schema({
         type: Boolean,
     },
     episodes: {
-        children: [episodeSchema,],
+        type: [episodeSchema,],
     },
     comments: {
         type: [Schema.Types.ObjectId,],

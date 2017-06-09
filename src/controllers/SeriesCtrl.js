@@ -8,14 +8,35 @@ class SeriesCtrl {
         this.serie = model;
         this.get = this.get.bind(this);
         this.getByTitle = this.getByTitle.bind(this);
+
+        // this.test();
+    }
+
+    test() {
+        this.serie.registerSerie(
+            2,
+            12,
+            "Ma bite",
+            "Un magnifique film sur ma teub",
+            "public/img/mabite.jpeg",
+            ["drame", "familial", "comédie",],
+            [],
+            Date.now(),
+            "fr",
+            1,
+            [],
+            []
+        )
     }
 
     get(req, res) {
         this.serie.findAll()
             .then(series => {
+                winston.info(series.title);
+                console.log(series);
                 res.render('series.twig', {
                     series: series,
-                })
+                });
             })
             .catch(e => {
                 winston.info(e);
