@@ -142,7 +142,6 @@ class Server {
         this._app.post('/register', registrationCtrl.post);
 
         //login
-        this._app.get('/login', loginCtrl.get);
         this._app.post('/login', loginCtrl.post);
 
         //admin home
