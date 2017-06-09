@@ -96,8 +96,15 @@ class Server {
         const loginCtrl = new LoginCtrl();
         const seriesCtrl = new SeriesCtrl();
         const adminHomeCtrl = new AdminHomeCtrl();
-
+        const indexCtrl = new IndexCtrl();
+        
         // init access control
+        /*
+        * Role checking
+        * Only connected users can access /site/
+        * Only moderators / admin can access /admin
+        * Only super admin can caccess /admin/moderators
+        */
         const accessGranted = new AccessGranted(
             this._conf.site.roles.user,
             this._conf.site.roles.moderator,
@@ -121,9 +128,30 @@ class Server {
         */
 
         /*
+        * Role checking
+        * Only connected users can access /site/
+        * Only moderators / admin can access /admin
+        * Only super admin can caccess /admin/moderators
+        */
+        const accessGranted = new AccessGranted(
+            CONF.site.roles.user, 
+            CONF.site.roles.moderator,
+            CONF.site.roles.superadmin
+        );
+
+        // Pour le test
+        this._app.all('/series*', accessGranted.toSite);
+
+        this._app.all('/site*', accessGranted.toSite);
+        this._app.all('/admin*', accessGranted.toAdmin);
+        this._app.all('/admin/moderators*', accessGranted.toSuperAdmin);
+
+        /*
          SET ROUTES
          * /site routing is managed by siteRouter
          */
+        
+        this._app.get('/', accessGranted.everyone, indexCtrl.get);
 
         this._app.get('/home', IndexCtrl.indexLoggedAction);
 
