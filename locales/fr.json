@@ -24,5 +24,10 @@
     "LOGINERROR": "L'email ou le mot de passe est incorrect",
     "EMPTYERROR": "",
     "REQUIREDFIELDS": "Champs obligatoire",
-    "PASSMUSTBEEQUAL": "Les mots de passe doivent être identiques"
+    "PASSMUSTBEEQUAL": "Les mots de passe doivent être identiques",
+    "SIGNUP": "Connexion",
+    "SIGNIN": "S'inscrire",
+    "YOUREMAIL": "Votre addresse électronique",
+    "YOURPASS": "Votre mot de passe",
+    "CANCEL": "Annuler"
 }

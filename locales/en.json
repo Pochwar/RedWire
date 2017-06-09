@@ -23,5 +23,10 @@
     "SERIES_LIST": "series list",
     "LOGINERROR": "Email or password incorrect",
     "REQUIREDFIELDS": "Required fields",
-    "PASSMUSTBEEQUAL": "Password must be the same"
+    "PASSMUSTBEEQUAL": "Password must be the same",
+    "SIGNUP": "Sign up",
+    "SIGNIN": "Login",
+    "YOUREMAIL": "Your e-mail",
+    "YOURPASS": "Your password",
+    "CANCEL": "Cancel"
 }

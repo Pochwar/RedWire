@@ -7,9 +7,6 @@
                 <h2 class="ct-txt-yellow" >
                     {{ __("REGISTRATION") }}
                 </h2>
-                <p>
-                {{msg}}
-                </p>
                 <p class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</p>
                     <form action="" id="registrationForm" method="post" encType="multipart/form-data">
                         <div class="form-group">
@@ -48,7 +45,7 @@
                                 <option value="2">{{ __("LANG_EN") }}</option>
                             </select>
                         </div>
-                        <input type="submit" value="{{ __("REGISTER") }}">
+                        <input class="btn" type="submit" value="{{ __("REGISTER") }}">
                     </form>
 
             </div>
