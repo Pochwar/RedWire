@@ -22,6 +22,9 @@ const AdminHomeCtrl = require('./controllers/AdminHomeCtrl');
 const UnauthorizedCtrl = require('./controllers/UnauthorizedCtrl');
 const IndexCtrl = require('./controllers/IndexCtrl');
 const LangCtrl = require('./controllers/LangCtrl');
+const ChatCtrl = require('./controllers/ChatCtrl');
+const ContributeCtrl = require('./controllers/ContributeCtrl');
+const ProfileCtrl = require('./controllers/ProfileCtrl');
 
 // models
 const SerieModel = require("./models/SerieModel");
@@ -103,7 +106,10 @@ class Server {
         const adminHomeCtrl = new AdminHomeCtrl();
         const indexCtrl = new IndexCtrl();
         const langCtrl = new LangCtrl(this._conf);
-
+        const chatCtrl = new ChatCtrl();
+        const contributeCtrl = new ContributeCtrl();
+        const profileCtrl = new ProfileCtrl();
+        
         // init access control
         /*
         * Role checking
@@ -140,7 +146,7 @@ class Server {
 
         this._app.get('/', accessGranted.everyone, indexCtrl.get);
 
-        this._app.get('/home', IndexCtrl.indexLoggedAction);
+        this._app.get('/home', accessGranted.member, IndexCtrl.indexLoggedAction);
 
 
         //registration page
@@ -152,6 +158,15 @@ class Server {
 
         //admin home
         this._app.get('/admin', accessGranted.moderator, adminHomeCtrl.get);
+
+        //chat
+        this._app.get('/chat', accessGranted.member, chatCtrl.get);
+
+        //contribute
+        this._app.post('/contribute', accessGranted.member, contributeCtrl.post);
+
+        //profile
+        this._app.get('/profile', accessGranted.member, profileCtrl.get);
 
         //logout
         this._app.get('/logout', (req, res) => {
