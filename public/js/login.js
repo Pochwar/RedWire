@@ -1,43 +1,30 @@
-$("#login_form").submit(function(e){
-    e.preventDefault();
+$(document).ready(function() {
+	$("#login_form").on("submit", function(e){
+	    e.preventDefault();
 
-	const data ={
-            "mail" : $('#connection_email').val(),
-            "password" : $('#connection_pwd').val(),
-        }
+		const data ={
+	            "mail" : $('#connection_email').val(),
+	            "password" : $('#connection_pwd').val(),
+	        }
 
-    $.ajax({
-       url : '/login', 
-       type : 'POST', 
-       data : data,
-       success: response => {
-       	console.log(response.msg);
-       	switch (response.msg) {
-       		case "emptyError":
-      			redirect('/?msg=emptyError');
-      			break;
+	    $.ajax({
+	       url : '/login', 
+	       type : 'POST', 
+	       data : data,
+	       success: response => {
+	       	console.log(response.msg);
+	       	if (response.msg === "loginOk") {
+	       		$('#modal_connection').modal('toggle');
+	       		window.location.replace("/home");
+	       	} else {
+	       		alert('Erreur de login');
+	       	}
 
-      		case "dbError": 
-      			redirect('/?msg=dbError');
-      			break;
-
-      		case "ok":
-      			redirect('/home');
-      			break;
-
-      		case "loginError":
-      			redirect('/?msg=loginError');
-      			break;
-
-      		case default:
-      			redirect('/');
-      			break;
-       	}
-       },
-       error: error => {
-       	 console.log(error);
-       }
-    });
-   
+	       },
+	       error: error => {
+	       	 alert('Erreur de login');
+	       }
+	    });
+	   
+	});
 });
-

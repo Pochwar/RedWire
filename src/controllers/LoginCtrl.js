@@ -7,6 +7,8 @@ const UserModel = require( './../models/UserModel');
 mongoose.Promise = global.Promise;
 
 class LoginCtrl {
+    
+    /*
     get(req, res) {
         let msg = "";
 
@@ -17,19 +19,19 @@ class LoginCtrl {
             msg: msg,
         });
     }
-
+    */
     post(req, res) {
         //check fields
         if (
             _.isEmpty(req.body.mail) ||
             _.isEmpty(req.body.password)
         ) {
-            res.json({ msg: "emptyError" });
+            res.status(400).json({ msg: "emptyError" });
         }
 
         //check db connection
         if (mongoose.connection._readyState !== 1) {
-            res.json({ msg: "dbError" });
+            res.status(500).json({ msg: "dbError" });
         }
 
 
@@ -70,18 +72,18 @@ class LoginCtrl {
                         // save use as local user
                         res.locals.user = user;
                         
-                        res.render('indexAuthenticated.twig');
+                        res.status(200).json({ msg: "loginOk" });
                     } else {
                         winston.info(`wrong pass`);
-                        res.redirect('/login?msg=loginError');
+                        res.status(400).json({ msg: "loginError" });
                     }
                 });
             })
             .catch(e => {
                 winston.info(`### no user found : ${e}`);
-                res.json({ msg: "loginError" });
+                res.status(400).json({ msg: "loginError" });
             })
-        ;
+        
     }
 
 }
