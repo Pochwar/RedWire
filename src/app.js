@@ -9,10 +9,9 @@ require('dotenv').config();
 // conf files
 const CONF = require('./../config/config');
 
-
+//server
 const Server = require('./Server');
 const server = new Server(CONF);
-
 
 /**
  * Connect to MongoDB and run server
