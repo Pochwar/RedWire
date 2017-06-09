@@ -92,13 +92,19 @@ class RegistrationCtrl {
                             });
                         }
                         else if(err.message.match(/mail/i)){
-                            res.redirect('/register?msg=duplicateMail');
+                            res.render('registration.twig',{
+                                msg: "duplicateMail",
+                            });
                         }
                         else {
-                            res.redirect('/register?msg=dbError');
+                            res.render('registration.twig',{
+                                msg: "dbError",
+                            });
                         }
                     }
-                    res.redirect('/register?msg=dbError');
+                    res.render('registration.twig',{
+                        msg: "dbError",
+                    });
                 })
             ;
         })
