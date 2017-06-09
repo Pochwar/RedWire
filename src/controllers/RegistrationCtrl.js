@@ -18,8 +18,8 @@ class RegistrationCtrl {
 
     get(req, res){
         let msg = "";
-        if (!_.isEmpty(req.param("msg"))) {
-            msg = req.param("msg");
+        if (!_.isEmpty(req.params.msg)) {
+            msg = req.params.msg;
         }
         res.render('registration.twig', {
             msg: msg,
@@ -83,7 +83,18 @@ class RegistrationCtrl {
                 })
                 .catch(err => {
                     winston.info(`error :  ${err.message}`);
-                    res.redirect('/register?msg=duplicate');
+                    if(err.message.match(/duplicate/i)){
+                        if(err.message.match(/pseudo/i)){
+                            res.redirect('/register?msg=duplicatePseudo');
+                        }
+                        else if(err.message.match(/mail/i)){
+                            res.redirect('/register?msg=duplicateMail');
+                        }
+                        else {
+                            res.redirect('/register?msg=dbError');
+                        }
+                    }
+                    res.redirect('/register?msg=dbError');
                 })
             ;
         })
