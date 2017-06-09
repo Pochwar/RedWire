@@ -22,6 +22,6 @@
     "UNAUTHORIZED": "Access permission denied",
     "SERIES_LIST": "series list",
     "LOGINERROR": "Email or password incorrect",
-    "REQUIREDFIELDS": "REQUIREDFIELDS",
+    "REQUIREDFIELDS": "Required fields",
     "PASSMUSTBEEQUAL": "Password must be the same"
 }
