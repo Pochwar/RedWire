@@ -35,9 +35,6 @@ const CONF = {
         },
     },
     API: {
-        tvdb: {
-            token: process.env.CONF_TVDB_TOKEN,
-        },
         tmdb: {
             token: process.env.CONF_TMDB_TOKEN,
         }
