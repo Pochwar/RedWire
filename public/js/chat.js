@@ -4,9 +4,31 @@ const host = 'http://localhost:8000';
 //connect to socket
 let socket = io.connect(host);
 
-//set pseudo
-let pseudo = document.querySelector('#pseudo').innerText;
-socket.emit('newUser', pseudo);
+//get pseudo
+var getJSON = function(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+        var status = xhr.status;
+        if (status == 200) {
+            callback(null, xhr.response);
+        } else {
+            callback(status);
+        }
+    };
+    xhr.send();
+};
+
+//send pseudo
+getJSON('http://localhost:8000/api/user/data',
+    function(err, data) {
+        if (err != null) {
+            socket.emit('newUser', "anonymox");
+        } else {
+            socket.emit('newUser', data.username);
+        }
+    });
 
 //display info msg
 socket.on('info', message => {

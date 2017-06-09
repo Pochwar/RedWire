@@ -169,6 +169,29 @@ class Server {
 
         //chat
         this._app.get('/chat', accessGranted.member, chatCtrl.get);
+        //trick to get user pseudo client side
+        this._app.get('/api/user/data', (req, res) => {
+            const UserModel = require('./models/UserModel');
+            const tokenService = req.app.get('tokenService');
+            const data = tokenService.extractData( req.cookies[this._conf.site.cookies.tokenName]);
+            UserModel.findById( data.id )
+                .then( user => {
+                    if (user === undefined) {
+                        // The user is not logged in
+                        res.json({});
+                    } else {
+                        res.json({
+                            username: user.pseudo
+                        });
+                    }
+                })
+                .catch( err => {
+                    winston.info('info', 'ExtractUser.fromcookies - model extraction: ' + err.message);
+                    next();
+                });
+
+
+        });
 
         //contribute
         this._app.post('/contribute', accessGranted.member, contributeCtrl.post);
