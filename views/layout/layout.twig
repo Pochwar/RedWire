@@ -21,10 +21,19 @@
 
     <!-- custom js -->
     <script src="js/bootstrap-custom.js"></script>
+
+    <!-- include script -->
+    {% include "../includes/script.twig" %}
+
 </head>
 
 <body>
-<div id="content">{% block content %}{% endblock %}</div>
+{% if user.pseudo %}
+{% include "../includes/navbar-logged.twig" %}
+{% else %}
+{% include "../includes/navbar-unauthenticated.twig" %}
+{% endif %}
+{% block content %}{% endblock %}
 
 <!-- footer -->
 <footer>    
