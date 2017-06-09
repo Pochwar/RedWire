@@ -4,3 +4,4 @@
 /upload/avatars/*
 !/upload/avatars/.banane
 .env
+test.env
