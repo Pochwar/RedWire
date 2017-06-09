@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ __("SITENAME") }}</title>
-</head>
-<body>
-    <h2>{{ __("SERIES_LIST") }}</h2>
-    <div>{{ series }}</div>
-</body>
-</html>
+{% extends "layout/layout.twig" %}
+
+{% block content %}
+
+{{ __("SERIES_LIST") }}
+
+{% endblock %}
