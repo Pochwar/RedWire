@@ -1,6 +1,6 @@
 .idea
 /node_modules
 /build
-/config/config_dev.js
 /upload/avatars/*
 !/upload/avatars/.banane
+.env

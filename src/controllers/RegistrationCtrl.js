@@ -32,17 +32,17 @@ class RegistrationCtrl {
             _.isEmpty(req.body.firstname) ||
             _.isEmpty(req.body.lastname) ||
             _.isEmpty(req.body.pseudo) ||
-            _.isEmpty(req.body.bDay) ||
+            _.isEmpty(req.body.birthday) ||
             _.isEmpty(req.body.mail) ||
-            _.isEmpty(req.body.pass) ||
-            _.isEmpty(req.body.passConf) ||
-            _.isEmpty(req.body.lanId)
+            _.isEmpty(req.body.password) ||
+            _.isEmpty(req.body.passwordConf) ||
+            _.isEmpty(req.body.langId)
         ) {
             res.redirect('/register?msg=emptyError');
         }
 
         //check passwords
-        if (req.body.pass !== req.body.passConf) {
+        if (req.body.password !== req.body.passwordConf) {
             res.redirect('/register?msg=passError');
         }
 
@@ -51,47 +51,33 @@ class RegistrationCtrl {
             res.redirect('/register?msg=dbError');
         }
 
-        //check avatar
-        let filename = "";
-        const avatar = req.files.avatar;
-        if (avatar) {
-            const ext = avatar.mimetype.replace("image/", "");
-            filename = `avatar_${uniqid()}.${ext}`;
-        }
-
         //CREATE NEW USER
         const user = new UserModel();
         //get date of the day
         const now = new Date();
-        const createdAt = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+        const day = now.getDate();
+        const month = now.getMonth()+1;
+        const year = now.getFullYear();
+        const createdAt = `${day}/${month}/${year}`;
         //set default ban status and role id
         const ban = this._conf.site.default.ban;
         const roleId = this._conf.site.default.role;
         //hash password
         const saltRounds = 10;
-        encrypt.hash(req.body.pass, saltRounds, (err, hash) => {
+        encrypt.hash(req.body.password, saltRounds, (err, hash) => {
             user.registerInDb(
                 req.body.firstname,
                 req.body.lastname,
                 req.body.pseudo,
-                req.body.bDay,
+                req.body.birthday,
                 req.body.mail,
                 createdAt,
                 hash,
-                filename,
                 ban,
-                req.body.lanId,
+                req.body.langId,
                 roleId
             )
                 .then(object => {
-                    //save avatar
-                    avatar.mv(`upload/avatars/${filename}`, (err) => {
-                        if (err) {
-                            winston.info(err);
-                        } else {
-                            winston.info('avatar uploaded');
-                        }
-                    });
                     winston.info(`### user ${object.pseudo} created ! ###`);
                     res.redirect('/register?msg=ok');
                 })
