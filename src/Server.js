@@ -23,6 +23,9 @@ const UnauthorizedCtrl = require('./controllers/UnauthorizedCtrl');
 const IndexCtrl = require('./controllers/IndexCtrl');
 const LangCtrl = require('./controllers/LangCtrl');
 
+// models
+const SerieModel = require("./models/SerieModel");
+
 // services
 const TokenService = require('./services/token.js');
 const LangService = require('./services/LangService');
@@ -60,10 +63,10 @@ class Server {
         });
 
         // init services
-        const tokenService = new TokenService( this._conf.site.hash.token);
+        const tokenService = new TokenService(this._conf.site.hash.token);
         this._app.set('tokenService', tokenService);
 
-        const langService = new LangService( this._conf);
+        const langService = new LangService(this._conf);
         this._app.set('langService', langService);
 
         //use cookie
@@ -95,7 +98,8 @@ class Server {
 
         const registrationCtrl = new RegistrationCtrl(this._conf);
         const loginCtrl = new LoginCtrl();
-        const seriesCtrl = new SeriesCtrl();
+        const serieModel = new SerieModel();
+        const seriesCtrl = new SeriesCtrl(serieModel);
         const adminHomeCtrl = new AdminHomeCtrl();
         const indexCtrl = new IndexCtrl();
         const langCtrl = new LangCtrl(this._conf);
@@ -129,11 +133,11 @@ class Server {
             this._app.get('/admin', accessGranted.member, adminCtrl.get);
         */
 
-         /*
-         SET ROUTES
-         * /site routing is managed by siteRouter
-         */
-        
+        /*
+        SET ROUTES
+        * /site routing is managed by siteRouter
+        */
+
         this._app.get('/', accessGranted.everyone, indexCtrl.get);
 
         this._app.get('/home', IndexCtrl.indexLoggedAction);
@@ -151,14 +155,14 @@ class Server {
 
         //logout
         this._app.get('/logout', (req, res) => {
-           
-           res.cookie( this._conf.site.cookies.i18nName, 'deleted', { 
-                maxAge: 0, 
+
+            res.cookie(this._conf.site.cookies.i18nName, 'deleted', {
+                maxAge: 0,
                 httpOnly: true,
             });
 
-            res.cookie( this._conf.site.cookies.tokenName, 'deleted', { 
-                maxAge: 0, 
+            res.cookie(this._conf.site.cookies.tokenName, 'deleted', {
+                maxAge: 0,
                 httpOnly: true,
 
             });

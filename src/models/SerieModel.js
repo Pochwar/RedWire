@@ -1,23 +1,34 @@
 const Serie = require('./../schemas/SerieSchema');
+const Actor = require('./../schemas/ActorSchema');
 
 class SerieModel {
 
-    registerInDb(local_id, api_id, title, overview, poster, genres, actors, createdAt, langCode, validated, episodes, comments) {
+    registerActor(local_id, name, createdAt, updatedAt) {
+        return new Promise((resolve, reject) => {
+            Actor.create({
+                local_id: local_id,
+                name: name,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+            }, (err, object) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(object)
+                }
+            })
+        })
+    }
+
+    registerSerie(local_id, title, createdAt, langCode, validated) {
         return new Promise((resolve, reject) => {
             Serie.create({
                 local_id: local_id,
-                api_id: api_id,
                 title: title,
-                overview: overview,
-                poster: poster,
-                genres: genres,
-                actors: actors,
                 createdAt: createdAt,
                 updatedAt: createdAt,
                 langCode: langCode,
                 validated: validated,
-                episodes: episodes, // là je suis pas sûr
-                comments: comments,
             }, (err, object) => {
                 if (err) {
                     reject(err)
@@ -28,23 +39,48 @@ class SerieModel {
         })
     }
 
+    /**
+     * @method
+     * @return {Array} A array containing all the series in DB
+     */
+    findAll() {
+        return new Promise((resolve, reject) => {
+            Serie.find({})
+                .then(series => resolve(series.toObject()))
+                .catch(e => reject(e))
+        })
+    }
+
+    /**
+     * @method
+     * @param {String} title - The title user wants to search for
+     * @return {Array} A array containing the series matching the title param
+     */
     findByTitle(title) {
         return new Promise((resolve, reject) => {
-            Serie.findOne({
-                title: title,
+            Serie.find({
+                title: new RegExp(title, 'i'),
             })
-                .then(serie => resolve(serie.toObject()))
+                .then(series => resolve(series.toObject()))
                 .catch(e => reject(e))
         });
     }
 
-    // a déplacer dans le actorModel
+    /**
+     * @method
+     * @param {String} actor - The actor user wants to search for
+     * @return {Array} A array containing the series matching the actor param
+     */
     findByActor(actor) {
         return new Promise((resolve, reject) => {
-            Serie.findOne({
-                actor: actor,
+            Serie.find({
+                // actors: new RegExp(actor, 'i'),
+                actors: {
+                    "$regex": actor,
+                    "$options": "i",
+                },
             })
-                .then(serie => resolve(serie.toObject()))
+                .then(series => resolve(series.toObject()))
                 .catch(e => reject(e))
         });
     }
