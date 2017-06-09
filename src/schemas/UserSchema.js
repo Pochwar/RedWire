@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = mongoose.Types.ObjectId;
 
 const userSchema = new Schema({
     firstname: {
@@ -59,7 +58,7 @@ const userSchema = new Schema({
         required: true,
     },
     seriesFollowed: {
-        type: [Schema.Types.ObjectId, ],
+        type: [Number, ],
     },
     seriesModified: {
         type: [{
