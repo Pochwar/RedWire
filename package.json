@@ -14,6 +14,7 @@
     "test:public": "mocha --recursive --grep Public || (exit 0)",
     "test:member": "mocha --recursive --grep Member || (exit 0)",
     "test:admin": "mocha --recursive --grep Admin || (exit 0)",
+    "test:tmdb": "mocha --recursive --grep Tmdb || (exit 0)",
     "documentation": "node ./node_modules/documentation/bin/documentation.js serve"
   },
   "repository": {
