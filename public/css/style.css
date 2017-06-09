@@ -56,8 +56,12 @@ span {
     margin: 15px 0 20px 10px;
 }
 
-.ct-nav-lang {
-    margin-top: 5px;
+.navbar-default .navbar-nav>li .ct-nav-lang {
+    top: 10px;
+    padding: 5px;
+    color: #fff;
+    width: 30px;
+    margin: 2px
 }
 
 @media only screen and (min-width: 992px) {
