@@ -28,5 +28,9 @@
     "SIGNIN": "Login",
     "YOUREMAIL": "Your e-mail",
     "YOURPASS": "Your password",
-    "CANCEL": "Cancel"
+    "CANCEL": "Cancel",
+    "DISCUSS": "Discuss, share your reviews with friends.",
+    "FOLLOW": "Follow, comment on your favorite series.",
+    "JOIN": "Join us !",
+    "NOTE": "Note the series you watched."
 }

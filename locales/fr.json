@@ -29,5 +29,9 @@
     "SIGNIN": "S'inscrire",
     "YOUREMAIL": "Votre addresse électronique",
     "YOURPASS": "Votre mot de passe",
-    "CANCEL": "Annuler"
+    "CANCEL": "Annuler",
+    "DISCUSS": "Discutez, partagez vos critiques avec vos amis.",
+    "FOLLOW": "Suivez, commentez vos séries préférées.",
+    "JOIN": "Rejoignez-nous !",
+    "NOTE": "Notez les séries que vous avez regardées."
 }
