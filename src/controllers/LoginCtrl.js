@@ -22,14 +22,14 @@ class LoginCtrl {
         //check fields
         if (
             _.isEmpty(req.body.mail) ||
-            _.isEmpty(req.body.pass)
+            _.isEmpty(req.body.password)
         ) {
-            res.redirect('/login?msg=emptyError');
+            res.json({ msg: "emptyError" });
         }
 
         //check db connection
         if (mongoose.connection._readyState !== 1) {
-            res.redirect('/register?msg=dbError');
+            res.json({ msg: "dbError" });
         }
 
 
@@ -38,7 +38,7 @@ class LoginCtrl {
             .then(user => {
                 winston.info(`### find user : ${user.pseudo} ###`);
                 //password verification
-                encrypt.compare(req.body.pass, user.pass, (err, resp) => {
+                encrypt.compare(req.body.password, user.pass, (err, resp) => {
                     if (resp) {
                         winston.info(`user connected`);
 
@@ -79,8 +79,9 @@ class LoginCtrl {
             })
             .catch(e => {
                 winston.info(`### no user found : ${e}`);
-                res.redirect('/login?msg=loginError');
-            });
+                res.json({ msg: "loginError" });
+            })
+        ;
     }
 
 }

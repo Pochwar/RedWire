@@ -96,7 +96,9 @@ class Server {
         const loginCtrl = new LoginCtrl();
         const seriesCtrl = new SeriesCtrl();
         const adminHomeCtrl = new AdminHomeCtrl();
-
+        const indexCtrl = new IndexCtrl();
+        
+        // init access control
         /*
         * Role checking
         * Only connected users can access /site/
@@ -129,6 +131,8 @@ class Server {
          SET ROUTES
          * /site routing is managed by siteRouter
          */
+        
+        this._app.get('/', accessGranted.everyone, indexCtrl.get);
 
         this._app.get('/home', IndexCtrl.indexLoggedAction);
 
