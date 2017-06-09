@@ -42,10 +42,10 @@
                 <div class="collapse navbar-collapse" id="menu-responsive">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="page-scroll">
-                            <a href="#modal_connection" data-toggle="modal" class="btn btn-default ct-mr-1">Connexion</a>
+                            <a href="#modal_connection" data-toggle="modal" class="btn btn-default ct-mr-1">{{__("SIGNUP") }}</a>
                         </li>
                         <li>
-                            <a href="register" class="btn btn-default ct-mr-1">S'inscrire</a>
+                            <a href="register" class="btn btn-default ct-mr-1">{{__("SIGNIN") }}</a>
                         </li>
                         <li>
                             <a href="lang/fr" class="btn btn-primary btn-xs ct-nav-lang">fr</a>
@@ -68,21 +68,21 @@
             <form id="login_form">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Connectez-vous : )</h4>
+                    <h4 class="modal-title">{{ __("LOGIN") }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="connection_email">Votre email</label>
+                        <label for="connection_email">{{ __("YOUREMAIL") }}</label>
                         <input type="email" class="form-control" id="connection_email" placeholder="Email" />
                     </div>
                     <div class="form-group">
-                        <label for="connection_pwd">Votre mot de passe</label>
+                        <label for="connection_pwd">{{ __("YOURPASS") }}</label>
                         <input type="password" class="form-control" id="connection_pwd" placeholder="mot de passe" />
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <input type="submit" class="btn ct-bg-yellow" value="Connexion" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __("CANCEL") }}</button>
+                    <input type="submit" class="btn ct-bg-yellow" value="{{ __("SIGNUP") }}" />
                 </div>
             </form>
         </div>

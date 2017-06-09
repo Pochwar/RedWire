@@ -22,6 +22,15 @@
     "UNAUTHORIZED": "Access permission denied",
     "SERIES_LIST": "series list",
     "LOGINERROR": "Email or password incorrect",
-    "REQUIREDFIELDS": "REQUIREDFIELDS",
-    "PASSMUSTBEEQUAL": "Password must be the same"
+    "REQUIREDFIELDS": "Required fields",
+    "PASSMUSTBEEQUAL": "Password must be the same",
+    "SIGNUP": "Sign up",
+    "SIGNIN": "Login",
+    "YOUREMAIL": "Your e-mail",
+    "YOURPASS": "Your password",
+    "CANCEL": "Cancel",
+    "DISCUSS": "Discuss, share your reviews with friends.",
+    "FOLLOW": "Follow, comment on your favorite series.",
+    "JOIN": "Join us !",
+    "NOTE": "Note the series you watched."
 }
