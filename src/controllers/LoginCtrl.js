@@ -31,7 +31,7 @@ class LoginCtrl {
 
         //check db connection
         if (mongoose.connection._readyState !== 1) {
-            res.status(400).json({ msg: "dbError" });
+            res.status(500).json({ msg: "dbError" });
         }
 
 
