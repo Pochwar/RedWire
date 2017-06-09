@@ -40,7 +40,7 @@ class LoginCtrl {
             .then(user => {
                 winston.info(`### find user : ${user.pseudo} ###`);
                 //password verification
-                encrypt.compare(req.body.password, user.pass, (err, resp) => {
+                encrypt.compare(req.body.password, user.password, (err, resp) => {
                     if (resp) {
                         winston.info(`user connected`);
 
