@@ -1,12 +1,9 @@
-const winston = require('winston');
-
 class LangCtrl {
     constructor(conf){
         this._conf = conf;
     }
 
     changeLang(req, res){
-        console.log(req.headers.referer)
         const langs = this._conf.site.lang;
         const lang = req.params.lang;
         let langOk = false;
