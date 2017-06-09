@@ -1,3 +1,6 @@
+//use .env file
+require('dotenv').config({path: 'test.env'});
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../src/app');
