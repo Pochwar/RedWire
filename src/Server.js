@@ -21,6 +21,7 @@ const SeriesCtrl = require('./controllers/SeriesCtrl');
 const AdminHomeCtrl = require('./controllers/AdminHomeCtrl');
 const UnauthorizedCtrl = require('./controllers/UnauthorizedCtrl');
 const IndexCtrl = require('./controllers/IndexCtrl');
+const LangCtrl = require('./controllers/LangCtrl');
 
 // services
 const TokenService = require('./services/token.js');
@@ -97,7 +98,8 @@ class Server {
         const seriesCtrl = new SeriesCtrl();
         const adminHomeCtrl = new AdminHomeCtrl();
         const indexCtrl = new IndexCtrl();
-        
+        const langCtrl = new LangCtrl(this._conf);
+
         // init access control
         /*
         * Role checking
@@ -168,19 +170,7 @@ class Server {
         this._app.get('/unauthorized', UnauthorizedCtrl.indexAction);
 
         //locales
-        this._app.get('/lang/fr', (req, res) => {
-            // send new cookie 
-            const langService = this._app.get('langService');
-            langService.sendCookie(res, 'fr');
-            res.redirect('/');
-        });
-
-        this._app.get('/lang/en', (req, res) => {
-            // send new cookie 
-            const langService = this._app.get('langService');
-            langService.sendCookie(res, 'en');
-            res.redirect('/');
-        });
+        this._app.get('/lang/:lang', langCtrl.changeLang.bind(langCtrl));
 
         //404
         this._app.use((req, res) => {
