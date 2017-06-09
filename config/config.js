@@ -7,13 +7,14 @@ const CONF = {
         base: process.env.CONF_MONGO_BASE,
     },
     server: {
-        port: process.env.CONF_SERVER_PORT
+        port: process.env.CONF_SERVER_PORT,
     },
     site: {
         default: {
             ban: 0,
             role: 1,
             langId: 1,
+            validatedSeries: 0,
         },
         roles: {
             user: 1,
@@ -26,7 +27,7 @@ const CONF = {
         cookies: {
             i18nName: 'fishblock_i18n',
             tokenName: 'fishblock_token',
-            maxAge: 1000* 3600 * 60 * 24 * 30,
+            maxAge: 1000 * 3600 * 60 * 24 * 30,
         },
         lang: {
             1: "fr",
@@ -35,14 +36,14 @@ const CONF = {
     },
     API: {
         tvdb: {
-            token: process.env.CONF_TVDB_TOKEN
+            token: process.env.CONF_TVDB_TOKEN,
         },
         tmdb: {
-            token: process.env.CONF_TMDB_TOKEN
+            token: process.env.CONF_TMDB_TOKEN,
         }
     },
     faker: {
-        quantity: 15
+        quantity: 15,
     },
 };
 
