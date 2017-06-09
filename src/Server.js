@@ -81,7 +81,7 @@ class Server {
         const langService = new LangService(this._conf);
         this._app.set('langService', langService);
 
-        const tmdbService = new TmdbService( this._conf.API.tmdb.token );
+        const tmdbService = new TmdbService(this._conf.API.tmdb.token);
         this._app.set('tmdbService', tmdbService);
 
         //use cookie
@@ -98,12 +98,17 @@ class Server {
 
         //chat
         const chat = new Chat(this._server);
+
     }
 
     run() {
         this._setRoutes();
 
         this._server.listen(this._conf.server.port, () => winston.info(`### Server listening on localhost:${this._conf.server.port} ###`));
+    }
+
+    setMongooseConnection(connection) {
+        this._mongooseConnection = connection;
     }
 
     _setRoutes() {
@@ -125,7 +130,7 @@ class Server {
         const contributeCtrl = new ContributeCtrl();
         const profileCtrl = new ProfileCtrl();
         const searchCtrl = new SearchCtrl(serieModel);
-        
+
         // init access control
         /*
         * Role checking
@@ -180,7 +185,7 @@ class Server {
         this._app.get('/chat', accessGranted.member, chatCtrl.get);
         //trick to get user pseudo client side
         this._app.get('/api/user/data', (req, res) => {
-            res.json({pseudo: res.locals.user.pseudo})
+            res.json({ pseudo: res.locals.user.pseudo })
         });
 
         //contribute

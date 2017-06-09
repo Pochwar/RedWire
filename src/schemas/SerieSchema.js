@@ -86,4 +86,5 @@ const serieSchema = new Schema({
     },
 });
 
+serieSchema.plugin(autoIncrement.plugin, { model: 'Serie', field: 'local_id', });
 module.exports = mongoose.model('Serie', serieSchema);

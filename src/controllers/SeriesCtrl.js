@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 
 class SeriesCtrl {
     constructor(model) {
-        this.serie = model;
+        this._serie = model;
         this.get = this.get.bind(this);
         this.getByTitle = this.getByTitle.bind(this);
 
@@ -13,10 +13,9 @@ class SeriesCtrl {
     }
 
     test() {
-        this.serie.registerSerie(
-            2,
-            12,
-            "Ma bite",
+        this._serie.registerSerie(
+            14,
+            "Ma bite 2",
             "Un magnifique film sur ma teub",
             "public/img/mabite.jpeg",
             ["drame", "familial", "comédie",],
@@ -30,10 +29,9 @@ class SeriesCtrl {
     }
 
     get(req, res) {
-        this.serie.findAll()
+        this._serie.findAll()
             .then(series => {
                 winston.info(series.title);
-                console.log(series);
                 res.render('series.twig', {
                     series: series,
                 });

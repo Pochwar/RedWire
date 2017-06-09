@@ -45,6 +45,7 @@
     "i18n": "^0.8.3",
     "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.10.2",
+    "mongoose-auto-increment": "^5.0.1",
     "socket.io": "^1.7.3",
     "twig": "^1.10.5",
     "underscore": "^1.8.3",
