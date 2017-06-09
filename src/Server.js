@@ -26,6 +26,7 @@ const IndexCtrl = require('./controllers/IndexCtrl');
 const TokenService = require('./services/token.js');
 const LangService = require('./services/LangService');
 
+
 class Server {
     constructor(conf) {
 
@@ -98,6 +99,13 @@ class Server {
         const adminHomeCtrl = new AdminHomeCtrl();
 
         // init access control
+
+        /*
+        * Role checking
+        * Only connected users can access /site/
+        * Only moderators / admin can access /admin
+        * Only super admin can caccess /admin/moderators
+        */
         const accessGranted = new AccessGranted(
             this._conf.site.roles.user,
             this._conf.site.roles.moderator,
