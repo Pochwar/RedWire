@@ -1,7 +1,7 @@
 {
   "name": "fish-block",
   "version": "1.0.0",
-  "description": "le site qu'il est bien pour les séries",
+  "description": "Le site qu'il est bien pour les séries",
   "main": "src/app.js",
   "scripts": {
     "start": "node ./src/app.js",
@@ -15,13 +15,13 @@
     "test:member": "mocha --recursive --grep Member || (exit 0)",
     "test:admin": "mocha --recursive --grep Admin || (exit 0)",
     "test:tmdb": "mocha --recursive --grep Tmdb || (exit 0)",
-    "documentation": "node ./node_modules/documentation/bin/documentation.js serve"
+    "documentation": "node ./node_modules/documentation/bin/documentation.js serve --watch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Pochwar/FishBlock.git"
   },
-  "author": "Alex, Clem, Gabi & Poch",
+  "author": "Alex, Clem, Gabi, Poch & Typh",
   "license": "GNU GENERAL PUBLIC LICENSE",
   "devDependencies": {
     "chai": "^4.0.2",

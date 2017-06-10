@@ -9,6 +9,9 @@ const episodeSchema = new Schema({
     api_id: {
         type: Number,
     },
+    number: {
+        type: Number,
+    },
     title: {
         type: String,
         required: true,

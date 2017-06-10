@@ -23,23 +23,34 @@ class SerieModel {
     /**
      * @method
      * 
-     * @param {Number} api_id 
-     * @param {String} title 
-     * @param {String} overview 
-     * @param {String} poster 
-     * @param {Array} genres 
-     * @param {Array} actors 
-     * @param {Date} createdAt 
-     * @param {Date} langCode 
-     * @param {Boolean} validated 
-     * @param {episodeSchema[]} episodes 
-     * @param {Array} comments 
+     * @param {String} title - The title of the TV show
+     * @param {Date} createdAt - When it was created
+     * @param {Date} langCode - In which langage it is written ("en" or "fr")
+     * @param {Object} optionals - An object of optionals fields
+     * @param {Number} optionals.api_id - TMDB id
+     * @param {String} optionals.overview - Description of the show
+     * @param {String} optionals.poster - Relative URL of the poster
+     * @param {String[]} optionals.genres - Genres (ie. Drama, Thriller, Action)
+     * @param {ObjectId[]} optionals.actors - MongoDB _id of actors
+     * @param {episodeSchema[]} optionals.episodes - Not quite sure of the structure of this one
+     * @param {ObjectId[]} optionals.comments - MongoDB _id of comments
+     * @param {Boolean} optionals.validated - If it was validated or not by an admin
      * 
      * @return {Promise} Should return the registered document
      */
-    registerSerie(api_id, title, overview, poster, genres, actors, createdAt, langCode, validated, episodes, comments) {
+    registerSerie(title, createdAt, langCode, optionals) {
+        const api_id = optionals.api_id || null;
+        const overview = optionals.overview || null;
+        const poster = optionals.poster || null;
+        const genres = optionals.genres || [];
+        const actors = optionals.actors || [];
+        const episodes = optionals.episodes || [];
+        const comments = optionals.comments || [];
+        const validated = optionals.validated || 0;
+
         return new Promise((resolve, reject) => {
             Serie.create({
+                local_id: 1,
                 api_id: api_id,
                 title: title,
                 overview: overview,

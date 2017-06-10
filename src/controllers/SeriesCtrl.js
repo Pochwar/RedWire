@@ -14,17 +14,17 @@ class SeriesCtrl {
 
     test() {
         this._serie.registerSerie(
-            14,
             "Ma bite 2",
-            "Un magnifique film sur ma teub",
-            "public/img/mabite.jpeg",
-            ["drame", "familial", "comédie",],
-            [],
             Date.now(),
             "fr",
-            1,
-            [],
-            []
+            {api_id: 14,
+            overview: "Un magnifique film sur ma teub",
+            poster: "public/img/mabite.jpeg",
+            genres: ["drame", "familial", "comédie",],
+            actors: [],
+            validated: 1,
+            comments: [],
+            episodes: [],}
         )
     }
 
