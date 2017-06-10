@@ -9,7 +9,7 @@ class SeriesCtrl {
         this.get = this.get.bind(this);
         this.getByTitle = this.getByTitle.bind(this);
 
-        // this.test();
+        this.test();
     }
 
     test() {
@@ -19,12 +19,15 @@ class SeriesCtrl {
             "fr",
             {api_id: 14,
             overview: "Un magnifique film sur ma teub",
-            poster: "public/img/mabite.jpeg",
+            // poster: "public/img/mabite.jpeg",
             genres: ["drame", "familial", "comédie",],
-            actors: [],
             validated: 1,
-            comments: [],
-            episodes: [],}
+            episodes: [{
+                local_id: 1,
+                api_id: 78,
+                number: 1,
+                season: 1,
+            },],}
         )
     }
 

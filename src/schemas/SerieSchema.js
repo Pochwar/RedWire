@@ -5,22 +5,25 @@ const Schema = mongoose.Schema;
 const episodeSchema = new Schema({
     local_id: {
         type: Number,
+        required: true,
+        unique: true,
     },
     api_id: {
         type: Number,
     },
     number: {
         type: Number,
+        required: true,
     },
     title: {
         type: String,
-        required: true,
     },
     overview: {
         type: String,
     },
     season: {
         type: Number,
+        required: true,
     },
     viewedBy: {
         type: [Schema.Types.ObjectId, ],
