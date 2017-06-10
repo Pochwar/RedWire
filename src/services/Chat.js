@@ -16,7 +16,10 @@ class Chat {
                 if (pseudo === null || pseudo === ""){pseudo = `Anon${uniqid()}`}
                 socket.pseudo = pseudo;
                 socket.emit('info', `Bienvenue ${socket.pseudo}`);
-                socket.broadcast.emit('info', `${socket.pseudo} vient de se connecter`);
+                socket.broadcast.emit('info', {
+                    pseudo: socket.pseudo,
+                    action: 'CONNECT'
+                });
                 users.push(socket.pseudo);
                 io.emit('users', users);
                 console.log(`New user : ${socket.pseudo}`);
@@ -32,11 +35,17 @@ class Chat {
             });
 
             socket.on('typing', msg => {
-                socket.broadcast.emit('info', `${socket.pseudo} est en train d'écrire...`);
+                socket.broadcast.emit('info', {
+                    pseudo: socket.pseudo,
+                    action: 'ISWRITING'
+                });
             });
 
             socket.on('disconnect', () => {
-                socket.broadcast.emit('info', `${socket.pseudo} vient de se déconnecter`);
+                socket.broadcast.emit('info', {
+                    pseudo: socket.pseudo,
+                    action: 'DISCONNECT'
+                });
                 let index = users.indexOf(socket.pseudo);
                 if(index !== -1){
                     users.splice(index, 1);

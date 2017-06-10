@@ -1,41 +1,47 @@
-//set host, change it if needed
-const host = 'http://localhost:8000';
+//get host
+const fullPath = document.location.href;
+const host = fullPath.substring( 0 ,fullPath.lastIndexOf( "/" ) );
 
 //connect to socket
 let socket = io.connect(host);
 
-//get pseudo
-var getJSON = function(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-        var status = xhr.status;
-        if (status == 200) {
-            callback(null, xhr.response);
-        } else {
-            callback(status);
-        }
-    };
-    xhr.send();
-};
-
 //send pseudo
-getJSON('http://localhost:8000/api/user/data',
-    function(err, data) {
-        if (err != null) {
-            socket.emit('newUser', "anonymox");
-        } else {
-            socket.emit('newUser', data.username);
-        }
-    });
+$.getJSON(host + '/api/user/data', function(data) {
+    if(data.pseudo){
+        socket.emit('newUser', data.pseudo);
+    } else {
+        socket.emit('newUser', "anonynmous");
+    }
+});
+
+//hide info messages
+document.querySelector('#info').style.visibility = 'hidden';
+$('#connect').hide();
+$('#disconnect').hide();
+$('#iswriting').hide();
 
 //display info msg
 socket.on('info', message => {
     document.querySelector('#info').style.visibility = 'visible';
-    document.querySelector('#info').innerText = message;
+    $('#info>#pseudo').text(message.pseudo);
+    switch(message.action){
+        case 'CONNECT':
+            $('#connect').show();
+            break;
+
+        case 'DISCONNECT':
+            $('#disconnect').show();
+            break;
+
+        case 'ISWRITING':
+            $('#iswriting').show();
+            break;
+    }
     setTimeout(()=>{
         document.querySelector('#info').style.visibility = 'hidden';
+        $('#connect').hide();
+        $('#disconnect').hide();
+        $('#iswriting').hide();
     },2000)
 });
 

@@ -158,11 +158,11 @@ class Server {
 
 
         //registration page
-        this._app.get('/register', registrationCtrl.get);
-        this._app.post('/register', registrationCtrl.post);
+        this._app.get('/register', accessGranted.everyone, registrationCtrl.get);
+        this._app.post('/register', accessGranted.everyone, registrationCtrl.post);
 
         //login
-        this._app.post('/login', loginCtrl.post);
+        this._app.post('/login', accessGranted.everyone, loginCtrl.post);
 
         //admin home
         this._app.get('/admin', accessGranted.moderator, adminHomeCtrl.get);
@@ -171,26 +171,7 @@ class Server {
         this._app.get('/chat', accessGranted.member, chatCtrl.get);
         //trick to get user pseudo client side
         this._app.get('/api/user/data', (req, res) => {
-            const UserModel = require('./models/UserModel');
-            const tokenService = req.app.get('tokenService');
-            const data = tokenService.extractData( req.cookies[this._conf.site.cookies.tokenName]);
-            UserModel.findById( data.id )
-                .then( user => {
-                    if (user === undefined) {
-                        // The user is not logged in
-                        res.json({});
-                    } else {
-                        res.json({
-                            username: user.pseudo
-                        });
-                    }
-                })
-                .catch( err => {
-                    winston.info('info', 'ExtractUser.fromcookies - model extraction: ' + err.message);
-                    next();
-                });
-
-
+            res.json({pseudo: res.locals.user.pseudo})
         });
 
         //contribute
@@ -200,7 +181,7 @@ class Server {
         this._app.get('/profile', accessGranted.member, profileCtrl.get);
 
         //logout
-        this._app.get('/logout', (req, res) => {
+        this._app.get('/logout', accessGranted.member, (req, res) => {
 
             res.cookie(this._conf.site.cookies.i18nName, 'deleted', {
                 maxAge: 0,
@@ -220,7 +201,7 @@ class Server {
         this._app.get('/unauthorized', UnauthorizedCtrl.indexAction);
 
         //locales
-        this._app.get('/lang/:lang', langCtrl.changeLang.bind(langCtrl));
+        this._app.get('/lang/:lang', accessGranted.everyone, langCtrl.changeLang.bind(langCtrl));
 
         //404
         this._app.use((req, res) => {
