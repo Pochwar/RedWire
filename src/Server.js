@@ -107,10 +107,6 @@ class Server {
         this._server.listen(this._conf.server.port, () => winston.info(`### Server listening on localhost:${this._conf.server.port} ###`));
     }
 
-    setMongooseConnection(connection) {
-        this._mongooseConnection = connection;
-    }
-
     _setRoutes() {
 
         // init models
@@ -133,11 +129,11 @@ class Server {
 
         // init access control
         /*
-        * Role checking
-        * Only connected users can access /site/
-        * Only moderators / admin can access /admin
-        * Only super admin can caccess /admin/moderators
-        */
+         * Role checking
+         * Only connected users can access /site/
+         * Only moderators / admin can access /admin
+         * Only super admin can caccess /admin/moderators
+         */
         const accessGranted = new AccessGranted(
             this._conf.site.roles.user,
             this._conf.site.roles.moderator,

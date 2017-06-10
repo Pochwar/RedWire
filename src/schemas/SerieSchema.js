@@ -20,7 +20,7 @@ const episodeSchema = new Schema({
         type: Number,
     },
     viewedBy: {
-        type: [Schema.Types.ObjectId,],
+        type: [Schema.Types.ObjectId, ],
     },
     airDate: {
         type: Date,
@@ -50,10 +50,10 @@ const serieSchema = new Schema({
         type: String,
     },
     genres: {
-        type: [String,],
+        type: [String, ],
     },
     actors: {
-        type: [String,],
+        type: [String, ],
     },
     score: {
         type: Number,
@@ -76,15 +76,14 @@ const serieSchema = new Schema({
         type: Boolean,
     },
     episodes: {
-        type: [episodeSchema,],
+        type: [episodeSchema, ],
     },
     comments: {
-        type: [Schema.Types.ObjectId,],
+        type: [Schema.Types.ObjectId, ],
     },
     followedBy: {
-        type: [Schema.Types.ObjectId,],
+        type: [Schema.Types.ObjectId, ],
     },
 });
 
-serieSchema.plugin(autoIncrement.plugin, { model: 'Serie', field: 'local_id', });
 module.exports = mongoose.model('Serie', serieSchema);
