@@ -25,7 +25,7 @@ class SerieModel {
      * 
      * @param {String} title - The title of the TV show
      * @param {Date} createdAt - When it was created
-     * @param {Date} langCode - In which langage it is written ("en" or "fr")
+     * @param {String} langCode - In which langage it is written ("en" or "fr")
      * @param {Object} optionals - An object of optionals fields
      * @param {Number} optionals.api_id - TMDB id
      * @param {String} optionals.overview - Description of the show
