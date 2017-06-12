@@ -1,18 +1,26 @@
 //get host
-var fullPath = document.location.href;
-var host = fullPath.substring( 0 ,fullPath.indexOf( "/" ) );
-
-alert(host)
+var host = document.location.hostname;
+var port = document.location.port;
+if (port){
+    host = host+":"+port;
+}
 
 //connect to socket
 var socket = io.connect(host);
 
-//send pseudo
-$.getJSON(host + '/api/user/data', function(data) {
-    if(data.pseudo){
-        socket.emit('newUser', data.pseudo);
-    } else {
-        socket.emit('newUser', "anonynmous");
+//get pseudo
+$.ajax({
+    url : '/api/user/data',
+    type : 'GET',
+    success: data => {
+        if(data.pseudo){
+            socket.emit('newUser', data.pseudo);
+        } else {
+            socket.emit('newUser', "anonynmous");
+        }
+    },
+    error: error => {
+        console.log('pseudo error');
     }
 });
 
