@@ -168,7 +168,7 @@ class Server {
         this._app.get('/search', accessGranted.everyone, searchCtrl.byTitle);
 
         //trick to get user information client side
-        this._app.get('/api/user/data', (req, res) => {
+        this._app.get('/api/user/data', accessGranted.member, (req, res) => {
             res.json({
                 pseudo: res.locals.user.pseudo,
                 birthday: res.locals.user.birthday,
