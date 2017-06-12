@@ -63,12 +63,27 @@
     </div>
     <script type="text/javascript" src="js/passCheck.js"></script>
     <script type="text/javascript">
-        //format datepicker plugin
-        $(function () {
-            $("#datetimepicker").datetimepicker({
-                viewMode: 'years',
-                format: "DD/MM/YYYY"
-            });
+        //get locale
+        var locale = "";
+        $.ajax({
+            url : '/api/user/data',
+            type : 'GET',
+            success: function(data) {
+                if(data.locale){
+                    locale = data.locale;
+                    //format datepicker plugin
+                    $(function () {
+                        $("#datetimepicker").datetimepicker({
+                            locale: locale,
+                            viewMode: 'years',
+                            format: "DD/MM/YYYY"
+                        });
+                    });
+                }
+            },
+            error: error => {
+                console.log('locale error');
+            }
         });
     </script>
 {% endblock %}
