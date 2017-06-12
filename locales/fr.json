@@ -43,8 +43,12 @@
     "ISWRITING": "est en train d'écrire",
     "TITLE": "Titre",
     "DESCRIPTION": "Description",
-    "MODERATESERIES": "MODERATESERIES",
-    "MODERATECOMM": "MODERATECOMM",
-    "MANAGMOD": "MANAGMOD",
-    "MANAGBANS": "MANAGBANS"
+    "MODERATESERIES": "Modérer les séries",
+    "MODERATECOMM": "Modérer les commentaires",
+    "MANAGMOD": "Gérer les modérateurs",
+    "MANAGBANS": "Gérer les bans",
+    "MODERATE": "Modération",
+    "SERIES": "Series",
+    "CONTRIBUTE": "Contribuer",
+    "PROFILE": "Profil"
 }

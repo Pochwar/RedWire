@@ -63,19 +63,19 @@
             <div class="collapse navbar-collapse" id="menu-responsive">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/home" >Accueil</a>
+                        <a href="/home" >{{ __("HOME") }}</a>
                     </li>
                     <li>
-                        <a href="/series">Séries</a>
+                        <a href="/series">{{ __("SERIES") }}</a>
                     </li>
                     <li>
-                        <a href="/chat">Chat</a>
+                        <a href="/chat">{{ __("CHAT") }}</a>
                     </li>
                     <li>
-                        <a href="/contribute">Contribuer</a>
+                        <a href="/contribute">{{ __("CONTRIBUTE") }}</a>
                     </li>
                     <li>
-                        <a href="/profile" >Profil</a>
+                        <a href="/profile" >{{ __("PROFILE") }}</a>
                     </li>
 
                     {% if user.roleId == 2 %}
