@@ -164,7 +164,7 @@ class Server {
 
         this._app.get('/home', accessGranted.member, IndexCtrl.indexLoggedAction);
 
-        this._app.get('/search', accessGranted.everyone, searchCtrl.indexAction);
+        this._app.get('/search', accessGranted.everyone, searchCtrl.byTitle);
 
         //registration page
         this._app.get('/register', accessGranted.everyone, registrationCtrl.get);
