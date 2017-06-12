@@ -29,6 +29,7 @@
     <!-- include script -->
     {% include "../includes/script.twig" %}
 
+    {% block header %}{% endblock %}
 </head>
 
 <body>
@@ -37,6 +38,7 @@
 {% else %}
 {% include "../includes/navbar-unauthenticated.twig" %}
 {% endif %}
+
 {% block content %}{% endblock %}
 
 <!-- footer -->

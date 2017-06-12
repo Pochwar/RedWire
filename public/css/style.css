@@ -177,6 +177,10 @@ body {
     max-height: 200px;
 }
 
+/* width / height */
+.w150 {
+    width: 150px;
+}
 
 /*
 chat
