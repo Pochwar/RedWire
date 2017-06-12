@@ -162,13 +162,35 @@ class SerieModel {
 
     /**
      * @method
+     * @param {ObjectId} id - serie's Id in DB
+     * @return {Promise<Object|String>} A series object matching the id param
+     */
+    findById(id) {
+        return new Promise((resolve, reject) => {
+            Serie.findOne({
+                _id: id,
+            })
+                .then(serie => {
+                    if (serie) {
+                        resolve(serie.toObject());
+                    }
+                    else {
+                        resolve({});
+                    }
+                })
+                .catch(e => reject(e));
+        });
+    }
+
+    /**
+     * @method
      * @param {Integer} apiId - serie's Id in the api
      * @return {Promise<Array|String>} A array containing the series matching the tmdbId param
      */
     findByApiId(apiId) {
         return new Promise((resolve, reject) => {
             Serie.findOne({
-                api_id: apiId
+                api_id: apiId,
             })
                 .then(series => {
                     if (series) {
@@ -190,9 +212,9 @@ class SerieModel {
     addIfNotExits(serie) {
         return new Promise((resolve, reject) => {
             Serie.update(
-                { api_id: serie.api_id, langCode: serie.langCode },
-                { $setOnInsert: serie },
-                { upsert: true }
+                { api_id: serie.api_id, langCode: serie.langCode, },
+                { $setOnInsert: serie, },
+                { upsert: true, }
             )
                 .then(result => {
                     resolve();
