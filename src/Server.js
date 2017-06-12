@@ -25,8 +25,8 @@ const IndexCtrl = require('./controllers/IndexCtrl');
 const LangCtrl = require('./controllers/LangCtrl');
 const ChatCtrl = require('./controllers/ChatCtrl');
 const ContributeCtrl = require('./controllers/ContributeCtrl');
-const ProfileCtrl = require('./controllers/ProfileCtrl');
 const SearchCtrl = require('./controllers/SearchCtrl');
+const UserCtrl = require('./controllers/UserCtrl');
 
 // models
 const SerieModel = require("./models/SerieModel");
@@ -124,8 +124,8 @@ class Server {
         const langCtrl = new LangCtrl(this._conf);
         const chatCtrl = new ChatCtrl();
         const contributeCtrl = new ContributeCtrl();
-        const profileCtrl = new ProfileCtrl();
         const searchCtrl = new SearchCtrl(serieModel);
+        const userCtrl = new UserCtrl();
 
         // init access control
         /*
@@ -167,6 +167,14 @@ class Server {
 
         this._app.get('/search', accessGranted.everyone, searchCtrl.byTitle);
 
+        //trick to get user information client side
+        this._app.get('/api/user/data', (req, res) => {
+            res.json({
+                pseudo: res.locals.user.pseudo,
+                birthday: res.locals.user.birthday,
+            })
+        });
+
         //registration page
         this._app.get('/register', accessGranted.everyone, registrationCtrl.get);
         this._app.post('/register', accessGranted.everyone, registrationCtrl.post);
@@ -179,16 +187,14 @@ class Server {
 
         //chat
         this._app.get('/chat', accessGranted.member, chatCtrl.get);
-        //trick to get user pseudo client side
-        this._app.get('/api/user/data', (req, res) => {
-            res.json({ pseudo: res.locals.user.pseudo })
-        });
 
         //contribute
         this._app.post('/contribute', accessGranted.member, contributeCtrl.post);
 
-        //profile
-        this._app.get('/profile', accessGranted.member, profileCtrl.get);
+        //user
+        this._app.get('/wall', accessGranted.member, userCtrl.getWall);
+        this._app.get('/user', accessGranted.member, userCtrl.getUserInfo);
+        this._app.put('/user', accessGranted.member, userCtrl.putUserInfo);
 
         //logout
         this._app.get('/logout', accessGranted.member, (req, res) => {
