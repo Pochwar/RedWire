@@ -23,6 +23,7 @@
     "UNAUTHORIZED": "Access permission denied",
     "SERIES_LIST": "series list",
     "LOGINERROR": "Email or password incorrect",
+    "ERROR_SERVER": "Internal server error",
     "REQUIREDFIELDS": "Required fields",
     "PASSMUSTBEEQUAL": "Password must be the same",
     "SIGNUP": "Sign up",

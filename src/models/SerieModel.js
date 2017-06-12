@@ -3,7 +3,7 @@ const Actor = require('./../schemas/ActorSchema');
 
 class SerieModel {
 
-    constructor( resultPerPage ,siteImagePath, apiImagePath ) {
+    constructor(resultPerPage, siteImagePath, apiImagePath) {
         this._resultPerPage = resultPerPage;
         this._siteImagePath = siteImagePath;
         this._apiImagePath = apiImagePath;
@@ -55,30 +55,29 @@ class SerieModel {
      * @return {Promise} Should return the registered document
      */
     registerSerie(title, createdAt, langCode, optionals) {
-        const api_id = optionals.api_id || null;
-        const overview = optionals.overview || null;
-        const poster = optionals.poster || null;
-        const genres = optionals.genres || [];
-        const actors = optionals.actors || [];
-        const comments = optionals.comments || [];
-        const episodes = optionals.episodes || [];
-        const validated = optionals.validated || 0;
+        // const api_id = optionals.api_id || null;
+        // const overview = optionals.overview || null;
+        // const poster = optionals.poster || null;
+        // const genres = optionals.genres || [];
+        // const actors = optionals.actors || [];
+        // const comments = optionals.comments || [];
+        // const episodes = optionals.episodes || [];
+        // const validated = optionals.validated || 0;
 
         return new Promise((resolve, reject) => {
             Serie.create({
-                local_id: 1,
-                api_id: api_id,
+                api_id: optionals.api_id,
                 title: title,
-                overview: overview,
-                poster: poster,
-                genres: genres,
-                actors: actors,
+                overview: optionals.overview,
+                poster: optionals.poster,
+                genres: optionals.genres,
+                actors: optionals.actors,
                 createdAt: createdAt,
                 updatedAt: createdAt,
                 langCode: langCode,
-                validated: validated,
-                episodes: episodes,
-                comments: comments,
+                validated: optionals.validated,
+                episodes: optionals.episodes,
+                comments: optionals.comments,
             }, (err, object) => {
                 if (err) {
                     reject(err)
@@ -108,7 +107,7 @@ class SerieModel {
      */
     findByTitle(title, lang) {
         return new Promise((resolve, reject) => {
-            
+
             let data = {};
 
             // 1. counter request
@@ -121,24 +120,24 @@ class SerieModel {
             const docs = Serie.find({
                 title: new RegExp(title, 'i'),
                 langCode: lang
-            }).limit( this._resultPerPage);
-            
+            }).limit(this._resultPerPage);
+
             // run counter request
             counter.exec()
 
-            // save data & run pagination request
-            .then( number => {
-                data.total = number;
-                data.pages = Math.ceil(number / this._resultPerPage);
+                // save data & run pagination request
+                .then(number => {
+                    data.total = number;
+                    data.pages = Math.ceil(number / this._resultPerPage);
 
-                return docs.exec();
-            })
-            // transform data & resolve
-            .then(series => {
-                data.series = series.map( serie => this.transformImagePath(serie));  
-                resolve(data);
-            })
-            .catch(e => reject(e))
+                    return docs.exec();
+                })
+                // transform data & resolve
+                .then(series => {
+                    data.series = series.map(serie => this.transformImagePath(serie));
+                    resolve(data);
+                })
+                .catch(e => reject(e))
         });
     }
 
@@ -163,23 +162,45 @@ class SerieModel {
 
     /**
      * @method
+     * @param {ObjectId} id - serie's Id in DB
+     * @return {Promise<Object|String>} A series object matching the id param
+     */
+    findById(id) {
+        return new Promise((resolve, reject) => {
+            Serie.findOne({
+                _id: id,
+            })
+                .then(serie => {
+                    if (serie) {
+                        resolve(serie.toObject());
+                    }
+                    else {
+                        resolve({});
+                    }
+                })
+                .catch(e => reject(e));
+        });
+    }
+
+    /**
+     * @method
      * @param {Integer} apiId - serie's Id in the api
      * @return {Promise<Array|String>} A array containing the series matching the tmdbId param
      */
     findByApiId(apiId) {
         return new Promise((resolve, reject) => {
             Serie.findOne({
-                api_id: apiId
+                api_id: apiId,
             })
-            .then(series => {
-                if( series) {
-                    resolve(series.toObject() );
-                }
-                else {
-                    resolve( {} );
-                }
-            })
-            .catch(e => reject(e));
+                .then(series => {
+                    if (series) {
+                        resolve(series.toObject());
+                    }
+                    else {
+                        resolve({});
+                    }
+                })
+                .catch(e => reject(e));
         });
     }
 
@@ -190,32 +211,31 @@ class SerieModel {
      */
     addIfNotExits(serie) {
         return new Promise((resolve, reject) => {
-            
             Serie.update(
-                {api_id: serie.api_id, langCode: serie.langCode}, 
-                {$setOnInsert: serie},
-                {upsert: true}
+                { api_id: serie.api_id, langCode: serie.langCode, },
+                { $setOnInsert: serie, },
+                { upsert: true, }
             )
-            .then(result => {
-                resolve();
-            })
-            .catch(e => reject(e));
+                .then(result => {
+                    resolve();
+                })
+                .catch(e => reject(e));
         });
     }
 
-    transformImagePath( serie ) {
-        
-        if( !serie.poster) {
+    transformImagePath(serie) {
+
+        if (!serie.poster) {
             return serie;
         }
-        
-        if( serie.api_id) {
+
+        if (serie.api_id) {
             serie.poster = this._apiImagePath + serie.poster;
         }
         else {
             serie.poster = this._siteImagePath + serie.poster;
         }
-        
+
         return serie;
     }
 }

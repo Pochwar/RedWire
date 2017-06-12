@@ -72,5 +72,5 @@
     "ERROR_PSEUDO": "Pseudo déjà utilisé",
     "ERROR_MAIL": "Adresse e-mail déjà utilisée",
     "ERROR_PASS": "Les mots de passe ne sont pas identique",
-    "SUCCESS": "L'enregistrement s'est bien passée, vous pouvez désormais vous connecter"
+    "SUCCESS": "L'enregistrement s'est bien passé, vous pouvez désormais vous connecter"
 }
