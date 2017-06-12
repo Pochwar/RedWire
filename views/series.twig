@@ -4,27 +4,18 @@
 
 {{ __("SERIES_LIST") }}
 
-{% endblock %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ __("SITENAME") }}</title>
-</head>
-<body>
-    <h2>{{ __("SERIES_LIST") }}</h2>
-    <div>{{ series }}</div>
+<div>{{ series }}</div>
     <table style="width:100%">
-        <tr>
-            <th>{{ __("TITLE") }}</th>
-            <th>{{ __("DESCRIPTION") }}</th>
-        </tr>
-            {% for serie in series %}
-        <tr>
-            <td>{{ serie.title }}</td>
-            <td>{{ serie.overview }}</td>
-        </tr>
-            {% endfor %}
-    </table> 
-</body>
-</html>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+    </tr>
+        {% for serie in series %}
+    <tr>
+        <td>{{ serie.title }}</td>
+        <td>{{ serie.overview }}</td>
+    </tr>
+        {% endfor %}
+</table> 
+
+{% endblock %}

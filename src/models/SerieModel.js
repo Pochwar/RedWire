@@ -3,6 +3,13 @@ const Actor = require('./../schemas/ActorSchema');
 
 class SerieModel {
 
+    constructor( siteImagePath, apiImagePath ) {
+        this._siteImagePath = siteImagePath;
+        this._apiImagePath = apiImagePath;
+
+        this.transformImagePath = this.transformImagePath.bind(this);
+    }
+
     registerActor(local_id, name, createdAt, updatedAt) {
         return new Promise((resolve, reject) => {
             Actor.create({
@@ -97,13 +104,18 @@ class SerieModel {
      * @param {String} title - The title user wants to search for
      * @return {Promise} Should return an array containing the series matching the title param
      */
-    findByTitle(title) {
+    findByTitle(title, lang) {
         return new Promise((resolve, reject) => {
             Serie.find({
                 title: new RegExp(title, 'i'),
+                langCode: lang
             })
-                .then(series => resolve(series.toObject()))
-                .catch(e => reject(e))
+            .then(series => {
+
+                const seriesWithPosters = series.map( serie => this.transformImagePath(serie));  
+                resolve(series);
+            })
+            .catch(e => reject(e))
         });
     }
 
@@ -154,17 +166,34 @@ class SerieModel {
      * @return {Promise<bool>} Promise with boolean
      */
     addIfNotExits(serie) {
-         return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            
             Serie.update(
-                {api_id: serie.api_id}, 
-                {$setOnInsert: serie}, 
+                {api_id: serie.api_id, langCode: serie.langCode}, 
+                {$setOnInsert: serie},
                 {upsert: true}
             )
             .then(result => {
-               resolve();
+                resolve();
             })
             .catch(e => reject(e));
         });
+    }
+
+    transformImagePath( serie ) {
+        
+        if( !serie.poster) {
+            return serie;
+        }
+        
+        if( serie.api_id) {
+            serie.poster = this._apiImagePath + serie.poster;
+        }
+        else {
+            serie.poster = this._siteImagePath + serie.poster;
+        }
+        
+        return serie;
     }
 }
 
