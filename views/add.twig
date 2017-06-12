@@ -5,45 +5,45 @@
         <div class="row ct-bg-grey">
             <div class="col-md-offset-2 col-md-6">
                 <h2 class="ct-txt-yellow" >
-                    {{ __("ADDSERIE") }}
+                    {{__("ADDSERIE")}}
                 </h2>
                 <form action="" id="addSeriesForm" method="post" encType="multipart/form-data">
-	                <p class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</p>
+	                <p class="ct-txt-white">(*) {{__("REQUIREDFIELDS")}}</p>
 	                        <div class="form-group">
-	                            <label class="ct-txt-white" for="title">{{ __("TITLE") }} * : </label>
+	                            <label class="ct-txt-white" for="title">{{__("TITLE")}} * : </label>
 	                            <input type="text" name="title" class="form-control" id="title" placeholder="{{ __("TITLE") }}" minlength="1" maxlength="50" required>
 	                        </div>
 	                        <div class="form-group">
-	                            <label class="ct-txt-white" for="langCode">{{ __("LANGCODE") }} * : </label>
+	                            <label class="ct-txt-white" for="langCode">{{__("LANGCODE")}} * : </label>
 	                            <select type="text" name="langCode" class="form-control" id="langCode" placeholder="{{ __("LANGCODE") }}">
-	                            	<option>{{ __("LANG_FR") }}</option>
-	                            	<option>{{ __("LANG_EN") }}</option>
+	                            	<option>{{__("LANG_FR")}}</option>
+	                            	<option>{{__("LANG_EN")}}</option>
 	                            </select>
 	                        </div>
 	                        <div class="form-group">
-	                            <label class="ct-txt-white" for="overview">{{ __("OVERVIEW") }} : </label>
+	                            <label class="ct-txt-white" for="overview">{{__("OVERVIEW")}} : </label>
 	                            <textarea type="text" name="overview" class="form-control" id="overview" placeholder="{{ __("OVERVIEW") }}" minlength="3" required></textarea>
 	                        </div>
 	                        <div class="form-group">
-	                            <label class="ct-txt-white" for="poster">{{ __("POSTER") }} : </label>
+	                            <label class="ct-txt-white" for="poster">{{__("POSTER")}} : </label>
 	                            <input type="file" name="poster" class="form-control" id="poster" placeholder="{{ __("POSTER") }}">
 	                        </div>
 	                        <div class="form-group">
-	                            <label class="ct-txt-white" for="actors">{{ __("ACTORS") }} : </label>
+	                            <label class="ct-txt-white" for="actors">{{__("ACTORS")}} : </label>
 	                            <input type="text" name="actors" class="form-control" id="actors" placeholder="{{ __("ACTORS") }}" minlength="3" required>
 	                        </div>
 	                    
 
 					<h3 class="ct-txt-yellow" >
-	                    {{ __("ADDEPISODES") }}
+	                    {{__("ADDEPISODES")}}
 	                </h3>
-	                <p class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</p>
+	                <p class="ct-txt-white">(*) {{__("REQUIREDFIELDS")}}</p>
 	                <div id="episodes" class="form-group"></div>
-	                <button id="add_episode">{{ __("ADDEPISODEBUTTON") }}</button>
+	                <button id="add_episode">{{__("ADDEPISODEBUTTON")}}</button>
 	                
 	                <input type="hidden" id="counterEpisode" name="counterEpisode" value=0 >
 	                <br><br>
-	                <input class="btn" type="submit" value="{{ __("SUBMIT") }}">
+	                <input class="btn" type="submit" value="{{__("SUBMIT")}}">
 				</form>
 			</div>
         </div>
