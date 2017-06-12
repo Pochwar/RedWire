@@ -1,23 +1,16 @@
 const url = require('url');
 const winston = require('winston');
 
-Promise.prototype.thenReturn = function(value) {
-    return this.then(function() {
-        console.log(value);
-        return value; 
-    });
-};
-
-class IndexCtrl {
+class SearchCtrl {
     
     constructor( serieModel) {
         this._serieModel = serieModel;
 
-        this.indexAction = this.indexAction.bind(this);
+        this.byTitle = this.byTitle.bind(this);
         this.addApiSeriesToBdd = this.addApiSeriesToBdd.bind(this);
     }
-
-    indexAction(req, res ) {
+    
+    byTitle(req, res ) {
         
         // parse request
         const queryData = url.parse(req.url, true).query;
@@ -38,7 +31,10 @@ class IndexCtrl {
         .then( series => {
             console.log(series);
             console.log('------------');
-            return this.addApiSeriesToBdd(series);
+
+            // stats a promise loop to add serie's in bdd
+            return Promise.resolve(series).then( this.addApiSeriesToBdd);
+            //return this.addApiSeriesToBdd(series);
         })
         .then( result => {
             console.log('END');
@@ -53,19 +49,16 @@ class IndexCtrl {
 
     // save api's series to bdd
     addApiSeriesToBdd( series ) {
+        let serie = series.splice(0,1);
         
-        return Promise.resolve(0).then( (function loop(i) {
-        
-            let serie = series.splice(0,1);
-            console.log(serie);
-            if ( series.length > 0) {             
-                return this._serieModel.addIfNotExits(serie).then(loop);
-            }
-        }).bind(this));
-        
+        console.log(serie);
+
+        if ( series.length > 0) {         
+            return Promise.resolve(series).then( this.addApiSeriesToBdd);
+        }
     }
     
 }
 
 
-module.exports = IndexCtrl;
+module.exports = SearchCtrl;
