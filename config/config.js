@@ -7,7 +7,7 @@ const CONF = {
         base: process.env.CONF_MONGO_BASE,
     },
     server: {
-        port: process.env.CONF_SERVER_PORT,
+        port: process.env.CONF_PORT,//process.env.CONF_SERVER_PORT,
     },
     site: {
         default: {
@@ -35,9 +35,6 @@ const CONF = {
         },
     },
     API: {
-        tvdb: {
-            token: process.env.CONF_TVDB_TOKEN,
-        },
         tmdb: {
             token: process.env.CONF_TMDB_TOKEN,
         }

@@ -26,6 +26,7 @@ const LangCtrl = require('./controllers/LangCtrl');
 const ChatCtrl = require('./controllers/ChatCtrl');
 const ContributeCtrl = require('./controllers/ContributeCtrl');
 const ProfileCtrl = require('./controllers/ProfileCtrl');
+const SearchCtrl = require('./controllers/SearchCtrl');
 
 // models
 const SerieModel = require("./models/SerieModel");
@@ -33,6 +34,7 @@ const SerieModel = require("./models/SerieModel");
 // services
 const TokenService = require('./services/token.js');
 const LangService = require('./services/LangService');
+const TmdbService = require('./services/TmdbService');
 
 //chat
 const Chat = require('./services/Chat');
@@ -79,6 +81,9 @@ class Server {
         const langService = new LangService(this._conf);
         this._app.set('langService', langService);
 
+        const tmdbService = new TmdbService( this._conf.API.tmdb.token );
+        this._app.set('tmdbService', tmdbService);
+
         //use cookie
         this._app.use(cookieParser());
 
@@ -103,13 +108,15 @@ class Server {
 
     _setRoutes() {
 
+        // init models
+        const serieModel = new SerieModel();
+
         /*
         INIT CONTROLLERS
          */
 
         const registrationCtrl = new RegistrationCtrl(this._conf);
         const loginCtrl = new LoginCtrl();
-        const serieModel = new SerieModel();
         const seriesCtrl = new SeriesCtrl(serieModel);
         const adminHomeCtrl = new AdminHomeCtrl();
         const indexCtrl = new IndexCtrl();
@@ -117,6 +124,7 @@ class Server {
         const chatCtrl = new ChatCtrl();
         const contributeCtrl = new ContributeCtrl();
         const profileCtrl = new ProfileCtrl();
+        const searchCtrl = new SearchCtrl(serieModel);
         
         // init access control
         /*
@@ -156,6 +164,7 @@ class Server {
 
         this._app.get('/home', accessGranted.member, IndexCtrl.indexLoggedAction);
 
+        this._app.get('/search', accessGranted.everyone, searchCtrl.byTitle);
 
         //registration page
         this._app.get('/register', accessGranted.everyone, registrationCtrl.get);
