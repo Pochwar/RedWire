@@ -1,9 +1,9 @@
 //get host
-const fullPath = document.location.href;
-const host = fullPath.substring( 0 ,fullPath.lastIndexOf( "/" ) );
+var fullPath = document.location.href;
+var host = fullPath.substring( 0 ,fullPath.lastIndexOf( "/" ) );
 
 //connect to socket
-let socket = io.connect(host);
+var socket = io.connect(host);
 
 //send pseudo
 $.getJSON(host + '/api/user/data', function(data) {
@@ -21,7 +21,7 @@ $('#disconnect').hide();
 $('#iswriting').hide();
 
 //display info msg
-socket.on('info', message => {
+socket.on('info', function(message) {
     document.querySelector('#info').style.visibility = 'visible';
     $('#info>#pseudo').text(message.pseudo);
     switch(message.action){
@@ -37,7 +37,7 @@ socket.on('info', message => {
             $('#iswriting').show();
             break;
     }
-    setTimeout(()=>{
+    setTimeout(function() {
         document.querySelector('#info').style.visibility = 'hidden';
         $('#connect').hide();
         $('#disconnect').hide();
@@ -46,10 +46,10 @@ socket.on('info', message => {
 });
 
 //display connected users
-socket.on('users', users => {
+socket.on('users', function(users) {
     document.querySelector('#users').innerHTML = "";
-    users.forEach(user => {
-        let p = document.createElement('p');
+    users.forEach(function(user) {
+        var p = document.createElement('p');
         p.innerText = user
         document.querySelector('#users').appendChild(p);
     })
@@ -57,33 +57,33 @@ socket.on('users', users => {
 });
 
 //send msg
-document.querySelector('#send').onclick = () => {
+document.querySelector('#send').onclick = function() {
     sendMsg();
 };
 
 //detect typing
-document.querySelector("#msg").addEventListener("keydown", () =>{
+document.querySelector("#msg").addEventListener("keydown", function() {
     socket.emit('typing');
 }, false);
 
 //build self msg
-socket.on('selfMsg', msg => {
+socket.on('selfMsg', function(msg) {
     buildMsg('selfMsg', 'You', msg)
 });
 
 //build users msg
-socket.on('userMsg', obj => {
+socket.on('userMsg', function(obj) {
     buildMsg('userMsg', obj.pseudo, obj.msg);
 });
 
 //build msg
-let buildMsg = (userClassName, pseudo, msg) => {
-    let div = document.createElement('div');
+var buildMsg = function(userClassName, pseudo, msg) {
+    var div = document.createElement('div');
     div.className = userClassName;
-    let pUser = document.createElement("p");
+    var pUser = document.createElement("p");
     pUser.innerText = pseudo;
     pUser.className = 'userName';
-    let pMsg = document.createElement("p");
+    var pMsg = document.createElement("p");
     pMsg.innerText = msg;
     pMsg.className = 'msg';
     div.appendChild(pUser);
@@ -93,7 +93,7 @@ let buildMsg = (userClassName, pseudo, msg) => {
 };
 
 //send msg
-let sendMsg = () => {
+var sendMsg = function() {
     if(document.querySelector('#msg').value !== ''){
         const msg = document.querySelector('#msg').value;
         socket.emit('msg', msg);
@@ -102,7 +102,7 @@ let sendMsg = () => {
 };
 
 //Fonction pour valider le formulaire avec la touche Enter et pour faire un saut de ligne avec Shift + Enter
-let validForm = (e) => {
+var validForm = function(e) {
     if (e.keyCode == 13 && !e.shiftKey) {
         sendMsg()
         return false;
