@@ -26,7 +26,7 @@ const LangCtrl = require('./controllers/LangCtrl');
 const ChatCtrl = require('./controllers/ChatCtrl');
 const SearchCtrl = require('./controllers/SearchCtrl');
 const UserCtrl = require('./controllers/UserCtrl');
-const AddCtrl = require('./controllers/addCtrl');
+const AddCtrl = require('./controllers/AddCtrl');
 
 // models
 const SerieModel = require("./models/SerieModel");
