@@ -110,7 +110,7 @@ class Server {
     _setRoutes() {
 
         // init models
-        const serieModel = new SerieModel( 
+        const serieModel = new SerieModel(
             this._conf.site.default.resultPerPage,
             this._conf.site.default.posterPath,
             this._conf.API.tmdb.posterPath);
@@ -143,8 +143,17 @@ class Server {
             this._conf.site.roles.superadmin
         );
 
-        // routing exemple for series (everyone can access)
+        // get all series from DB
         this._app.get('/series', accessGranted.everyone, seriesCtrl.get);
+
+        //get one serie from its id
+        this._app.get('/series/:id', accessGranted.everyone, seriesCtrl.getById);
+
+        // get the serie's creation form
+        this._app.get('/series/add', accessGranted.member, seriesCtrl.getForm);
+
+        // post the form results for creating a serie
+        this._app.post('/series/add', accessGranted.member, seriesCtrl.post);
 
         /*  examples for admin
             this._app.get('/admin', accessGranted.moderator, adminCtrl.get);
