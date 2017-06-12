@@ -55,5 +55,18 @@
     "RETURN": "Retour à la page d'accueil",
     "DEADLINK": "Ce lien est mort !",
     "DONTEXIST": "n'existe pas !",
-    "DISCONNECT": "Déconnexion"
+    "DISCONNECT": "Déconnexion",
+	"ISWRITING": "est en train d'écrire",
+	"ADDSERIE": "Ajouter une série",
+	"TITLE": "Titre",
+	"SUBMIT": "Soumettre",
+	"OVERVIEW": "Synopsis",
+	"POSTER": "Poster",
+	"GENRES": "Genres",
+	"ACTORS": "Acteurs",
+	"LANGCODE": "Langue dans laquelle est proposée la série",
+	"ADDEPISODES": "Ajouter un épisode à cette série",
+	"NUMBERSEASON": "Numéro de la saison",
+	"NUMBEREPISODE": "Numéro de l'épisode",
+	"ADDEPISODEBUTTON": "Ajouter un épisode"
 }
