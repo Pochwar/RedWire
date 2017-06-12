@@ -81,7 +81,7 @@ class Server {
         const langService = new LangService(this._conf);
         this._app.set('langService', langService);
 
-        const tmdbService = new TmdbService( this._conf.API.tmdb.token );
+        const tmdbService = new TmdbService(this._conf.API.tmdb.token);
         this._app.set('tmdbService', tmdbService);
 
         //use cookie
@@ -98,6 +98,7 @@ class Server {
 
         //chat
         const chat = new Chat(this._server);
+
     }
 
     run() {
@@ -125,14 +126,14 @@ class Server {
         const contributeCtrl = new ContributeCtrl();
         const profileCtrl = new ProfileCtrl();
         const searchCtrl = new SearchCtrl(serieModel);
-        
+
         // init access control
         /*
-        * Role checking
-        * Only connected users can access /site/
-        * Only moderators / admin can access /admin
-        * Only super admin can caccess /admin/moderators
-        */
+         * Role checking
+         * Only connected users can access /site/
+         * Only moderators / admin can access /admin
+         * Only super admin can caccess /admin/moderators
+         */
         const accessGranted = new AccessGranted(
             this._conf.site.roles.user,
             this._conf.site.roles.moderator,
@@ -180,7 +181,7 @@ class Server {
         this._app.get('/chat', accessGranted.member, chatCtrl.get);
         //trick to get user pseudo client side
         this._app.get('/api/user/data', (req, res) => {
-            res.json({pseudo: res.locals.user.pseudo})
+            res.json({ pseudo: res.locals.user.pseudo })
         });
 
         //contribute

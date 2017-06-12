@@ -23,23 +23,41 @@ class SerieModel {
     /**
      * @method
      * 
-     * @param {Number} api_id 
-     * @param {String} title 
-     * @param {String} overview 
-     * @param {String} poster 
-     * @param {Array} genres 
-     * @param {Array} actors 
-     * @param {Date} createdAt 
-     * @param {Date} langCode 
-     * @param {Boolean} validated 
-     * @param {episodeSchema[]} episodes 
-     * @param {Array} comments 
+     * @param {String} title - The title of the TV show
+     * @param {Date} createdAt - When it was created
+     * @param {String} langCode - In which langage it is written ("en" or "fr")
+     * @param {Object} [optionals] - An object of optionals fields
+     * @param {Number} [optionals.api_id=null] - TMDB id of the TV show
+     * @param {String} [optionals.overview=null] - Description of the show
+     * @param {String} [optionals.poster=null] - Relative URL of the poster
+     * @param {String[]} [optionals.genres=empty] - Genres (ie. Drama, Thriller, Action)
+     * @param {ObjectId[]} [optionals.actors=empty] - MongoDB _id of Actors
+     * @param {ObjectId[]} [optionals.comments=empty] - MongoDB _id of Comments
+     * @param {Object[]} [optionals.episodes=empty] - Array of Object episodes
+     * @param {Number} optionals.episodes.api_id - TMDB id of the episode
+     * @param {Number} optionals.episodes.number - The number of the episode
+     * @param {String} optionals.episodes.title - The title of the episode
+     * @param {String} optionals.episodes.overview - Description of the episode
+     * @param {Number} optionals.episodes.season - Wich season it belongs to
+     * @param {ObjectId[]} optionals.episodes.viewedBy - MongoDB _id of Users
+     * @param {Date} optionals.episodes.airDate - Date when it was or will be on air
+     * @param {Boolean} [optionals.validated=0] - If it was validated or not by an admin
      * 
      * @return {Promise} Should return the registered document
      */
-    registerSerie(api_id, title, overview, poster, genres, actors, createdAt, langCode, validated, episodes, comments) {
+    registerSerie(title, createdAt, langCode, optionals) {
+        const api_id = optionals.api_id || null;
+        const overview = optionals.overview || null;
+        const poster = optionals.poster || null;
+        const genres = optionals.genres || [];
+        const actors = optionals.actors || [];
+        const comments = optionals.comments || [];
+        const episodes = optionals.episodes || [];
+        const validated = optionals.validated || 0;
+
         return new Promise((resolve, reject) => {
             Serie.create({
+                local_id: 1,
                 api_id: api_id,
                 title: title,
                 overview: overview,

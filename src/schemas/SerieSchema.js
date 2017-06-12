@@ -3,21 +3,22 @@ const Schema = mongoose.Schema;
 
 // episodeSchema is nested (embeded) in seriesSchema
 const episodeSchema = new Schema({
-    local_id: {
-        type: Number,
-    },
     api_id: {
         type: Number,
     },
+    number: {
+        type: Number,
+        required: true,
+    },
     title: {
         type: String,
-        required: true,
     },
     overview: {
         type: String,
     },
     season: {
         type: Number,
+        required: true,
     },
     viewedBy: {
         type: [Schema.Types.ObjectId,],
@@ -29,11 +30,6 @@ const episodeSchema = new Schema({
 })
 
 const serieSchema = new Schema({
-    local_id: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
     api_id: {
         type: Number,
     },
