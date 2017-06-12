@@ -4,27 +4,28 @@
 
 {{ __("SERIES_LIST") }}
 
+<p>{{ data.total }} / {{ data.pages }}</p>
+{{url }}
+<div>
+    {% for page in 0..data.pages %}
+    <a href="#&p={{page}}">{{page}}</a>
+    <{% endfor %}
+</div>
+
+<table style="width:100%">
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+    </tr>
+        {% for serie in data.series %}
+    <tr>
+        <td>
+            <img src="{{ serie.poster }}" alt="{{serie.title}}" title="{{ serie.title }}" width="150"/>
+        </td>
+        <td>{{ serie.title }}</td>
+        <td>{{ serie.overview }}</td>
+    </tr>
+        {% endfor %}
+</table> 
+
 {% endblock %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ __("SITENAME") }}</title>
-</head>
-<body>
-    <h2>{{ __("SERIES_LIST") }}</h2>
-    <div>{{ series }}</div>
-    <table style="width:100%">
-        <tr>
-            <th>{{ __("TITLE") }}</th>
-            <th>{{ __("DESCRIPTION") }}</th>
-        </tr>
-            {% for serie in series %}
-        <tr>
-            <td>{{ serie.title }}</td>
-            <td>{{ serie.overview }}</td>
-        </tr>
-            {% endfor %}
-    </table> 
-</body>
-</html>

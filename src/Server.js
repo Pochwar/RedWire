@@ -110,7 +110,10 @@ class Server {
     _setRoutes() {
 
         // init models
-        const serieModel = new SerieModel();
+        const serieModel = new SerieModel( 
+            this._conf.site.default.resultPerPage,
+            this._conf.site.default.posterPath,
+            this._conf.API.tmdb.posterPath);
 
         /*
         INIT CONTROLLERS

@@ -6,10 +6,10 @@ class TmdbService {
     constructor( apiKey) {
         this._tmdb = new TmdbApi({apiv3: apiKey});
 
-        this.searchByTitle = this.searchByTitle.bind(this)
-        this.searchByActors = this.searchByActors.bind(this)
-        this.getSerie = this.getSerie.bind(this)
-        this.toLocalFormat = this.toLocalFormat.bind(this)
+        this.searchByTitle = this.searchByTitle.bind(this);
+        this.searchByActors = this.searchByActors.bind(this);
+        this.getSerie = this.getSerie.bind(this);
+        this.toLocalFormat = this.toLocalFormat.bind(this);
     }
 
     searchByTitle( title, lang) {
@@ -56,6 +56,7 @@ class TmdbService {
     }
     
     toLocalFormat( serie, lang) {
+        
         return {
             api_id: serie.id,
             title: serie.original_name,
@@ -63,6 +64,8 @@ class TmdbService {
             updatedAt: new Date(),
             langCode: lang,
             validated: false,
+            overview: serie.overview,
+            poster: serie.poster_path,
         };
     }
 

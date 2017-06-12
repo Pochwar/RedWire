@@ -54,5 +54,6 @@
     "RETURN": "Back to Homepage",
     "DEADLINK": "There is a dead Link !",
     "DONTEXIST": "doesn't exist !",
+    "ERROR": "ERROR",
     "DISCONNECT": "Disconnection"
 }

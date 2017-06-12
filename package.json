@@ -46,6 +46,7 @@
     "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.10.2",
     "socket.io": "^1.7.3",
+    "tmdbapi": "^1.0.2",
     "twig": "^1.10.5",
     "underscore": "^1.8.3",
     "uniqid": "^4.1.1",
