@@ -9,7 +9,7 @@ class SeriesCtrl {
         this.get = this.get.bind(this);
         this.getByTitle = this.getByTitle.bind(this);
 
-        //this.test();
+        // this.test();
     }
 
     test() {
@@ -52,6 +52,10 @@ class SeriesCtrl {
                     error: e,
                 })
             })
+    }
+
+    getForm(req, res) {
+        res.render('add.twig')
     }
 
     post(req, res) {
