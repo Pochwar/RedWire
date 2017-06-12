@@ -233,14 +233,17 @@ chat
     margin: 0;
 }
 
+#msg {
+    color: #FFB125;
+}
+
 .msg {
     margin: 0;
 }
 
-#msg {
+#chatMsg {
     width: 100%;
     height: 50px;
-    color: #FFB125;
 }
 
 #send {}
