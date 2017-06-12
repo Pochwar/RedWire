@@ -12,7 +12,7 @@ var socket = io.connect(host);
 $.ajax({
     url : '/api/user/data',
     type : 'GET',
-    success: data => {
+    success: function(data) {
         if(data.pseudo){
             socket.emit('newUser', data.pseudo);
         } else {

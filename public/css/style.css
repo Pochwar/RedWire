@@ -240,6 +240,7 @@ chat
 #msg {
     width: 100%;
     height: 50px;
+    color: #FFB125;
 }
 
 #send {}

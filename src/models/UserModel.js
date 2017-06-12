@@ -1,4 +1,5 @@
 const UserSchema = require( './../schemas/UserSchema');
+const ObjectId = require('mongodb').ObjectID;
 
 class UserModel {
 
@@ -32,6 +33,20 @@ class UserModel {
                 mail: mail,
             })
                 .then(user => resolve(user.toObject()))
+                .catch(e => reject(e))
+        });
+    }
+
+    updateData(userId, dataToChange, value){
+        // if (dataToChange === "langId"){
+        //     console.log("weshhhh");
+        //     value = parseInt(value);
+        // }
+        return new Promise((resolve, reject) => {
+            let update={};
+            update[dataToChange]=value;
+            UserSchema.update({_id: ObjectId(userId)}, { $set: update})
+                .then(document => resolve(document))
                 .catch(e => reject(e))
         });
     }

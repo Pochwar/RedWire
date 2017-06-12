@@ -16,6 +16,7 @@ const CONF = {
             langId: 1,
             validatedSeries: 0,
             posterPath: process.env.CONF_SITE_POSTERPATH,
+            avatarPath: process.env.CONF_SITE_AVATARPATH,
             resultPerPage: 10,
         },
         roles: {
