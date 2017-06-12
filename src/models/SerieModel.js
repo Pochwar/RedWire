@@ -3,10 +3,12 @@ const Actor = require('./../schemas/ActorSchema');
 
 class SerieModel {
 
-    constructor( siteImagePath, apiImagePath ) {
+    constructor( resultPerPage ,siteImagePath, apiImagePath ) {
+        this._resultPerPage = resultPerPage;
         this._siteImagePath = siteImagePath;
         this._apiImagePath = apiImagePath;
 
+        this.findByTitle = this.findByTitle.bind(this);
         this.transformImagePath = this.transformImagePath.bind(this);
     }
 
@@ -106,14 +108,35 @@ class SerieModel {
      */
     findByTitle(title, lang) {
         return new Promise((resolve, reject) => {
-            Serie.find({
+            
+            let data = {};
+
+            // 1. counter request
+            const counter = Serie.find({
                 title: new RegExp(title, 'i'),
                 langCode: lang
-            })
-            .then(series => {
+            }).count();
 
-                const seriesWithPosters = series.map( serie => this.transformImagePath(serie));  
-                resolve(series);
+            // 2. pagination request
+            const docs = Serie.find({
+                title: new RegExp(title, 'i'),
+                langCode: lang
+            }).limit( this._resultPerPage);
+            
+            // run counter request
+            counter.exec()
+
+            // save data & run pagination request
+            .then( number => {
+                data.total = number;
+                data.pages = Math.ceil(number / this._resultPerPage);
+
+                return docs.exec();
+            })
+            // transform data & resolve
+            .then(series => {
+                data.series = series.map( serie => this.transformImagePath(serie));  
+                resolve(data);
             })
             .catch(e => reject(e))
         });

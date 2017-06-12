@@ -4,14 +4,24 @@
 
 {{ __("SERIES_LIST") }}
 
-<div>{{ series }}</div>
-    <table style="width:100%">
+<p>{{ data.total }} / {{ data.pages }}</p>
+{{url }}
+<div>
+    {% for page in 0..data.pages %}
+    <a href="#&p={{page}}">{{page}}</a>
+    <{% endfor %}
+</div>
+
+<table style="width:100%">
     <tr>
         <th>Title</th>
         <th>Description</th>
     </tr>
-        {% for serie in series %}
+        {% for serie in data.series %}
     <tr>
+        <td>
+            <img src="{{ serie.poster }}" alt="{{serie.title}}" title="{{ serie.title }}" width="150"/>
+        </td>
         <td>{{ serie.title }}</td>
         <td>{{ serie.overview }}</td>
     </tr>

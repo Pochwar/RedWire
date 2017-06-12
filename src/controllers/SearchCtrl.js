@@ -41,8 +41,9 @@ class SearchCtrl {
             return this._serieModel.findByTitle( queryData.q, lang );
         })
         // render
-        .then(results => {
-            res.render('series.twig', {series: results});
+        .then(data => {
+
+            res.render('series.twig', {data: data, url : req.originalUrl});
         })
         // catch error
         .catch( err => {

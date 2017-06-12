@@ -15,7 +15,8 @@ const CONF = {
             role: 1,
             langId: 1,
             validatedSeries: 0,
-            imagePath: process.env.CONF_SITE_IMAGEPATH
+            posterPath: process.env.CONF_SITE_POSTERPATH,
+            resultPerPage: 10,
         },
         roles: {
             user: 1,
@@ -38,7 +39,7 @@ const CONF = {
     API: {
         tmdb: {
             token: process.env.CONF_TMDB_TOKEN,
-            imagePath: process.env.CONF_TMDB_IMAGEPATH,
+            posterPath: process.env.CONF_TMDB_POSTERPATH,
         }
     },
     faker: {
