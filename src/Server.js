@@ -24,9 +24,9 @@ const UnauthorizedCtrl = require('./controllers/UnauthorizedCtrl');
 const IndexCtrl = require('./controllers/IndexCtrl');
 const LangCtrl = require('./controllers/LangCtrl');
 const ChatCtrl = require('./controllers/ChatCtrl');
-const ContributeCtrl = require('./controllers/ContributeCtrl');
 const SearchCtrl = require('./controllers/SearchCtrl');
 const UserCtrl = require('./controllers/UserCtrl');
+const AddCtrl = require('./controllers/addCtrl');
 
 // models
 const SerieModel = require("./models/SerieModel");
@@ -126,10 +126,10 @@ class Server {
         const indexCtrl = new IndexCtrl();
         const langCtrl = new LangCtrl(this._conf);
         const chatCtrl = new ChatCtrl();
-        const contributeCtrl = new ContributeCtrl();
         const searchCtrl = new SearchCtrl(serieModel);
         const userCtrl = new UserCtrl();
-
+        const addCtrl = new AddCtrl();
+        
         // init access control
         /*
          * Role checking
@@ -192,7 +192,7 @@ class Server {
         this._app.get('/chat', accessGranted.member, chatCtrl.get);
 
         //contribute
-        this._app.post('/contribute', accessGranted.member, contributeCtrl.post);
+        this._app.get('/add', accessGranted.member, addCtrl.get);
 
         //user
         this._app.get('/wall', accessGranted.member, userCtrl.getWall);

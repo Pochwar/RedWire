@@ -55,5 +55,17 @@
     "DEADLINK": "There is a dead Link !",
     "DONTEXIST": "doesn't exist !",
     "ERROR": "ERROR",
-    "DISCONNECT": "Disconnection"
+    "DISCONNECT": "Disconnection",
+	"ADDSERIE": "Add a series",
+	"TITLE": "Title",
+	"SUBMIT": "Submit",
+	"OVERVIEW": "Overview",
+	"POSTER": "Poster",
+	"GENRES": "Genres",
+	"ACTORS": "Actors",
+	"LANGCODE": "Language in which the series is proposed",
+	"ADDEPISODES": "Add an episode to this serie",
+	"NUMBERSEASON": "Season number",
+	"NUMBEREPISODE": "Episode Number",
+	"ADDEPISODEBUTTON": "Add an episode"
 }
