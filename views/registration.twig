@@ -7,8 +7,8 @@
                 <h2 class="ct-txt-yellow" >
                     {{ __("REGISTRATION") }}
                 </h2>
-                <div>
-                {{msg}}
+                <div class="ct-txt-white">
+                {{ error }}
                 </div>
                 <p class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</p>
                     <form action="" id="registrationForm" method="post" encType="multipart/form-data">
@@ -60,7 +60,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="js/passCheck.js"></script>
+    {#<script type="text/javascript" src="js/passCheck.js"></script>#}
     <script type="text/javascript">
         //format datepicker plugin
         $(function () {
