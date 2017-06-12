@@ -14,6 +14,10 @@ span {
     font-family: 'Open Sans Bold', sans-serif;
 }
 
+body {
+    min-height: 100vh;
+}
+
 
 /* Bootstrap 3 row's  with equal height columns (flexbox)
  * Cols based on flexbox to center content horizontally & vertically
@@ -62,6 +66,27 @@ span {
     color: #fff;
     width: 30px;
     margin: 2px
+}
+
+
+/* 404 */
+
+#deadurl {
+    padding: 50px;
+    color: #fff;
+    text-align: center;
+    background-image: url("/img/deg.png");
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+#link {
+    width: 500px;
+    height: 250px;
+}
+
+#btnret {
+    margin-top: 20px;
 }
 
 @media only screen and (min-width: 992px) {
@@ -142,20 +167,21 @@ span {
     max-height: 200px;
 }
 
+
 /*
 chat
 */
-#superChat{
 
-}
+#superChat {}
 
-#chat{
+#chat {
     block-size: 400px;
     overflow: scroll;
     background: #fff;
 }
 
-.selfMsg, .userMsg{
+.selfMsg,
+.userMsg {
     background: #327493;
     color: #fff;
     padding: 5px;
@@ -165,12 +191,13 @@ chat
     border-radius: 5px;
     position: relative;
 }
-.selfMsg{
+
+.selfMsg {
     background: #327493;
     margin-left: 20%;
 }
 
-.selfMsg:before{
+.selfMsg:before {
     content: "";
     position: absolute;
     right: 10px;
@@ -179,11 +206,11 @@ chat
     border-top: 10px solid #327493;
 }
 
-.userMsg{
+.userMsg {
     background: #329333;
 }
 
-.userMsg:before{
+.userMsg:before {
     content: "";
     position: absolute;
     left: 10px;
@@ -192,31 +219,27 @@ chat
     border-top: 10px solid #329333;
 }
 
-.userName{
+.userName {
     margin: 0;
 }
 
-.msg{
+.msg {
     margin: 0;
 }
 
-#msg{
+#msg {
     width: 100%;
     height: 50px;
 }
 
-#send{
+#send {}
 
-}
-
-#info{
+#info {
     height: 20px;
     margin-bottom: 5px;
 }
 
-#clients{
-
-}
+#clients {}
 
 @media only screen and (min-width: 992px) {
     .ct-fs-block {
