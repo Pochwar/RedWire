@@ -3,11 +3,6 @@ const Schema = mongoose.Schema;
 
 // episodeSchema is nested (embeded) in seriesSchema
 const episodeSchema = new Schema({
-    local_id: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
     api_id: {
         type: Number,
     },
@@ -26,7 +21,7 @@ const episodeSchema = new Schema({
         required: true,
     },
     viewedBy: {
-        type: [Schema.Types.ObjectId, ],
+        type: [Schema.Types.ObjectId,],
     },
     airDate: {
         type: Date,
@@ -35,11 +30,6 @@ const episodeSchema = new Schema({
 })
 
 const serieSchema = new Schema({
-    local_id: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
     api_id: {
         type: Number,
     },
@@ -56,10 +46,10 @@ const serieSchema = new Schema({
         type: String,
     },
     genres: {
-        type: [String, ],
+        type: [String,],
     },
     actors: {
-        type: [String, ],
+        type: [String,],
     },
     score: {
         type: Number,
@@ -82,13 +72,13 @@ const serieSchema = new Schema({
         type: Boolean,
     },
     episodes: {
-        type: [episodeSchema, ],
+        type: [episodeSchema,],
     },
     comments: {
-        type: [Schema.Types.ObjectId, ],
+        type: [Schema.Types.ObjectId,],
     },
     followedBy: {
-        type: [Schema.Types.ObjectId, ],
+        type: [Schema.Types.ObjectId,],
     },
 });
 
