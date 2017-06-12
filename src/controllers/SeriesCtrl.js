@@ -122,7 +122,7 @@ class SeriesCtrl {
     }
 
     getById(req, res) {
-        this._series.findByTitle(req.body.id);
+        this._series.findById(req.params.id);
         res.render('series.twig', {
             series: "series",
         });
