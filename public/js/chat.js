@@ -1,6 +1,8 @@
 //get host
 var fullPath = document.location.href;
-var host = fullPath.substring( 0 ,fullPath.lastIndexOf( "/" ) );
+var host = fullPath.substring( 0 ,fullPath.indexOf( "/" ) );
+
+alert(host)
 
 //connect to socket
 var socket = io.connect(host);
