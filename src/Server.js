@@ -1,7 +1,8 @@
 /*
  IMPORT PACKAGES
  */
-
+const socket = require('socket.io');
+const http = require('http');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -33,6 +34,9 @@ const SerieModel = require("./models/SerieModel");
 const TokenService = require('./services/token.js');
 const LangService = require('./services/LangService');
 
+//chat
+const Chat = require('./services/Chat');
+
 class Server {
     constructor(conf) {
 
@@ -40,6 +44,9 @@ class Server {
 
         //set express server
         this._app = express();
+
+        //set http server (for the chat)
+        this._server = http.createServer(this._app);
 
         //set public path
         this._app.use(express.static(path.join(__dirname, '/../public')));
@@ -73,9 +80,7 @@ class Server {
         this._app.set('langService', langService);
 
         //use cookie
-
         this._app.use(cookieParser());
-
 
         //use i18n
         this._app.use(i18n.init);
@@ -85,12 +90,15 @@ class Server {
 
         // check that user's lang is correctly setted
         this._app.use(langService.checkCookies);
+
+        //chat
+        const chat = new Chat(this._server);
     }
 
     run() {
         this._setRoutes();
 
-        this._app.listen(this._conf.server.port, () => winston.info(`### Server listening on localhost:${this._conf.server.port} ###`));
+        this._server.listen(this._conf.server.port, () => winston.info(`### Server listening on localhost:${this._conf.server.port} ###`));
     }
 
     _setRoutes() {
@@ -150,17 +158,21 @@ class Server {
 
 
         //registration page
-        this._app.get('/register', registrationCtrl.get);
-        this._app.post('/register', registrationCtrl.post);
+        this._app.get('/register', accessGranted.everyone, registrationCtrl.get);
+        this._app.post('/register', accessGranted.everyone, registrationCtrl.post);
 
         //login
-        this._app.post('/login', loginCtrl.post);
+        this._app.post('/login', accessGranted.everyone, loginCtrl.post);
 
         //admin home
         this._app.get('/admin', accessGranted.moderator, adminHomeCtrl.get);
 
         //chat
         this._app.get('/chat', accessGranted.member, chatCtrl.get);
+        //trick to get user pseudo client side
+        this._app.get('/api/user/data', (req, res) => {
+            res.json({pseudo: res.locals.user.pseudo})
+        });
 
         //contribute
         this._app.post('/contribute', accessGranted.member, contributeCtrl.post);
@@ -169,7 +181,7 @@ class Server {
         this._app.get('/profile', accessGranted.member, profileCtrl.get);
 
         //logout
-        this._app.get('/logout', (req, res) => {
+        this._app.get('/logout', accessGranted.member, (req, res) => {
 
             res.cookie(this._conf.site.cookies.i18nName, 'deleted', {
                 maxAge: 0,
@@ -189,7 +201,7 @@ class Server {
         this._app.get('/unauthorized', UnauthorizedCtrl.indexAction);
 
         //locales
-        this._app.get('/lang/:lang', langCtrl.changeLang.bind(langCtrl));
+        this._app.get('/lang/:lang', accessGranted.everyone, langCtrl.changeLang.bind(langCtrl));
 
         //404
         this._app.use((req, res) => {

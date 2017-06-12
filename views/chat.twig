@@ -2,6 +2,45 @@
 
 {% block content %}
 
+    <!-- chat section -->
+    <section>
+        <div class="container-fluid">
+            <div class="row ct-bg-grey">
+                <div class="col-md-offset-2 col-md-6">
+                    {# title #}
+                    <h2 class="ct-txt-yellow" >
+                        {{ __("CHAT") }}
+                    </h2>
+                </div>
+            </div>
 
+            <div class="row ct-bg-grey">
+                {# chat #}
+                <div id="superChat" class="col-md-9">
+                    <div id="chat"></div>
+                    <textarea name="msg" id="msg" onkeypress="return validForm(event)" placeholder="{{ __("WRITETEXTHERE") }}"></textarea>
+                    <div id="info" class="ct-txt-yellow" >
+                        <span id="pseudo" class="ct-txt-yellow"></span>
+                        <span id="connect" class="ct-txt-yellow">{{ __("HASCONNECT") }}</span>
+                        <span id="disconnect" class="ct-txt-yellow">{{ __("HASDISCONNECT") }}</span>
+                        <span id="iswriting" class="ct-txt-yellow">{{ __("ISWRITING") }}</span>
+                    </div>
+                    <button id="send">{{ __("SENDCHATMSG") }}</button>
+                </div>
+
+                {# connected users #}
+                <div id="clients" class="col-md-3">
+                    <h3 class="ct-txt-yellow">{{ __("CONNECTEDUSERS") }}</h3>
+                    <div class="ct-txt-white" id="users"></div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </section>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/chat.js"></script>
 
 {% endblock %}
