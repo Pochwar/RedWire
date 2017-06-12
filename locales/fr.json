@@ -51,5 +51,8 @@
     "MODERATE": "Modération",
     "SERIES": "Series",
     "CONTRIBUTE": "Contribuer",
-    "PROFILE": "Profil"
+    "PROFILE": "Profil",
+    "RETURN": "Retour à la page d'accueil",
+    "DEADLINK": "Ce lien est mort !",
+    "DONTEXIST": "n'existe pas !"
 }
