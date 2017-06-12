@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 
 class SeriesCtrl {
     constructor(model) {
-        this._serie = model;
+        this._series = model;
         this.get = this.get.bind(this);
         this.getByTitle = this.getByTitle.bind(this);
 
@@ -13,38 +13,101 @@ class SeriesCtrl {
     }
 
     test() {
-        this._serie.registerSerie(
+        this._series.registerSerie(
             "Ma bite 2",
             Date.now(),
             "fr", {
                 api_id: 14,
                 overview: "Un magnifique film sur ma teub",
                 // poster: "public/img/mabite.jpeg",
-                genres: ["drame", "familial", "comédie", ],
+                genres: ["drame", "familial", "comédie",],
                 validated: 1,
                 episodes: [{
                     local_id: 1,
                     api_id: 78,
                     number: 1,
                     season: 1,
-                }, ],
+                },],
             }
         )
+            .then(serie => {
+                winston.info("Série bien enregistrée: " + serie.title)
+            })
+            .catch(e => {
+                winston.info('Une erreur est survenue: ' + e)
+            })
     }
 
     get(req, res) {
-        this._serie.findAll()
+        this._series.findAll()
             .then(series => {
-                winston.info(series.title);
                 res.render('series.twig', {
                     series: series,
                 });
             })
             .catch(e => {
                 winston.info(e);
-                res.render('series.twig', {
-                    series: e,
+                res.status(500).render('series.twig', {
+                    status: 500,
+                    error: e,
                 })
+            })
+    }
+
+    post(req, res) {
+        const api_id = req.body.api_id || null;
+        const overview = req.body.overview || null;
+        const poster = req.body.poster || null;
+        const genres = req.body.genres.split(",") || [];
+        const actors = req.body.actors.split(",") || [];
+        const comments = req.body.comments || [];
+        const episodes = req.body.episodes || [];
+        const validated = req.body.validated || 0;
+        const date = new Date();
+
+        if (!req.body.title || !req.body.langCode) {
+            res.render("add.twig", {
+                msg: res.__('REQUIREDFIELDS'),
+            })
+        }
+
+        // // en attente du formulaire
+        // if (req.body.episodes && !req.body.episodes) {
+        //     res.render("add.twig", {
+        //         msg: res.__('REQUIREDFIELDS'),
+        //     })
+        // }
+
+        this._series.registerSerie(
+            req.title,
+            date,
+            {
+                api_id: api_id,
+                title: req.body.title,
+                overview: overview,
+                poster: poster,
+                genres: genres,
+                actors: actors,
+                createdAt: date.now,
+                updatedAt: date.now,
+                langCode: req.body.langCode,
+                validated: validated,
+                episodes: episodes,
+                comments: comments,
+            }
+        )
+            .then(serie => {
+                res.render("serie.twig", {
+                    series: serie,
+                })
+            })
+            .catch(e => {
+                winston.info('Une erreur est survenue: ' + e);
+                res.status(500)
+                    .render("error.twig", {
+                        status: 500,
+                        error: res.__('ERROR_SERVER'),
+                    })
             })
     }
 
