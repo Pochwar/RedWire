@@ -60,18 +60,22 @@
     </div>
     <script type="text/javascript" src="js/passCheck.js"></script>
     <script type="text/javascript">
-        //get host
-        var fullPath = document.location.href;
-        var host = fullPath.substring( 0 ,fullPath.indexOf( "/" ) );
+
 
         //get birthday
         var birthday = "";
-        $.getJSON(host + '/api/user/data', function(data) {
-            if(data.birthday){
-                birthday = data.birthday;
+        $.ajax({
+            url : '/api/user/data',
+            type : 'GET',
+            success: data => {
+                if(data.birthday){
+                    birthday = data.birthday
+                }
+            },
+            error: error => {
+                console.log('birthday error');
             }
         });
-        console.log(birthday)
 
         //format datepicker plugin
         $(function () {

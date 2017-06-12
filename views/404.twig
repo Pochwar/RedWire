@@ -44,11 +44,16 @@
 </div>
 <script>
 //get host
-        var fullPath = document.location.href;
-        var host = fullPath.substring( 0 ,fullPath.indexOf( "/" ) );
-        $("#btnret").click(function(){
-            document.location.href = host;
-        })
+var protocol = window.location.protocol
+var host = document.location.hostname;
+var port = document.location.port;
+if (port){
+    host = host+":"+port;
+}
+
+$("#btnret").click(function(){
+    document.location.href = protocol + "//" + host;
+})
 </script>
 </body>
 </html>
