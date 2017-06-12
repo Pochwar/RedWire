@@ -72,5 +72,5 @@
     "ERROR_PSEUDO": "Pseudo already used",
     "ERROR_MAIL": "E-mail already used",
     "ERROR_PASS": "Passwords are not the same",
-    "SUCCESS": "Check-in went smoothly"
+    "SUCCESS": "Check-in went smoothly, now you can login"
 }
