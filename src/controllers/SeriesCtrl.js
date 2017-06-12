@@ -9,25 +9,26 @@ class SeriesCtrl {
         this.get = this.get.bind(this);
         this.getByTitle = this.getByTitle.bind(this);
 
-        this.test();
+        //this.test();
     }
 
     test() {
         this._serie.registerSerie(
             "Ma bite 2",
             Date.now(),
-            "fr",
-            {api_id: 14,
-            overview: "Un magnifique film sur ma teub",
-            // poster: "public/img/mabite.jpeg",
-            genres: ["drame", "familial", "comédie",],
-            validated: 1,
-            episodes: [{
-                local_id: 1,
-                api_id: 78,
-                number: 1,
-                season: 1,
-            },],}
+            "fr", {
+                api_id: 14,
+                overview: "Un magnifique film sur ma teub",
+                // poster: "public/img/mabite.jpeg",
+                genres: ["drame", "familial", "comédie", ],
+                validated: 1,
+                episodes: [{
+                    local_id: 1,
+                    api_id: 78,
+                    number: 1,
+                    season: 1,
+                }, ],
+            }
         )
     }
 

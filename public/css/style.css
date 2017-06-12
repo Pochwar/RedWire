@@ -60,8 +60,13 @@ body {
     margin: 15px 0 20px 10px;
 }
 
+#btndeco {
+    padding: 10px;
+    margin-left: 20px;
+}
+
 .navbar-default .navbar-nav>li .ct-nav-lang {
-    top: 10px;
+    top: 4px;
     padding: 5px;
     color: #fff;
     width: 30px;
@@ -73,11 +78,16 @@ body {
 
 #deadurl {
     padding: 50px;
-    color: #fff;
     text-align: center;
-    background-image: url("/img/deg.png");
-    background-repeat: no-repeat;
     height: 100vh;
+}
+
+#deadurl>h2 {
+    color: #fff;
+}
+
+#degrade {
+    background-image: linear-gradient(#000, #fff);
 }
 
 #link {

@@ -53,5 +53,6 @@
     "PROFILE": "Profile",
     "RETURN": "Back to Homepage",
     "DEADLINK": "There is a dead Link !",
-    "DONTEXIST": "doesn't exist !"
+    "DONTEXIST": "doesn't exist !",
+    "DISCONNECT": "Disconnection"
 }

@@ -23,19 +23,33 @@
     <script src="js/bootstrap-custom.js"></script>
 </head>
 <body>
+<div id="degrade">
 <div id="deadurl">
-    Oops 404 !!<br>
+    <h2>
+        Oops 404 !!
+    </h2>
+    <br>
     <br>
     <img id="link" src="/img/DEADLINK.png"><br>
     <br>
-    {{ __("DEADLINK") }}<br> 
-    {{ url }} {{ __("DONTEXIST") }}
+    <h4>
+        {{ __("DEADLINK") }}<br> 
+        {{ url }} {{ __("DONTEXIST") }}
+    </h4>
     <br>
 
-    <button  id="btnret" class="btn btn-default" type="button">{{ __("RETURN") }}</button>
+    <button id="btnret" class="btn btn-default" type="button">{{ __("RETURN") }}</button>
     
 </div>
-
+</div>
+<script>
+//get host
+        var fullPath = document.location.href;
+        var host = fullPath.substring( 0 ,fullPath.indexOf( "/" ) );
+        $("#btnret").click(function(){
+            document.location.href = host;
+        })
+</script>
 </body>
 </html>
 
