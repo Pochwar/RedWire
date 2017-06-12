@@ -8,6 +8,7 @@ class SearchCtrl {
 
         this.byTitle = this.byTitle.bind(this);
         this.addApiSeriesToBdd = this.addApiSeriesToBdd.bind(this);
+
     }
     
     byTitle(req, res ) {
@@ -27,18 +28,22 @@ class SearchCtrl {
         // search api
         tmdbService. searchByTitle( queryData.q, lang)
         
-        // save api results && search local db
+        // save api results
         .then( series => {
-            console.log(series);
-            console.log('------------');
+            // keep  the first 20 series
+            series = series.splice(0,20);
 
             // stats a promise loop to add serie's in bdd
             return Promise.resolve(series).then( this.addApiSeriesToBdd);
-            //return this.addApiSeriesToBdd(series);
         })
-        .then( result => {
-            console.log('END');
-            res.render('series.twig');
+        // search local database
+        .then( () => {
+            return this._serieModel.findByTitle( queryData.q, lang );
+        })
+        // render
+        .then(data => {
+
+            res.render('series.twig', {data: data, url : req.originalUrl});
         })
         // catch error
         .catch( err => {
@@ -50,11 +55,9 @@ class SearchCtrl {
     // save api's series to bdd
     addApiSeriesToBdd( series ) {
         let serie = series.splice(0,1);
-        
-        console.log(serie);
-
         if ( series.length > 0) {         
-            return Promise.resolve(series).then( this.addApiSeriesToBdd);
+            return this._serieModel.addIfNotExits(serie[0])
+            .then( () =>this.addApiSeriesToBdd(series));
         }
     }
     

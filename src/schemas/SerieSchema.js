@@ -30,6 +30,11 @@ const episodeSchema = new Schema({
 })
 
 const serieSchema = new Schema({
+    // local_id: {
+    //     type: Number,
+    //     required: true,
+    //     unique: true,
+    // },
     api_id: {
         type: Number,
     },
@@ -37,7 +42,7 @@ const serieSchema = new Schema({
         type: String,
         minlength: 1,
         required: true,
-        unique: true,
+        //unique: true,
     },
     overview: {
         type: String,
