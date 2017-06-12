@@ -58,25 +58,28 @@ class SeriesCtrl {
         const api_id = req.body.api_id || null;
         const overview = req.body.overview || null;
         const poster = req.body.poster || null;
-        const genres = req.body.genres.split(",") || [];
-        const actors = req.body.actors.split(",") || [];
+        const genres = req.body.genres.split(";") || [];
+        const actors = req.body.actors.split(";") || [];
         const comments = req.body.comments || [];
-        const episodes = req.body.episodes || [];
+        const episodes = [];
+        const counter = req.body.counterEpisode;
+        for (let i = 1; i < counter; i++) {
+            if (counter > 0 && !(req.body.episode + i).number && !(req.body.episode + i).season) {
+                res.render("add.twig", {
+                    msg: res.__('REQUIREDFIELDS'),
+                })
+            } else {
+                episodes.push(req.body.episode + i)
+            }
+        }
         const validated = req.body.validated || 0;
         const date = new Date();
-
         if (!req.body.title || !req.body.langCode) {
             res.render("add.twig", {
                 msg: res.__('REQUIREDFIELDS'),
             })
         }
 
-        // // en attente du formulaire
-        // if (req.body.episodes && !req.body.episodes) {
-        //     res.render("add.twig", {
-        //         msg: res.__('REQUIREDFIELDS'),
-        //     })
-        // }
 
         this._series.registerSerie(
             req.title,
@@ -112,7 +115,14 @@ class SeriesCtrl {
     }
 
     getByTitle(req, res) {
-        // const series = SerieModel.findByTitle(req.body.title);
+        this._series.findByTitle(req.body.title);
+        res.render('series.twig', {
+            series: "series",
+        });
+    }
+
+    getById(req, res) {
+        this._series.findByTitle(req.body.id);
         res.render('series.twig', {
             series: "series",
         });
