@@ -96,11 +96,9 @@ class UserCtrl {
                 res.redirect('/user?msg=birthdayError');
             }
 
-            winston.info(req.body.birthday);
             const birthdayArray = req.body.birthday.split("/");
             const birthday = new Date(birthdayArray[2],(birthdayArray[1]-1), birthdayArray[0]);
-            winston.info(birthday);
-
+            
             user.updateData(userId, dataToChange, birthday)
                 .then(document => {
                     winston.info("ok")
