@@ -98,7 +98,6 @@ class Server {
 
         //chat
         const chat = new Chat(this._server);
-
     }
 
     run() {
