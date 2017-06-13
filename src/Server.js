@@ -8,7 +8,9 @@ const cookieParser = require('cookie-parser');
 const i18n = require('i18n');
 const winston = require('winston');
 const bodyParser = require('body-parser');
-const fileUpload = require('express-fileupload');
+//TODO sup this
+// const fileUpload = require('express-fileupload');
+const multer  = require('multer')
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
@@ -35,6 +37,7 @@ const SerieModel = require("./models/SerieModel");
 const TokenService = require('./services/token.js');
 const LangService = require('./services/LangService');
 const TmdbService = require('./services/TmdbService');
+const UserInfoVerificationService = require('./services/UserInfoVerificationService');
 const Chat = require('./services/Chat');
 
 class Server {
@@ -58,7 +61,30 @@ class Server {
         }));
 
         //use file upload
-        this._app.use(fileUpload());
+        //TODO sup this
+        // this._app.use(fileUpload({
+        //     limits: { fileSize: 50 },
+        // }));
+        const storage = multer.diskStorage({
+            destination: (function (req, file, cb) {
+                cb(null, this._conf.site.default.avatarPath)
+            }).bind(this),
+            filename: function (req, file, cb) {
+                const ext = file.mimetype.replace("image/", "");
+                cb(null, file.fieldname + '-' + Date.now() + "." + ext)
+            }
+        })
+        this.upload = multer({
+            storage: storage,
+            limits: {fileSize: this._conf.site.image.maxSize},
+            fileFilter: (req, file, cb) => {
+                if (!file.originalname.match(/.jpng/i)){
+                    return cb(new Error('wrong file extension'))
+                }
+
+                cb(null, true)
+            },
+        });
 
         // save config in app
         this._app.set('conf', conf);
@@ -81,6 +107,11 @@ class Server {
 
         const tmdbService = new TmdbService(this._conf.API.tmdb.token);
         this._app.set('tmdbService', tmdbService);
+
+        const UIV = new UserInfoVerificationService(this._conf);
+        this._app.set('UIV', UIV);
+
+        const chat = new Chat(this._server);
 
         //use cookie
         this._app.use(cookieParser());
@@ -225,7 +256,9 @@ class Server {
         //user
         this._app.get('/wall', accessGranted.member, userCtrl.getWall);
         this._app.get('/user', accessGranted.member, userCtrl.getUserInfo);
-        this._app.post('/user', accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
+        //TODO del this
+        // this._app.post('/user',  accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
+        this._app.post('/user', this.upload.single('avatar'), accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
 
 
         //logout

@@ -56,29 +56,55 @@ class RegistrationCtrl {
             return;
         }
 
+
+        //User Information Verification
+        const UIV = req.app.get('UIV');
+
+        //fields that need to be alphanumeric only
+        const alphaNumFields = [req.body.firstname, req.body.lastname, req.body.pseudo, req.body.password];
+        let alphaNumFieldsOk = true;
+        alphaNumFields.forEach(field => {
+            let check = UIV.checkAlphaNumOnly(field);
+            if (!check) alphaNumFieldsOk = false;
+        })
+
+        if (!alphaNumFieldsOk){
+            res.render('registration.twig', {
+                msg: res.__('ALPHANUM_ONLY'),
+            });
+            return;
+        }
+
+        //check birthday
+        let birthdayOk = UIV.checkDateFormat(req.body.birthday);
+        if(!birthdayOk){
+            res.render('registration.twig', {
+                msg: res.__('BIRTHDAY_INVALID'),
+            });
+            return;
+        }
+
+        //check langId
+        let langIdOk = UIV.checkLangId(req.body.langId);
+        if(!langIdOk){
+            res.render('registration.twig', {
+                msg: res.__('LANGID_INVALID'),
+            });
+            return;
+        }
+
         //CREATE NEW USER
         const user = new UserModel();
 
-        //get date of the day
-        // const now = new Date();
-        // const day = now.getDate();
-        // const month = now.getMonth() + 1;
-        // const year = now.getFullYear();
-        // const createdAt = `${day}/${month}/${year}`;
+        //set date of the day
         const createdAt = new Date();
 
         //set default ban status and role id
         const ban = this._conf.site.default.ban;
         const roleId = this._conf.site.default.role;
 
-        //check and format birthday
-        var dateRegex = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-        if (!req.body.birthday.match(dateRegex)) {
-            res.render('registration.twig', {
-                msg: res.__('BIRTHDAY_INVALID'),
-            });
-            return;
-        }
+
+        //format birthday
         const birthdayArray = req.body.birthday.split("/");
         const birthday = new Date(birthdayArray[2], (birthdayArray[1] - 1), birthdayArray[0]);
 

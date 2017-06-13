@@ -41,6 +41,10 @@ const CONF = {
             mail: process.env.CONF_SMTP_MAIL,
             pass: process.env.CONF_SMTP_PASS,
         },
+        image: {
+            authExt: ['jpg', 'jpeg', 'gif', 'png'],
+            maxSize: "1mb"
+        }
     },
     API: {
         tmdb: {

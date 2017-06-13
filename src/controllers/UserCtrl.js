@@ -35,9 +35,12 @@ class UserCtrl {
             res.redirect('/user?msg=noChange');
         }
 
+        //User Information Verification
+        const UIV = req.app.get('UIV');
+
         //change password
         if(dataToChange === "password"){
-            //check passwords
+            //check passwords are same
             if (req.body.password !== req.body.passwordConf) {
                 res.redirect('/user?msg=passError');
             } else {
@@ -58,13 +61,47 @@ class UserCtrl {
                     }
                 })
             }
+
+            //check password is alphanumeric
+            let checkPassAlphaNum = UIV.checkAlphaNumOnly(req.body.password);
+            if (!checkPassAlphaNum) {
+                res.redirect('/user?msg=passError');
+            }
+
+            const saltRounds = 10;
+            encrypt.hash(req.body.password, saltRounds, (err, hash) => {
+                if(err) {
+                    res.redirect('/user?msg=hashError');
+                } else {
+                    winston.info(userId)
+                    user.updateData(userId, dataToChange, hash)
+                        .then(document => {
+                            res.redirect('/user?msg='+dataToChange);
+                        })
+                        .catch(err =>{
+                            res.redirect('/user?msg=passError');
+                        })
+                    ;
+                }
+            })
         }
 
         //change avatar
         else if(dataToChange === "avatar"){
+            console.dir(req.file);
+            res.json({
+                avatar : req.file
+            })
+/*
             //check avatar
+            // let avatarOk = UIV.checkAvatar(req.files.avatar);
+            // if (!avatarOk){
+            //     res.redirect('/user?msg=avatarError');
+            // }
             let filename = "";
-            const avatar = req.files.avatar;
+            //TODO del this
+            // const avatar = req.files.avatar;
+            const avatar = req.file;
             if (avatar) {
                 const ext = avatar.mimetype.replace("image/", "");
                 filename = `avatar_${uniqid()}.${ext}`;
@@ -72,27 +109,30 @@ class UserCtrl {
 
             //save avatar
             avatar.mv(path.join(this._conf.site.default.avatarPath, filename), (err) => {
-                    if (err) {
-                        winston.info(err);
-                        res.redirect('/user?msg=avatarError');
-                    } else {
-                        winston.info('avatar uploaded');
-                        user.updateData(userId, dataToChange, filename)
-                            .then( () => {
-                                res.redirect('/user?msg='+dataToChange);
-                            })
-                            .catch( () => {
-                                res.redirect('/user?msg=avatarError');
-                            })
-                        ;
-                    }
-                });
+                if (err) {
+                    winston.info(err);
+                    res.redirect('/user?msg=avatarError');
+                } else {
+                    winston.info('avatar uploaded');
+                    user.updateData(userId, dataToChange, filename)
+                        .then(document => {
+                            res.redirect('/user?msg='+dataToChange);
+                        })
+                        .catch(err => {
+                            res.redirect('/user?msg=avatarError');
+                        })
+                    ;
+                }
+            });
+*/
+
         }
 
         //change date
         else if(dataToChange === "birthday"){
-            var dateRegex = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-            if(!req.body.birthday.match(dateRegex)){
+            //check birthday
+            let birthdayOk = UIV.checkDateFormat(req.body.birthday);
+            if(!birthdayOk){
                 res.redirect('/user?msg=birthdayError');
             }
 
@@ -113,7 +153,12 @@ class UserCtrl {
 
         //change anything else
         else {
-            winston.info(`${dataToChange} : ${req.body.value}`)
+            //check password is alphanumeric
+            let checkAlphaNum = UIV.checkAlphaNumOnly(req.body.value);
+            if (!checkAlphaNum) {
+                res.redirect('/user?msg=alphaNumError');
+            }
+
             user.updateData(userId, dataToChange, req.body.value)
                 .then( () => {
                     winston.info("ok")
