@@ -3,9 +3,20 @@
 {# scripts #}
 {% block header %}
     <script src="js/series.js"></script>
+    <link href="css/style.css" rel="stylesheet">
 {% endblock %}
 
 {# contenu #}
 {% block content %}
-
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-block">
+            <div class="card-header">{{ __("SEASON") }} {{ episode.season }} {{ __("EPISODE") }} {{ episode.number }} </div>
+            <div class="card-title"> {{episode.title}} </div>
+            <p class="card-text">
+                {{ episode.overview }}
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}

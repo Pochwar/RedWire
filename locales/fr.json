@@ -22,5 +22,10 @@
 	"CONNECTEDUSERS": "CONNECTEDUSERS",
 	"ERROR_SERVER": "ERROR_SERVER",
 	"ERROR": "ERROR",
-	"SERIES_LIST": "SERIES_LIST"
+	"SERIES_LIST": "SERIES_LIST",
+	"MODIFY": "Modifier vos informations",
+	"BANISH": "Bannir",
+	"DATEFORMAT": "jj/mm/aaaa",
+	"SEASON": "Saison",
+	"EPISODE": "Épisode"
 }

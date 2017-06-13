@@ -17,12 +17,12 @@ class SeriesCtrl {
 
     test() {
         this._series.registerSerie(
-            "Ma bite 2",
+            "Copullae demonus est",
             Date.now(),
             "fr", {
-                api_id: 14,
-                overview: "Un magnifique film sur ma teub",
-                // poster: "public/img/mabite.jpeg",
+                // api_id: 14,
+                overview: "Zombies reversus ab inferno, nam malum cerebro. De carne animata corpora quaeritis. Summus sit​​, morbo vel maleficia? De Apocalypsi undead dictum mauris. Hi mortuis soulless creaturas, imo monstra adventus vultus comedat cerebella viventium. Qui offenderit rapto, terribilem incessu. The voodoo sacerdos suscitat mortuos comedere carnem. Search for solum oculi eorum defunctis cerebro. Nescio an Undead zombies. Sicut malus movie horror.",
+                // poster: "public/img/cde.jpeg",
                 genres: ["drame", "familial", "comédie",],
                 validated: 1,
                 episodes: [{
@@ -30,6 +30,8 @@ class SeriesCtrl {
                     api_id: 78,
                     number: 1,
                     season: 1,
+                    title: "Au commencement était le démon",
+                    overview: "Cum horribilem resurgere de sepulcris creaturis, sicut de iride et serpens. Pestilentia, ipsa screams. Pestilentia est haec ambulabat mortuos. Sicut malus voodoo. Aenean a dolor vulnerum aperire accedunt, mortui iam vivam. Qui tardius moveri, sed in magna copia sint terribiles legionis. Alii missing oculis aliorum sicut serpere crabs nostram. Putridi odores aere implent.",
                 },],
             }
         )
@@ -64,7 +66,7 @@ class SeriesCtrl {
     post(req, res) {
         const api_id = req.body.api_id || null;
         const overview = req.body.overview || null;
-        const poster = req.body.poster || null;
+        const poster = req.body.poster || "/img/default.png";
         const genres = req.body.genres.split(";") || [];
         const actors = req.body.actors.split(";") || [];
         const comments = req.body.comments || [];
@@ -133,7 +135,6 @@ class SeriesCtrl {
         const _id = mongoose.Types.ObjectId(req.params.id)
         this._series.findById(_id)
             .then(serie => {
-                winston.info(serie);
                 res.render('serie.twig', {
                     serie: serie,
                 })
@@ -151,8 +152,9 @@ class SeriesCtrl {
     getEpisodeById(req, res) {
         const _id = mongoose.Types.ObjectId(req.params.id)
         this._series.findEpisodeById(_id)
-            .then(episode => {
-                res.render('serie.twig', {
+            .then(serie => {
+                const episode = serie.episodes[0];
+                res.render('episode.twig', {
                     episode: episode,
                 })
             })
