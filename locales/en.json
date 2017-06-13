@@ -84,5 +84,7 @@
 	"CHANGELANG": "Change default langage",
 	"SEARCH_PLACEHOLDER": "find a serie",
 	"MODIFY": "Change your information",
-	"BANISH": "Banish"
+	"BANISH": "Banish",
+	"DATEFORMAT": "dd/mm/yyyy",
+	"BIRTHDAY_INVALID": "BIRTHDAY_INVALID"
 }

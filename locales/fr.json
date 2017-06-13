@@ -85,5 +85,6 @@
 	"ERROR": "ERROR",
 	"SEARCH_PLACEHOLDER": "rechercher une série",
 	"MODIFY": "Modifier vos informations",
-	"BANISH": "Bannir"
+	"BANISH": "Bannir",
+	"DATEFORMAT": "jj/mm/aaaa"
 }
