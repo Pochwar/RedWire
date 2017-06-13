@@ -7,11 +7,13 @@
                 <h2 class="ct-txt-yellow" >
                     {{ __("REGISTRATION") }}
                 </h2>
-                <div class="ct-txt-white">
+                <div class="list-group-item list-group-item-success">
                 {{ error }}
+                </div>
+                <div class="list-group-item list-group-item-danger">
                 {{ msg }}
                 </div>
-                <p class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</p>
+                <div class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</p>
                     <form action="" id="registrationForm" method="post" encType="multipart/form-data">
                         <div class="form-group">
                             <label class="ct-txt-white" for="firstname">{{ __("FIRSTNAME") }} * : </label>
@@ -55,7 +57,7 @@
                                 <option value="2">{{ __("LANG_EN") }}</option>
                             </select>
                         </div>
-                        <input class="btn" type="submit" value="{{ __("REGISTER") }}">
+                        <input href="/send" class="btn" type="submit" value="{{ __("REGISTER") }}">
                     </form>
 
             </div>

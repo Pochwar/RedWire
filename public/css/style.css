@@ -99,6 +99,19 @@ body {
     margin-top: 20px;
 }
 
+.list-group-item-success {
+    padding: 5px;
+    width: 100px;
+    height: 15px;
+}
+
+.list-group-item-danger {
+    margin-top: 10px;
+    padding: 5px;
+    width: 100px;
+    height: 15px;
+}
+
 @media only screen and (min-width: 992px) {
     .ct-nav-lang {
         margin-top: -50px;
@@ -192,10 +205,13 @@ body {
     max-height: 200px;
 }
 
+
 /* width / height */
+
 .w150 {
     width: 150px;
 }
+
 
 /*
 chat

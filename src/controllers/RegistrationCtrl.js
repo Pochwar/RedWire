@@ -99,8 +99,8 @@ class RegistrationCtrl {
                 )
                 .then(object => {
                     winston.info(`### user ${object.pseudo} created ! ###`);
-                    res.render('registration.twig', {
-                        msg: res.__('SUCCESS'),
+                    res.redirect('/send', {
+                        to: req.body.mail,
                     });
                 })
                 .catch(err => {
