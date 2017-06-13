@@ -2,11 +2,11 @@
 
 {% block content %}
 
-    <div class="container-fluid">
-        <div class="row ct-bg-grey ct-fs-block">
-            <div class="col-md-offset-1 col-md-6">
+    <div >
+        <div class="row ct-bg-grey fs-block">
+            <div class="col-md-offset-1 col-md-10">
             	<p class="modifyUser">
-            	    <a href="/user" >{{ __("MODIFY") }}</a>
+            	    <a href="/user" class="ct-txt-white">{{ __("MODIFY") }}</a>
             	</p>
 				<img class="avatar" src="img/user.png"/>
 
@@ -19,12 +19,34 @@
 	                <p class="ct-txt-white">{{ user.birthday }}</p>
                 </div>
 
+                {% if user.roleId == 2 %}
+                    {% include "includes/banish.twig" %}
+                {% elseif user.roleId == 3 %}
+                    {% include "includes/banish.twig" %}
+                {% endif %}
 
             </div>
         </div>
     </div>
 
+    <div class="container-fluid">
+        <div class="row ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                 	hey hey
+                </h2>
+            </div>
+        </div>
+    </div>
 
-    {{ user.pseudo }}
+    <div class="container-fluid">
+        <div class="row ct-bg-grey ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                	hey hey
+                </h2>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

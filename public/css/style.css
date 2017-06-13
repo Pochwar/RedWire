@@ -335,3 +335,14 @@ wall
 .infoUser {
     margin-left: 220px;
 }
+
+.banish {
+    float: right;
+    margin-right: 0px;
+}
+
+.fs-block {
+    height: 270px;
+    max-height: 270px;
+}
+
