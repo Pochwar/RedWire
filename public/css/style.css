@@ -312,3 +312,10 @@ chat
     color: white;
 }
 
+/*
+wall
+*/
+
+#avatar {
+    float: left;
+}
