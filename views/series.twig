@@ -33,7 +33,7 @@
                 {# Big screens : poster only#}
                 <div class="poster hidden-sm">
                     {# poster #}
-                    <img src="{{ serie.poster ? serie.poster : config.defaultPoster }}" alt="{{serie.title}}" title="{{ serie.title }}" onClick="expandPanel({{ loop.index}})" class="w150" id="poster-{{loop.index}}"/>
+                    <img src="{{ serie.poster ? serie.poster : defaultPoster }}" alt="{{serie.title}}" title="{{ serie.title }}" onClick="expandPanel({{ loop.index}})" class="w150" id="poster-{{loop.index}}"/>
                 
                     {# title if no poster #}
                     {% if serie.poster == null %}
@@ -46,7 +46,7 @@
                     
                     {# poster #}
                     <div class="col-sm-4 poster text-center">
-                        <img src="{{ serie.poster ? serie.poster : config.defaultPoster }}" alt="{{serie.title}}" title="{{ serie.title }}"  class="w150" id="poster-{{loop.index}}"/>
+                        <img src="{{ serie.poster ? serie.poster : defaultPoster }}" alt="{{serie.title}}" title="{{ serie.title }}"  class="w150" id="poster-{{loop.index}}"/>
                 
                         {# title if no poster #}
                         {% if serie.poster == null %}
