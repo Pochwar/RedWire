@@ -179,7 +179,10 @@ class Server {
 
         this._app.get('/home', accessGranted.member, IndexCtrl.indexLoggedAction);
 
+        // search
         this._app.get('/search', accessGranted.everyone, searchCtrl.byTitle);
+        this._app.get('/search/title', accessGranted.everyone, searchCtrl.byTitle);
+        this._app.get('/search/actor', accessGranted.everyone, searchCtrl.byActor);
 
         //trick to get user information client side
         this._app.get('/api/user/data', (req, res) => {

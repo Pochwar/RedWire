@@ -9,7 +9,8 @@ class TmdbService {
         this.searchByTitle = this.searchByTitle.bind(this);
         this.searchByActors = this.searchByActors.bind(this);
         this.getSerie = this.getSerie.bind(this);
-        this.toLocalFormat = this.toLocalFormat.bind(this);
+        this.formatSerie = this.formatSerie.bind(this);
+        this.formatActor = this.formatActor.bind(this);
     }
 
     searchByTitle( title, lang) {
@@ -21,7 +22,7 @@ class TmdbService {
                 language: lang
             })
             .then( response => {
-                const series = response.results.map( serie => this.toLocalFormat(serie, lang));
+                const series = response.results.map( serie => this.formatSerie(serie, lang));
                 resolve( series);
             })
             .catch(e => reject(e) );
@@ -30,12 +31,37 @@ class TmdbService {
 
     searchByActors( name, lang ) {
         return new Promise ( (resolve, reject) => {
+            
+            // search for actors
             this._tmdb.search.person({
                 query: name,
                 language: lang,
             })
+
             .then(response => {
-                 const series = response.results.map( serie => this.toLocalFormat(serie, lang));
+                const series = [];
+
+                response.results.forEach( actor => {
+                    
+                    actor.known_for.forEach( serie => {
+
+                        // only accept serie
+                        if( serie.media_type != 'tv') {
+                            return;
+                        }
+
+                        // convert serie to local format
+                        const converted = this.formatSerie(serie, lang);
+
+                        // convert actor to local format & save it
+                        converted.actors = [this.formatActor( actor )];
+
+                        // add serie
+                        series.push(converted);
+                    });
+                
+                });
+                
                 resolve( series);
             })
             .catch(e => reject(e));
@@ -55,8 +81,8 @@ class TmdbService {
         });
     }
     
-    toLocalFormat( serie, lang) {
-        
+    formatSerie( serie, lang) {
+       
         return {
             api_id: serie.id,
             title: serie.original_name,
@@ -67,6 +93,15 @@ class TmdbService {
             overview: serie.overview,
             poster: serie.poster_path,
         };
+    }
+
+    formatActor( actor) {
+        return {
+            api_id: actor.id,
+            name: actor.name,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        }
     }
 
     /*

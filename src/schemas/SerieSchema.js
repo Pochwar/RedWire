@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ActorSchema = require('./ActorSchema');
 
 // episodeSchema is nested (embeded) in seriesSchema
 const episodeSchema = new Schema({
@@ -54,7 +55,7 @@ const serieSchema = new Schema({
         type: [String,],
     },
     actors: {
-        type: [String,],
+        type: [ActorSchema,],
     },
     score: {
         type: Number,
@@ -87,4 +88,4 @@ const serieSchema = new Schema({
     },
 });
 
-module.exports = mongoose.model('Serie', serieSchema);
+module.exports = serieSchema;

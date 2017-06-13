@@ -12,15 +12,14 @@ const TmdbService = require('../src/services/TmdbService');
 
 describe('TmdbService', () => {
 
+    tmdbService = new TmdbService( CONF.API.tmdb.token );
+
     describe('#searchByTitle', () => {
         
-        tmdbService = new TmdbService( CONF.API.tmdb.token );
-
         it('find series by title', done => {
 
             tmdbService.searchByTitle('games ', 'fr')
             .then( series => {
-                
                 expect( series.length).to.exist;
                 
                 done();
@@ -32,7 +31,7 @@ describe('TmdbService', () => {
     describe('#searchByActors', () => {
          it('find series by actors', done => {
 
-            tmdbService.searchByActors('games ', 'fr')
+            tmdbService.searchByActors('eva ', 'fr')
             .then( series => {
                 expect( series.length).to.exist;
                 done();
