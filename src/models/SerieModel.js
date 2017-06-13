@@ -105,7 +105,7 @@ class SerieModel {
      * @param {String} title - The title user wants to search for
      * @return {Promise} Should return an array containing the series matching the title param
      */
-    findByTitle(title, lang) {
+    findByTitle(title, lang, page = null) {
         return new Promise((resolve, reject) => {
 
             let data = {};
@@ -120,8 +120,16 @@ class SerieModel {
             const docs = Serie.find({
                 title: new RegExp(title, 'i'),
                 langCode: lang
-            }).limit(this._resultPerPage);
+            });
+            
+            // skip
+            if( page) {
+                docs.skip( page * this._resultPerPage);
+            }
 
+            // limit
+            docs.limit( this._resultPerPage);
+            
             // run counter request
             counter.exec()
 

@@ -1,32 +1,93 @@
 {% extends "layout/layout.twig" %}
 
+{# scripts #}
+{% block header %}
+    <script src="js/series.js"></script>
+{% endblock %}
+
+{# contenu #}
 {% block content %}
 
-{{ __("SERIES_LIST") }}
+<!-- content section -->
+<section>
+     <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <h2 class="ct-txt-yellow" >
+                  {{ __("SERIES_LIST") }}
+                </h2>
+            </div>
+        </div>
 
-<p>{{ data.total }} / {{ data.pages }}</p>
-{{url }}
-<div>
-    {% for page in 0..data.pages %}
-    <a href="#&p={{page}}">{{page}}</a>
-    <{% endfor %}
-</div>
-
-<table style="width:100%">
-    <tr>
-        <th>{{ __("POSTER") }}</th>
-        <th>{{ __("TITLE") }}</th>
-        <th>{{ __("DESCRIPTION") }}</th>
-    </tr>
+        {# Starting loop on series #}
         {% for serie in data.series %}
-    <tr>
-        <td>
-            <img src="{{ serie.poster }}" alt="{{serie.title}}" title="{{ serie.title }}" width="150"/>
-        </td>
-        <td>{{ serie.title }}</td>
-        <td>{{ serie.overview }}</td>
-    </tr>
-        {% endfor %}
-</table> 
 
+            {# open row on first item#}
+            {% if loop.first %}
+                <div class="row"><div class="col-md-1"></div>
+            {% endif %}
+
+            {# add series posters && datas #}
+            <div class="col-md-2">
+
+                {# poster #}
+                <img src="{{ serie.poster }}" alt="{{serie.title}}" title="{{ serie.title }}" onClick="expandPanel({{ loop.index}})" class="w150 poster-list" id="poster-{{loop.index}}"/>
+                
+                
+                {# title if no poster #}
+                {% if serie.poster == null %}
+                    <p>{{ serie.title}}</p>
+                {% endif %}
+
+                {# data #}
+                <div class="hidden" id="data-{{loop.index}}">
+                    <p class="data-title">{{ serie.title }}</p>
+                    <p class="data-overview">{{ serie.overview }}</p>
+                </div>
+            </div>
+
+            {# add expandable row & open new row#}
+            {% if loop.index % 5 == 0 %}
+                
+                {# close row#}
+                </div>
+                
+            {% endif %}
+
+            {# close row on last loop #}
+            {% if loop.last %}
+                </div>
+            {# open new row#}
+            {% elseif loop.index % 5 == 0 %}
+                <div class="row"><div class="col-md-1"></div>
+            {% endif %}
+
+        {% endfor %}
+        
+    </div>
+</section>
+
+<!-- pages -->
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                {% for page in 1..data.pages %}
+                    <a href="{{currentUrl}}&p={{page}}">{{page}}</a>, 
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+ 
+<!-- panel -->
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <img src="" alt="" title="" id="panel-poster" class="w150"/>
+            <div class="panel-title"></div>
+            <div class="panel-overview"></div>
+        </div>
+    </div>
+</section>
 {% endblock %}

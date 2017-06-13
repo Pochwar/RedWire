@@ -18,7 +18,20 @@ class SearchCtrl {
 
         // check if query is present
         if ( !queryData.q) {
-            res.status(400).render('error.twig');
+            const error = res.__('ERROR_INVALIDQUERY');
+            res.status(400).render('error.twig', {status: 400, error});
+        }
+
+        // parse page number
+        let p = null;
+        if( queryData.p ){
+            p = parseInt( queryData.p) -1;
+        }
+
+        // check if page number is valid
+        if( p && p < 0 ) {
+            const error = res.__('ERROR_INVALIDQUERY');
+            res.status(400).render('error.twig', {status: 400, error});
         }
 
         // retrieve service & lang
@@ -38,17 +51,19 @@ class SearchCtrl {
         })
         // search local database
         .then( () => {
-            return this._serieModel.findByTitle( queryData.q, lang );
+            return this._serieModel.findByTitle( queryData.q, lang, p );
         })
         // render
         .then(data => {
-
-            res.render('series.twig', {data: data, url : req.originalUrl});
+            const currentUrl = req.path + '?q='+queryData.q;
+            
+            res.render('series.twig', {data: data, currentUrl});
         })
         // catch error
         .catch( err => {
             winston.info('info', err);
-            res.status(400).render('error.twig');
+            const error = res.__('ERROR_SERVER');
+            res.status(500).render('error.twig', {status: 500, error});
         });
     }
 
