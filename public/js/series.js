@@ -5,13 +5,6 @@ var expandPanel = function (index) {
     var overview = $('#data-'+index+' .data-overview').text();
     var img = $('#poster-'+index).attr('src');
 
-    $(".poster-list").removeClass("ct-border-red").each(function () {
-        console.log(this);
-        if ($(this).next().length && $(this).offset().top < $(this).next().offset().top) {
-            $(this).addClass("ct-border-red");
-        }
-    });
-
     // update panel
     $('#panel-title').text(title);
     $('#panel-overview').text(overview);
@@ -22,13 +15,13 @@ var expandPanel = function (index) {
 
 var timeout;
 $(window).on("load resize", function () {
-    console.log("event debounced");
+    
     if (timeout) {
         window.clearTimeout(timeout);
     }
     timeout = setTimeout(function () {
-        console.log("resizing");
         $(".poster-list").removeClass("ct-border-red").each(function () {
+             console.log( $(this).offset().top+' -- ' + $(this).next().offset().top);
             if ($(this).next().length && $(this).offset().top < $(this).next().offset().top) {
                 $(this).addClass("ct-border-red");
             }
