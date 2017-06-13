@@ -12,7 +12,7 @@ var socket = io.connect(host);
 $.ajax({
     url : '/api/user/data',
     type : 'GET',
-    success: data => {
+    success: function(data) {
         if(data.pseudo){
             socket.emit('newUser', data.pseudo);
         } else {
@@ -72,7 +72,7 @@ document.querySelector('#send').onclick = function() {
 };
 
 //detect typing
-document.querySelector("#msg").addEventListener("keydown", function() {
+document.querySelector("#chatMsg").addEventListener("keydown", function() {
     socket.emit('typing');
 }, false);
 
@@ -104,10 +104,10 @@ var buildMsg = function(userClassName, pseudo, msg) {
 
 //send msg
 var sendMsg = function() {
-    if(document.querySelector('#msg').value !== ''){
-        const msg = document.querySelector('#msg').value;
+    if(document.querySelector('#chatMsg').value !== ''){
+        const msg = document.querySelector('#chatMsg').value;
         socket.emit('msg', msg);
-        document.querySelector('#msg').value = '';
+        document.querySelector('#chatMsg').value = '';
     }
 };
 

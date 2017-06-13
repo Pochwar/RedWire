@@ -53,6 +53,9 @@ class Server {
         //set public path
         this._app.use(express.static(path.join(__dirname, '/../public')));
 
+        //set upload path
+        this._app.use(express.static(path.join(__dirname, '/../upload')));
+
         //use body parser
         this._app.use(bodyParser.json());
         this._app.use(bodyParser.urlencoded({
@@ -127,7 +130,7 @@ class Server {
         const langCtrl = new LangCtrl(this._conf);
         const chatCtrl = new ChatCtrl();
         const searchCtrl = new SearchCtrl(serieModel);
-        const userCtrl = new UserCtrl();
+        const userCtrl = new UserCtrl(this._conf);
         const addCtrl = new AddCtrl();
         
         // init access control
@@ -184,6 +187,7 @@ class Server {
             res.json({
                 pseudo: res.locals.user.pseudo,
                 birthday: res.locals.user.birthday,
+                locale: res.locals.locale
             })
         });
 
@@ -206,7 +210,7 @@ class Server {
         //user
         this._app.get('/wall', accessGranted.member, userCtrl.getWall);
         this._app.get('/user', accessGranted.member, userCtrl.getUserInfo);
-        this._app.put('/user', accessGranted.member, userCtrl.putUserInfo);
+        this._app.post('/user', accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
 
         //logout
         this._app.get('/logout', accessGranted.member, (req, res) => {
