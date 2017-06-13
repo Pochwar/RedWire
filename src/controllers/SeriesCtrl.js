@@ -134,8 +134,8 @@ class SeriesCtrl {
         this._series.findById(_id)
             .then(serie => {
                 winston.info(serie);
-                res.render('series.twig', {
-                    series: [serie,],
+                res.render('serie.twig', {
+                    serie: serie,
                 })
             })
             .catch(e => {
@@ -152,7 +152,7 @@ class SeriesCtrl {
         const _id = mongoose.Types.ObjectId(req.params.id)
         this._series.findEpisodeById(_id)
             .then(episode => {
-                res.render('series.twig', {
+                res.render('serie.twig', {
                     episode: episode,
                 })
             })
