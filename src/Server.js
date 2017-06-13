@@ -53,9 +53,6 @@ class Server {
         //set public path
         this._app.use(express.static(path.join(__dirname, '/../public')));
 
-        //set upload path
-        this._app.use(express.static(path.join(__dirname, '/../upload')));
-
         //use body parser
         this._app.use(bodyParser.json());
         this._app.use(bodyParser.urlencoded({
