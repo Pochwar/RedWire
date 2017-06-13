@@ -173,6 +173,9 @@ class Server {
         // post the form results for creating a serie
         this._app.post('/series/add', accessGranted.member, seriesCtrl.post);
 
+        // get one episode from its id
+        this._app.get('/episode/:id', accessGranted.everyone, seriesCtrl.getEpisodeById);
+
         this._app.get('/', accessGranted.everyone, indexCtrl.get);
 
         this._app.get('/home', accessGranted.member, IndexCtrl.indexLoggedAction);
@@ -184,7 +187,7 @@ class Server {
             res.json({
                 pseudo: res.locals.user.pseudo,
                 birthday: res.locals.user.birthday,
-                locale: res.locals.locale
+                locale: res.locals.locale,
             })
         });
 

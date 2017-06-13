@@ -7,8 +7,10 @@ class SeriesCtrl {
     constructor(model) {
         this._series = model;
         this.get = this.get.bind(this);
+        this.post = this.post.bind(this);
         this.getByTitle = this.getByTitle.bind(this);
         this.getById = this.getById.bind(this);
+        this.getEpisodeById = this.getEpisodeById.bind(this);
 
         // this.test();
     }
@@ -134,6 +136,24 @@ class SeriesCtrl {
                 winston.info(serie);
                 res.render('series.twig', {
                     series: [serie,],
+                })
+            })
+            .catch(e => {
+                winston.info('Une erreur est survenue: ' + e);
+                res.status(500)
+                    .render("error.twig", {
+                        status: 500,
+                        error: res.__('ERROR_SERVER'),
+                    })
+            })
+    }
+
+    getEpisodeById(req, res) {
+        const _id = mongoose.Types.ObjectId(req.params.id)
+        this._series.findEpisodeById(_id)
+            .then(episode => {
+                res.render('series.twig', {
+                    episode: episode,
                 })
             })
             .catch(e => {
