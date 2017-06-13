@@ -16,7 +16,7 @@
 	                </h2>
 	                <p class="ct-txt-white">{{ user.lastname }}</p>
 	                <p class="ct-txt-white">{{ user.firstname }}</p>
-	                <p class="ct-txt-white">{{ user.birthday }}</p>
+	                <p class="ct-txt-white">{{ user.birthday|date("d/m/Y") }}</p>
                 </div>
 
                 {% if user.roleId == 2 %}
