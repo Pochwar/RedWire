@@ -105,12 +105,13 @@ class SeriesCtrl {
             }
         )
             .then(serie => {
+                winston.info("Serie registred: " + serie.title)
                 res.render("serie.twig", {
                     series: serie,
                 })
             })
             .catch(e => {
-                winston.info('Une erreur est survenue: ' + e);
+                winston.info('Error caught: ' + e);
                 res.status(500)
                     .render("error.twig", {
                         status: 500,
@@ -128,10 +129,21 @@ class SeriesCtrl {
 
     getById(req, res) {
         const _id = mongoose.Types.ObjectId(req.params.id)
-        this._series.findById(_id);
-        res.render('series.twig', {
-            series: "series",
-        });
+        this._series.findById(_id)
+            .then(serie => {
+                winston.info(serie);
+                res.render('series.twig', {
+                    series: [serie,],
+                })
+            })
+            .catch(e => {
+                winston.info('Une erreur est survenue: ' + e);
+                res.status(500)
+                    .render("error.twig", {
+                        status: 500,
+                        error: res.__('ERROR_SERVER'),
+                    })
+            })
     }
 }
 

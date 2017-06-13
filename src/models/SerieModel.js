@@ -121,15 +121,15 @@ class SerieModel {
                 title: new RegExp(title, 'i'),
                 langCode: lang
             });
-            
+
             // skip
-            if( page) {
-                docs.skip( page * this._resultPerPage);
+            if (page) {
+                docs.skip(page * this._resultPerPage);
             }
 
             // limit
-            docs.limit( this._resultPerPage);
-            
+            docs.limit(this._resultPerPage);
+
             // run counter request
             counter.exec()
 
