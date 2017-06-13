@@ -22,6 +22,12 @@ class SearchCtrl {
             res.status(400).render('error.twig', {status: 400, error});
         }
 
+        // check if 'by' is valid
+        if( queryData.by && queryData.by != 'actor' && queryData.by != "title") {
+            const error = res.__('ERROR_INVALIDQUERY');
+            res.status(400).render('error.twig', {status: 400, error});
+        } 
+
         // parse page number
         let p = null;
         if( queryData.p ){

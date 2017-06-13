@@ -32,7 +32,16 @@ class UserModel {
             UserSchema.findOne({
                 mail: mail,
             })
-                .then(user => resolve(user.toObject()))
+                .then(user => {
+                    if( user && user.pseudo) {
+                        resolve(user.toObject() );
+                    }
+
+                    else {
+                        resolve({});
+                    }
+                    
+                })
                 .catch(e => reject(e))
         });
     }

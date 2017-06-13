@@ -86,5 +86,7 @@
 	"SEARCH_PLACEHOLDER": "rechercher une série",
 	"MODIFY": "Modifier vos informations",
 	"BANISH": "Bannir",
-	"DATEFORMAT": "jj/mm/aaaa"
+	"DATEFORMAT": "jj/mm/aaaa",
+	"SEARCH_BY_TITLE": "recherche par titre",
+	"SEARCH_BY_ACTOR": "recherche par acteur",
 }
