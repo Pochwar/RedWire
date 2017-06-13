@@ -23,7 +23,7 @@
 	"UNAUTHORIZED": "Access permission denied",
 	"SERIES_LIST": "series list",
 	"LOGINERROR": "Email or password incorrect",
-	"ERROR_SERVER": "Internal server error",
+	"ERROR_SERVER": "Database Issue",
 	"REQUIREDFIELDS": "Required fields",
 	"PASSMUSTBEEQUAL": "Password must be the same",
 	"SIGNUP": "Sign up",
@@ -69,7 +69,6 @@
 	"NUMBEREPISODE": "Episode Number",
 	"ADDEPISODEBUTTON": "Add an episode",
 	"ERROR_EMPTY": "One or more fields are empty",
-	"ERROR_SERVER": "Database Issue",
 	"ERROR_PSEUDO": "Pseudo already used",
 	"ERROR_MAIL": "E-mail already used",
 	"ERROR_PASS": "Passwords are not the same",
@@ -82,5 +81,6 @@
 	"CHANGEMAIL": "Change mail",
 	"CHANGEAVATAR": "Change avatar",
 	"CHANGEPASSWORD": "Change password",
-	"CHANGELANG": "Change default langage"
+	"CHANGELANG": "Change default langage",
+	"SEARCH_PLACEHOLDER": "find a serie"
 }

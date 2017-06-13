@@ -14,6 +14,7 @@ const fileUpload = require('express-fileupload');
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
 const ExtractUser = require('./middleware/ExtractUser');
+const ConfigParser = require('./middleware/ConfigParser');
 
 // controllers
 const RegistrationCtrl = require('./controllers/RegistrationCtrl');
@@ -99,6 +100,9 @@ class Server {
         //chat
         const chat = new Chat(this._server);
 
+        // configmiddleware : add config to res.locals
+        const configParser = new ConfigParser( this._conf);
+        this._app.use(configParser.toLocals);
     }
 
     run() {

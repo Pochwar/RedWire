@@ -18,6 +18,7 @@ const CONF = {
             posterPath: process.env.CONF_SITE_POSTERPATH,
             avatarPath: process.env.CONF_SITE_AVATARPATH,
             resultPerPage: 10,
+            poster: '/img/poster-default.png',
         },
         roles: {
             user: 1,

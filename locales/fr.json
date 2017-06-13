@@ -83,5 +83,6 @@
 	"CHANGELANG": "Changer la langue",
 	"PROFILMODIFICATION": "Changer les informations du profil",
 	"SEARCH_PLACEHOLDER": "SEARCH_PLACEHOLDER",
-	"ERROR": "ERROR"
+	"ERROR": "ERROR",
+	"SEARCH_PLACEHOLDER": "rechercher une série"
 }

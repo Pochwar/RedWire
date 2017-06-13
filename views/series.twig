@@ -30,19 +30,35 @@
             {# add series posters && datas #}
             <div class="col-md-2">
 
-                {# poster #}
-                <img src="{{ serie.poster }}" alt="{{serie.title}}" title="{{ serie.title }}" onClick="expandPanel({{ loop.index}})" class="w150 poster-list" id="poster-{{loop.index}}"/>
+                {# Big screens : poster only#}
+                <div class="poster hidden-sm">
+                    {# poster #}
+                    <img src="{{ serie.poster ? serie.poster : config.defaultPoster }}" alt="{{serie.title}}" title="{{ serie.title }}" onClick="expandPanel({{ loop.index}})" class="w150" id="poster-{{loop.index}}"/>
                 
-                
-                {# title if no poster #}
-                {% if serie.poster == null %}
-                    <p>{{ serie.title}}</p>
-                {% endif %}
+                    {# title if no poster #}
+                    {% if serie.poster == null %}
+                        <p class="title">{{ serie.title}}</p>
+                    {% endif %}
+                </div>
 
-                {# data #}
-                <div class="hidden" id="data-{{loop.index}}">
-                    <p class="data-title">{{ serie.title }}</p>
-                    <p class="data-overview">{{ serie.overview }}</p>
+                {# small screens : poster & data #}
+                <div class="row visible-sm" id="data-{{loop.index}}">
+                    
+                    {# poster #}
+                    <div class="col-sm-4 poster text-center">
+                        <img src="{{ serie.poster ? serie.poster : config.defaultPoster }}" alt="{{serie.title}}" title="{{ serie.title }}"  class="w150" id="poster-{{loop.index}}"/>
+                
+                        {# title if no poster #}
+                        {% if serie.poster == null %}
+                            <p class="title">{{ serie.title}}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-sm-7">
+                        <p class="data-title">{{ serie.title }}</p>
+                        <p class="data-overview">{{ serie.overview }}</p>
+                    </div>
+
                 </div>
             </div>
 
@@ -81,12 +97,24 @@
 </section>
  
 <!-- panel -->
-<section>
+<section id="panel">
     <div class="container-fluid">
-        <div class="row">
-            <img src="" alt="" title="" id="panel-poster" class="w150"/>
-            <div class="panel-title"></div>
-            <div class="panel-overview"></div>
+        <div class="row ct-bg-grey">
+
+            <div class="col-md-1"></div>
+
+            <div class="col-md-2">
+                <img src="" alt="" title="" id="panel-poster" class="w150"/>
+            </div>
+
+            <div class="col-md-6 ct-bg-grey">
+                <p id="panel-title" class="ct-txt-yellow"></p>
+                <p id="panel-overview" class="ct-txt-white"></p>
+                <p id="panel-link">
+                    <a href="" class="ct-to-left ct-ml-1">voir en détail</a>
+                    <a href="#" class="ct-to-right ct-mr-1" onClick="closePanel(event)">fermer</a>
+                </p>
+            </div>
         </div>
     </div>
 </section>

@@ -124,6 +124,21 @@ body {
     margin-top: 1em;
 }
 
+.ct-ml-1 {
+    margin-left: 1em;
+}
+
+/* position */
+.ct-to-left {
+    position: absolute;
+    left: 0;
+}
+
+.ct-to-right {
+    position: absolute;
+    right: 0;
+}
+
 
 /* text */
 
@@ -265,3 +280,35 @@ chat
         max-height: 400px;
     }
 }
+
+/* SERIES */
+#panel {
+    margin: 10px 0;
+}
+
+#panel .row {
+   display: flex;
+   align-items: center;
+}
+
+#panel-poster {
+    margin: 10px 0;
+}
+
+.poster {
+    position: relative;
+    margin: 10px;
+}
+
+.title {
+    position: absolute;
+    top: 5px;
+    left:0;
+
+    width: 150px;
+    text-align: center;
+
+    text-transform: capitalize;
+    color: white;
+}
+
