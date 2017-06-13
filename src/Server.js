@@ -129,7 +129,7 @@ class Server {
         const searchCtrl = new SearchCtrl(serieModel);
         const userCtrl = new UserCtrl(this._conf);
         const addCtrl = new AddCtrl();
-        
+
         // init access control
         /*
          * Role checking
@@ -143,17 +143,6 @@ class Server {
             this._conf.site.roles.superadmin
         );
 
-        // get all series from DB
-        this._app.get('/series', accessGranted.everyone, seriesCtrl.get);
-
-        //get one serie from its id
-        this._app.get('/series/:id', accessGranted.everyone, seriesCtrl.getById);
-
-        // get the serie's creation form
-        this._app.get('/series/add', accessGranted.member, seriesCtrl.getForm);
-
-        // post the form results for creating a serie
-        this._app.post('/series/add', accessGranted.member, seriesCtrl.post);
 
         /*  examples for admin
             this._app.get('/admin', accessGranted.moderator, adminCtrl.get);
@@ -172,6 +161,17 @@ class Server {
         SET ROUTES
         * /site routing is managed by siteRouter
         */
+        // get all series from DB
+        this._app.get('/series', accessGranted.everyone, seriesCtrl.get);
+
+        //get one serie from its id
+        this._app.get('/series/:id', accessGranted.everyone, seriesCtrl.getById);
+
+        // get the serie's creation form
+        this._app.get('/series/add', accessGranted.member, seriesCtrl.getForm);
+
+        // post the form results for creating a serie
+        this._app.post('/series/add', accessGranted.member, seriesCtrl.post);
 
         this._app.get('/', accessGranted.everyone, indexCtrl.get);
 

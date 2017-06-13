@@ -8,6 +8,7 @@ class SeriesCtrl {
         this._series = model;
         this.get = this.get.bind(this);
         this.getByTitle = this.getByTitle.bind(this);
+        this.getById = this.getById.bind(this);
 
         // this.test();
     }
@@ -126,7 +127,8 @@ class SeriesCtrl {
     }
 
     getById(req, res) {
-        this._series.findById(req.params.id);
+        const _id = mongoose.Types.ObjectId(req.params.id)
+        this._series.findById(_id);
         res.render('series.twig', {
             series: "series",
         });
