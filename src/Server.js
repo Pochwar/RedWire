@@ -183,11 +183,17 @@ class Server {
 
         //trick to get user information client side
         this._app.get('/api/user/data', (req, res) => {
-            res.json({
-                pseudo: res.locals.user.pseudo,
-                birthday: res.locals.user.birthday,
-                locale: res.locals.locale,
-            })
+            if(res.locals.user){
+                res.json({
+                    pseudo: res.locals.user.pseudo,
+                    birthday: res.locals.user.birthday,
+                    locale: res.locals.locale
+                })
+            } else {
+                res.json({
+                    locale: res.locals.locale
+                })
+            }
         });
 
         //registration page

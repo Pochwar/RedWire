@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label class="ct-txt-white" for="birthday">{{ __("BDAY") }} * : </label>
                         <div class="input-group date" id="datetimepicker">
-                            <input type="text" name="value" class="form-control" id="birthday" placeholder="jj/mm/aaaa" required>
+                            <input type="text" name="birthday" class="form-control" id="birthday" placeholder="jj/mm/aaaa" required>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -118,7 +118,11 @@
             type : 'GET',
             success: function(data) {
                 if(data.birthday){
-                    birthday = data.birthday;
+                    var birthdayTemp = new Date(data.birthday);
+                    var d = birthdayTemp.getDate();
+                    var m = birthdayTemp.getMonth();
+                    var y = birthdayTemp.getFullYear();
+                    birthday = new Date(y, m, d);
                     locale = data.locale;
                     //format datepicker plugin
                     $(function () {

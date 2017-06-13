@@ -26,8 +26,8 @@
 	"EMPTYERROR": "",
 	"REQUIREDFIELDS": "Champs obligatoire",
 	"PASSMUSTBEEQUAL": "Les mots de passe doivent être identiques",
-	"SIGNUP": "Connexion",
-	"SIGNIN": "S'inscrire",
+	"SIGNUP": "S'inscrire",
+	"SIGNIN": "Connexion",
 	"YOUREMAIL": "Votre addresse électronique",
 	"YOURPASS": "Votre mot de passe",
 	"CANCEL": "Annuler",
@@ -85,5 +85,6 @@
 	"ERROR": "ERROR",
 	"SEARCH_PLACEHOLDER": "rechercher une série",
 	"MODIFY": "Modifier vos informations",
-	"BANISH": "Bannir"
+	"BANISH": "Bannir",
+	"DATEFORMAT": "jj/mm/aaaa"
 }
