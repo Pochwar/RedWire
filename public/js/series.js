@@ -4,10 +4,11 @@ var expandPanel = function (index) {
     var title = $('#data-'+index+' .data-title').text();
     var overview = $('#data-'+index+' .data-overview').text();
     var img = $('#poster-'+index).attr('src');
-
+    var link = $('#data-'+index+' .data-link a').attr('href');
+    
     // get row
     var row = $('#poster-'+index).parent().parent().parent();
-    console.log(row);
+
     //setPanelPosition();
     $('#panel').insertAfter( $(row) );
 
@@ -17,6 +18,7 @@ var expandPanel = function (index) {
     $('#panel-poster').attr("src", img);
     $('#panel-poster').attr("alt", title);
     $('#panel-poster').attr("title", title);
+    $('#panel-details').attr("href", link);
 
      $("#panel").show();
 }
