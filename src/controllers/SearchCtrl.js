@@ -56,8 +56,9 @@ class SearchCtrl {
         // render
         .then(data => {
             const currentUrl = req.path + '?q='+queryData.q;
+            const defaultPoster = req.app.get('conf').site.default.poster;
             
-            res.render('series.twig', {data: data, currentUrl});
+            res.render('series.twig', {data: data, currentUrl, defaultPoster});
         })
         // catch error
         .catch( err => {
