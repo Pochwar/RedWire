@@ -1,4 +1,3 @@
-const mongoose = require( 'mongoose');
 const encrypt = require( 'bcrypt');
 const winston = require( 'winston');
 const uniqid = require('uniqid');
@@ -20,7 +19,7 @@ class UserCtrl {
             msg = req.query.msg;
         }
         res.render('user.twig', {
-            msg: msg
+            msg: msg,
         });
     }
 
@@ -48,10 +47,10 @@ class UserCtrl {
                     } else {
                         winston.info(userId)
                         user.updateData(userId, dataToChange, hash)
-                            .then(document => {
+                            .then( () => {
                                 res.redirect('/user?msg='+dataToChange);
                             })
-                            .catch(err =>{
+                            .catch( () => {
                                 res.redirect('/user?msg=passError');
                             })
                         ;
@@ -78,10 +77,10 @@ class UserCtrl {
                     } else {
                         winston.info('avatar uploaded');
                         user.updateData(userId, dataToChange, filename)
-                            .then(document => {
+                            .then( () => {
                                 res.redirect('/user?msg='+dataToChange);
                             })
-                            .catch(err => {
+                            .catch( () => {
                                 res.redirect('/user?msg=avatarError');
                             })
                         ;
@@ -115,11 +114,11 @@ class UserCtrl {
         else {
             winston.info(`${dataToChange} : ${req.body.value}`)
             user.updateData(userId, dataToChange, req.body.value)
-                .then(document => {
+                .then( () => {
                     winston.info("ok")
                     res.redirect('/user?msg='+dataToChange);
                 })
-                .catch(err => {
+                .catch( err => {
                     winston.info(`error : ${err}`)
                     res.redirect('/user?msg='+dataToChange+'Error');
                 })

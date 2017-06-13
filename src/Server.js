@@ -1,7 +1,6 @@
 /*
  IMPORT PACKAGES
  */
-const socket = require('socket.io');
 const http = require('http');
 const express = require('express');
 const path = require('path');
@@ -97,7 +96,7 @@ class Server {
         this._app.use(langService.checkCookies);
 
         //chat
-        const chat = new Chat(this._server);
+        new Chat(this._server);
     }
 
     run() {
