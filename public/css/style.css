@@ -312,3 +312,37 @@ chat
     color: white;
 }
 
+/*
+wall
+*/
+
+.avatar {
+    float: left;
+    width: 200px; /* largeur en pixel de ta photo */ 
+    height: 150px; /* hauteur en pixel de ta photo */ 
+    margin-right:10px; /* marge en pixel à droite de la photo */ 
+    margin-top: 0px;
+    position: absolute;
+    z-index: 1;
+}
+
+.modifyUser {
+    margin-top: 40px;
+    font-size: 10px;
+    margin-left: 40px;
+}
+
+.infoUser {
+    margin-left: 220px;
+}
+
+.banish {
+    float: right;
+    margin-right: 0px;
+}
+
+.fs-block {
+    height: 270px;
+    max-height: 270px;
+}
+

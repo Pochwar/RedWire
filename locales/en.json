@@ -82,5 +82,7 @@
 	"CHANGEAVATAR": "Change avatar",
 	"CHANGEPASSWORD": "Change password",
 	"CHANGELANG": "Change default langage",
-	"SEARCH_PLACEHOLDER": "find a serie"
+	"SEARCH_PLACEHOLDER": "find a serie",
+	"MODIFY": "Change your information",
+	"BANISH": "Banish"
 }
