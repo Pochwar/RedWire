@@ -7,8 +7,10 @@ class SeriesCtrl {
     constructor(model) {
         this._series = model;
         this.get = this.get.bind(this);
+        this.post = this.post.bind(this);
         this.getByTitle = this.getByTitle.bind(this);
         this.getById = this.getById.bind(this);
+        this.getEpisodeById = this.getEpisodeById.bind(this);
 
         // this.test();
     }
@@ -105,12 +107,13 @@ class SeriesCtrl {
             }
         )
             .then(serie => {
+                winston.info("Serie registred: " + serie.title)
                 res.render("serie.twig", {
                     series: serie,
                 })
             })
             .catch(e => {
-                winston.info('Une erreur est survenue: ' + e);
+                winston.info('Error caught: ' + e);
                 res.status(500)
                     .render("error.twig", {
                         status: 500,
@@ -128,10 +131,39 @@ class SeriesCtrl {
 
     getById(req, res) {
         const _id = mongoose.Types.ObjectId(req.params.id)
-        this._series.findById(_id);
-        res.render('series.twig', {
-            series: "series",
-        });
+        this._series.findById(_id)
+            .then(serie => {
+                winston.info(serie);
+                res.render('serie.twig', {
+                    serie: serie,
+                })
+            })
+            .catch(e => {
+                winston.info('Une erreur est survenue: ' + e);
+                res.status(500)
+                    .render("error.twig", {
+                        status: 500,
+                        error: res.__('ERROR_SERVER'),
+                    })
+            })
+    }
+
+    getEpisodeById(req, res) {
+        const _id = mongoose.Types.ObjectId(req.params.id)
+        this._series.findEpisodeById(_id)
+            .then(episode => {
+                res.render('serie.twig', {
+                    episode: episode,
+                })
+            })
+            .catch(e => {
+                winston.info('Une erreur est survenue: ' + e);
+                res.status(500)
+                    .render("error.twig", {
+                        status: 500,
+                        error: res.__('ERROR_SERVER'),
+                    })
+            })
     }
 }
 

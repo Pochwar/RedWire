@@ -121,15 +121,15 @@ class SerieModel {
                 title: new RegExp(title, 'i'),
                 langCode: lang
             });
-            
+
             // skip
-            if( page) {
-                docs.skip( page * this._resultPerPage);
+            if (page) {
+                docs.skip(page * this._resultPerPage);
             }
 
             // limit
-            docs.limit( this._resultPerPage);
-            
+            docs.limit(this._resultPerPage);
+
             // run counter request
             counter.exec()
 
@@ -170,7 +170,7 @@ class SerieModel {
 
     /**
      * @method
-     * @param {ObjectId} id - serie's Id in DB
+     * @param {String} id - serie's Id (alpha-numeric string in ObjectId()) in DB
      * @return {Promise<Object|String>} A series object matching the id param
      */
     findById(id) {
@@ -181,6 +181,31 @@ class SerieModel {
                 .then(serie => {
                     if (serie) {
                         resolve(serie.toObject());
+                    }
+                    else {
+                        resolve({});
+                    }
+                })
+                .catch(e => reject(e));
+        });
+    }
+
+    /**
+     * @method
+     * @param {String} id - serie's Id (alpha-numeric string in ObjectId()) in DB
+     * @return {Promise<Object|String>} A series object matching the id param
+     */
+    findEpisodeById(id) {
+        return new Promise((resolve, reject) => {
+            Serie.findOne({
+                'episodes._id': id,
+            },
+                {
+                    'episodes.$': 1,
+                })
+                .then(episode => {
+                    if (episode) {
+                        resolve(episode.toObject());
                     }
                     else {
                         resolve({});
