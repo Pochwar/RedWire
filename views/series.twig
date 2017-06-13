@@ -31,9 +31,8 @@
             <div class="col-md-2">
 
                 {# poster #}
-                <a href="#modal_panel" data-toggle="modal">
-                    <img src="{{ serie.poster }}" alt="{{serie.title}}" title="{{ serie.title }}" onClick="expandPanel({{ loop.index}})" class="w150" id="poster-{{loop.index}}"/>
-                </a>
+                <img src="{{ serie.poster }}" alt="{{serie.title}}" title="{{ serie.title }}" onClick="expandPanel({{ loop.index}})" class="w150 poster-list" id="poster-{{loop.index}}"/>
+                
                 
                 {# title if no poster #}
                 {% if serie.poster == null %}
@@ -80,25 +79,15 @@
         </div>
     </div>
 </section>
-
-<!-- modal de connection -->
-<div class="modal fade" id="modal_panel" tabindex="-1" role="dialog" aria-hidden="true">   
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="row">       
-                <div class="col-md-1"></div>
-                    
-                <div class="col-md-2">
-                    <img src="" alt="" title="" id="panel-poster" class="w150" />
-                </div>
-                
-                <div class="col-md-6">
-                    <h3 id="panel-title"></h3>
-                    <p id="panel-overview"></p>
-                </div>
-            <div class="row">
+ 
+<!-- panel -->
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <img src="" alt="" title="" id="panel-poster" class="w150"/>
+            <div class="panel-title"></div>
+            <div class="panel-overview"></div>
         </div>
     </div>
-</div>
- 
+</section>
 {% endblock %}
