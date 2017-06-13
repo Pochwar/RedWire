@@ -318,9 +318,10 @@ wall
 
 .avatar {
     float: left;
-    width: 200px; /* largeur en pixel de ta photo */ 
-    height: 150px; /* hauteur en pixel de ta photo */ 
-    margin-right:10px; /* marge en pixel à droite de la photo */ 
+    width: 150px;  
+    height: 150px;
+    margin-left: 25px;
+    margin-right:10px;  
     margin-top: 0px;
     position: absolute;
     z-index: 1;
