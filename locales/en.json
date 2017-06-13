@@ -82,5 +82,9 @@
 	"CHANGEAVATAR": "Change avatar",
 	"CHANGEPASSWORD": "Change password",
 	"CHANGELANG": "Change default langage",
+<<<<<<< ad0e3ff2253a490d67fab77ba48303f851a7c315
 	"SEARCH_PLACEHOLDER": "find a serie"
+=======
+	"MODIFY": "Change your information"
+>>>>>>> création page /wall
 }

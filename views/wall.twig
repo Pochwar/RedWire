@@ -4,16 +4,27 @@
 
     <div class="container-fluid">
         <div class="row ct-bg-grey ct-fs-block">
-            <div class="col-md-offset-2 col-md-6">
+            <div class="col-md-offset-1 col-md-6">
+            	<p class="modifyUser">
+            	    <a href="/user" >{{ __("MODIFY") }}</a>
+            	</p>
+				<img class="avatar" src="img/user.png"/>
 
-	<img class="avatar" src=""/>
+				<div class="infoUser">
+					<h2 class="ct-txt-yellow">
+					{{ user.pseudo }}
+	                </h2>
+	                <p class="ct-txt-white">{{ user.lastname }}</p>
+	                <p class="ct-txt-white">{{ user.firstname }}</p>
+	                <p class="ct-txt-white">{{ user.birthday }}</p>
+                </div>
+
 
             </div>
         </div>
     </div>
 
 
-wall
     {{ user.pseudo }}
 
 {% endblock %}
