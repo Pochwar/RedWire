@@ -92,6 +92,7 @@ class UserCtrl {
             res.json({
                 avatar : req.file
             })
+            
             /*
             //check avatar
             // let avatarOk = UIV.checkAvatar(req.files.avatar);
