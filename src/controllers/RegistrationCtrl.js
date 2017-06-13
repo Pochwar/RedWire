@@ -56,11 +56,12 @@ class RegistrationCtrl {
         //CREATE NEW USER
         const user = new UserModel();
         //get date of the day
-        const now = new Date();
-        const day = now.getDate();
-        const month = now.getMonth() + 1;
-        const year = now.getFullYear();
-        const createdAt = `${day}/${month}/${year}`;
+        // const now = new Date();
+        // const day = now.getDate();
+        // const month = now.getMonth() + 1;
+        // const year = now.getFullYear();
+        // const createdAt = `${day}/${month}/${year}`;
+        const createdAt = Date.now();
         //set default ban status and role id
         const ban = this._conf.site.default.ban;
         const roleId = this._conf.site.default.role;
