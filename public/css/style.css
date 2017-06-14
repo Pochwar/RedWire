@@ -99,6 +99,18 @@ body {
     margin-top: 20px;
 }
 
+.list-group-item-success {
+    padding: 5px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.list-group-item-danger {
+    padding: 5px;
+    text-align: center;
+}
+
 @media only screen and (min-width: 992px) {
     .ct-nav-lang {
         margin-top: -50px;
@@ -128,7 +140,9 @@ body {
     margin-left: 1em;
 }
 
+
 /* position */
+
 .ct-to-left {
     position: absolute;
     left: 0;
@@ -192,10 +206,13 @@ body {
     max-height: 200px;
 }
 
+
 /* width / height */
+
 .w150 {
     width: 150px;
 }
+
 
 /*
 chat
@@ -281,14 +298,16 @@ chat
     }
 }
 
+
 /* SERIES */
+
 #panel {
     margin: 10px 0;
 }
 
 #panel .row {
-   display: flex;
-   align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 #panel-poster {
@@ -303,14 +322,13 @@ chat
 .title {
     position: absolute;
     top: 5px;
-    left:0;
-
+    left: 0;
     width: 150px;
     text-align: center;
-
     text-transform: capitalize;
     color: white;
 }
+
 
 /*
 wall
@@ -318,10 +336,10 @@ wall
 
 .avatar {
     float: left;
-    width: 150px;  
+    width: 150px;
     height: 150px;
     margin-left: 25px;
-    margin-right:10px;  
+    margin-right: 10px;
     margin-top: 0px;
     position: absolute;
     z-index: 1;
@@ -345,9 +363,6 @@ wall
 .fs-block {
     height: 270px;
     max-height: 270px;
-}
-
-
 
 /*
 * Serie & episode
