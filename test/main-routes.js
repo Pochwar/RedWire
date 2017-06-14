@@ -8,6 +8,7 @@ const should = chai.should();
 
 chai.use( chaiHttp );
 
+const lang = ['fr', 'en'];
 
 describe('URL - not authenticated', () => {
 
@@ -115,8 +116,10 @@ describe('URL - not authenticated', () => {
         
     ];
 
+   
+
+   
     routesExpected.forEach( route => {
-        
         it( `${route.name} => ${route.path}`, done => {
             
             let request = chai.request(server);
@@ -131,11 +134,15 @@ describe('URL - not authenticated', () => {
                     request = request.field( param.key, param.value);
                 });
             }
-            
-            request.end(function(err, res){
-                res.should.have.status(route.status);
-                done();
+
+            let agent = chai.request.agent(server);
+            agent.get('/lang/en').send().then( () => {
+                request.end(function(err, res) {
+                    res.should.have.status(route.status);
+                    done();
+                })
             });
+            
         });
     })
    
