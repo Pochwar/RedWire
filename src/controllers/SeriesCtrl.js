@@ -179,7 +179,7 @@ class SeriesCtrl {
             })
     }
 
-    postUserFollow(req, res) {
+    putUserFollow(req, res) {
         //check db connection
         if (mongoose.connection._readyState !== 1) {
             res.render('error.twig', {

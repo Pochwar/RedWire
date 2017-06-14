@@ -178,8 +178,7 @@ class Server {
         this._app.post('/series/add', accessGranted.member, seriesCtrl.post);
 
         //follow
-        this._app.post('/series/:id/follow', accessGranted.member, seriesCtrl.postUserFollow);
-
+        this._app.put('/series/:id/follow', accessGranted.member, seriesCtrl.putUserFollow);
 
         // get one episode from its id
         this._app.get('/episode/:id', accessGranted.everyone, seriesCtrl.getEpisodeById);
