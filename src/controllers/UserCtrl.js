@@ -4,6 +4,7 @@ const uniqid = require('uniqid');
 const path = require('path');
 const _ = require('underscore');
 const UserModel = require( './../models/UserModel');
+const mongoose = require('mongoose');
 
 class UserCtrl {
     constructor(conf){
@@ -124,16 +125,7 @@ class UserCtrl {
                 })
             ;
         }
-    }
-
-    postUserFollow(req, res) {
-        //check db connection
-        if (mongoose.connection._readyState !== 1) {
-            res.json({ locales: res.locals.user._id });
-            };
-            return;
-        }    
-    
+    }  
 }
 
 module.exports = UserCtrl;

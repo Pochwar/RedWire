@@ -21,17 +21,21 @@ class LoginCtrl {
     }
     */
     post(req, res) {
+        console.log(req.body);
         //check fields
         if (
             _.isEmpty(req.body.mail) ||
             _.isEmpty(req.body.password)
         ) {
             res.status(400).json({ msg: "emptyError", });
+            return;
         }
 
         //check db connection
         if (mongoose.connection._readyState !== 1) {
             res.status(500).json({ msg: "dbError", });
+            return;
+
         }
 
 
