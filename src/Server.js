@@ -197,6 +197,9 @@ class Server {
         //follow
         this._app.put('/series/:id/follow', accessGranted.member, seriesCtrl.putUserFollow);
 
+        //update
+        this._app.get('/series/:id/update', accessGranted.member,seriesCtrl.getModify);
+
         // get one episode from its id
         this._app.get('/episode/:id', accessGranted.everyone, seriesCtrl.getEpisodeById);
 

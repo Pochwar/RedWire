@@ -327,6 +327,7 @@ class SerieModel {
             });
         });
     }
+
 }
 
 module.exports = SerieModel;

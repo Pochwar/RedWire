@@ -13,6 +13,7 @@ class SeriesCtrl {
         this.getById = this.getById.bind(this);
         this.getEpisodeById = this.getEpisodeById.bind(this);
         this.putUserFollow = this.putUserFollow.bind(this);
+        this.getModify = this.getModify.bind(this);
 
         // this.test();
     }
@@ -197,18 +198,32 @@ class SeriesCtrl {
             return;
         }
 
-        console.log(res.locals.user);
         this._series.followSerie(res.locals.user._id, req.params.id)
         .then(() => {
             res.json({ msg: "OK" });
         })
         .catch((error) => {
-            winston.info("info", error);
             res.json({ msg: "Error" });
-        })
-       
+        })    
     }
 
+    getModify(req, res) {
+        const _id = mongoose.Types.ObjectId(req.params.id)
+        this._series.findById(_id)
+            .then(serie => {
+                res.render('add.twig', {
+                    serie: serie,
+                })
+            })
+            .catch(e => {
+                winston.info('Une erreur est survenue: ' + e);
+                res.status(500)
+                    .render("error.twig", {
+                        status: 500,
+                        error: res.__('ERROR_SERVER'),
+                    })
+            })
+    }
 }
 
 module.exports = SeriesCtrl;
