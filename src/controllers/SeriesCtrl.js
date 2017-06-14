@@ -1,5 +1,6 @@
 const winston = require('winston');
 const mongoose = require('mongoose');
+const url = require('url');
 
 mongoose.Promise = global.Promise;
 
@@ -11,7 +12,7 @@ class SeriesCtrl {
         this.getByTitle = this.getByTitle.bind(this);
         this.getById = this.getById.bind(this);
         this.getEpisodeById = this.getEpisodeById.bind(this);
-        this.postUserFollow = this.postUserFollow.bind(this);
+        this.putUserFollow = this.putUserFollow.bind(this);
 
         // this.test();
     }
@@ -54,19 +55,40 @@ class SeriesCtrl {
     }
 
     get(req, res) {
-        this._series.findAll()
-            .then(series => {
-                res.render('series.twig', {
-                    series: series,
-                });
-            })
-            .catch(e => {
-                winston.info(e);
-                res.status(500).render('series.twig', {
-                    status: 500,
-                    error: e,
-                })
-            })
+        // parse request
+        const queryData = url.parse(req.url, true).query;
+
+        // parse page number
+        let p = null;
+        if( queryData.p ) {
+            p = parseInt( queryData.p) -1;
+        }
+
+        // check if page number is valid
+        if( p && p < 0 ) {
+            const error = res.__('ERROR_INVALIDQUERY');
+            res.status(400).render('error.twig', {status: 400, error,});
+        }
+
+        // retrieve service & lang
+        const lang =  req.getLocale();
+
+        // search local database
+        this._series.findAll( lang, p )
+        
+        // render
+        .then(data => {
+            const currentUrl = req.path;
+            const defaultPoster = req.app.get('conf').site.default.poster;
+            
+            res.render('series.twig', {data: data, currentUrl, defaultPoster,});
+        })
+        // catch error
+        .catch( err => {
+            winston.info('info', err);
+            const error = res.__('ERROR_SERVER');
+            res.status(500).render('error.twig', {status: 500, error,});
+        });
     }
 
     getForm(req, res) {

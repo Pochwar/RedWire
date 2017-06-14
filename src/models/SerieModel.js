@@ -11,10 +11,12 @@ class SerieModel {
         this._siteImagePath = siteImagePath;
         this._apiImagePath = apiImagePath;
 
+        this.findAll = this.findAll.bind(this);
         this.findByTitle = this.findByTitle.bind(this);
         this.findBy = this.findBy.bind(this);
         this.actorRequest = this.actorRequest.bind(this);
         this.titleRequest = this.titleRequest.bind(this);
+        this.allRequest = this.allRequest.bind(this);
         this.transformImagePath = this.transformImagePath.bind(this);
     }
 
@@ -105,12 +107,8 @@ class SerieModel {
      * @method
      * @return {Promise} Should return an array containing all the series in DB
      */
-    findAll() {
-        return new Promise((resolve, reject) => {
-            Serie.find({})
-                .then(series => resolve(series))
-                .catch(e => reject(e))
-        })
+    findAll(lang, page) {
+        return this.findBy('all', null, lang, page);
     }
 
     /**
@@ -140,16 +138,27 @@ class SerieModel {
 
             // 1 . generate request
             let counter, docs;
-            if( target == 'title') {
-                counter = this.titleRequest(query, lang);
-                docs = this.titleRequest(query, lang);
-            }
-            else if (target == 'actor') {
-                counter = this.actorRequest(query, lang);
-                docs = this.actorRequest(query, lang);
-            }
-            else {
-                throw new Error('SerieModel - findBy - wrong target specified');
+
+            switch( target) {
+                
+                case 'title':
+                    counter = this.titleRequest(query, lang);
+                    docs = this.titleRequest(query, lang);
+                    break;
+
+                case 'actor':
+                    counter = this.actorRequest(query, lang);
+                    docs = this.actorRequest(query, lang);
+                    break;
+
+                case 'all':
+                    counter = this.allRequest(query, lang);
+                    docs = this.allRequest(query, lang);
+                    break;
+
+                default:
+                    throw new Error('SerieModel - findBy - wrong target specified');
+
             }
 
             // 2. counter request
@@ -180,6 +189,11 @@ class SerieModel {
             })
             .catch(e => reject(e))
         });
+    }
+
+    // generate request for all series
+    allRequest(title, lang) {
+        return Serie.find({});
     }
 
     // generate request for title

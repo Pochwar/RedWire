@@ -25,7 +25,6 @@ const LangCtrl = require('./controllers/LangCtrl');
 const ChatCtrl = require('./controllers/ChatCtrl');
 const SearchCtrl = require('./controllers/SearchCtrl');
 const UserCtrl = require('./controllers/UserCtrl');
-const AddCtrl = require('./controllers/AddCtrl');
 const MailCtrl = require('./controllers/MailCtrl');
 
 // models
@@ -125,7 +124,6 @@ class Server {
         const chatCtrl = new ChatCtrl();
         const searchCtrl = new SearchCtrl(serieModel);
         const userCtrl = new UserCtrl(this._conf);
-        const addCtrl = new AddCtrl();
         const mailCtrl = new MailCtrl(this._conf);
 
         // init access control
@@ -219,9 +217,6 @@ class Server {
 
         //chat
         this._app.get('/chat', accessGranted.member, chatCtrl.get);
-
-        //contribute
-        this._app.get('/add', accessGranted.member, addCtrl.get);
 
         //user
         this._app.get('/wall', accessGranted.member, userCtrl.getWall);
