@@ -124,10 +124,16 @@ class UserCtrl {
                 })
             ;
         }
-
-
-
     }
+
+    postUserFollow(req, res) {
+        //check db connection
+        if (mongoose.connection._readyState !== 1) {
+            res.json({ locales: res.locals.user._id });
+            };
+            return;
+        }    
+    
 }
 
 module.exports = UserCtrl;

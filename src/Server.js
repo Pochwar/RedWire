@@ -177,6 +177,11 @@ class Server {
         // post the form results for creating a serie
         this._app.post('/series/add', accessGranted.member, seriesCtrl.post);
 
+        //follow
+        // TODO ==>
+        this._app.post('/series/:id/follow', accessGranted.everyone, userCtrl.postUserFollow);
+
+
         // get one episode from its id
         this._app.get('/episode/:id', accessGranted.everyone, seriesCtrl.getEpisodeById);
 
@@ -224,6 +229,7 @@ class Server {
         this._app.get('/wall', accessGranted.member, userCtrl.getWall);
         this._app.get('/user', accessGranted.member, userCtrl.getUserInfo);
         this._app.post('/user', accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
+
 
         //logout
         this._app.get('/logout', accessGranted.member, (req, res) => {
