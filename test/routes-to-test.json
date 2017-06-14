@@ -1,0 +1,222 @@
+{ 
+    "notLogged": [
+        {
+            "name": "Can access root",
+            "verb": "get",
+            "path": "/",
+            "status": 200
+        },
+        {
+            "name": "Can't access home",
+            "verb": "get",
+            "path": "/home",
+            "status": 403
+        },
+        {
+            "name": "Can't access lang - invalid",
+            "verb": "get",
+            "path": "/lang/fzux",
+            "status": 400
+        },
+        {
+            "name": "Can access lang - fr",
+            "verb": "get",
+            "path": "/lang/fr",
+            "status": 200
+        },
+        {
+            "name": "Can access lang - en",
+            "verb": "get",
+            "path": "/lang/en",
+            "status": 200
+        },
+        {
+            "name": "Can access registration",
+            "verb": "get",
+            "path": "/register",
+            "status": 200
+        },
+        {
+            "name": "Can access show all series",
+            "verb": "get",
+            "path": "/series",
+            "status": 200
+        },
+        {
+            "name": "Can access show one serie",
+            "verb": "get",
+            "path": "/series/593ffaf0a4829c261e31b03d",
+            "status": 200
+        },
+        {
+            "name": "Can't access search - invalid",
+            "verb": "get",
+            "path": "/search",
+            "status": 400
+        },
+         {
+            "name": "Can access search",
+            "verb": "get",
+            "path": "/search?q=test",
+            "status": 200
+        },
+        {
+            "name": "Can't access search by actor - invalid",
+            "verb": "get",
+            "path": "/search/actor",
+            "status": 400
+        },
+        {
+            "name": "Can access search by actor",
+            "verb": "get",
+            "path": "/search/actor?q=test",
+            "status": 200
+        },
+        {
+            "name": "Can't access search by title - invalid",
+            "verb": "get",
+            "path": "/search/title",
+            "status": 400
+        },
+        {
+            "name": "Can access search by title",
+            "verb": "get",
+            "path": "/search/title?q=test",
+            "status": 200
+        },
+        {
+            "name": "Can't access user wall",
+            "verb": "get",
+            "path": "/wall",
+            "status": 403
+        },
+        {
+            "name": "Can't access show chat",
+            "verb": "get",
+            "path": "/chat",
+            "status": 403
+        },
+        {
+            "name": "Can't access logout",
+            "verb": "get",
+            "path": "/logout",
+            "status": 403
+        },
+        {
+            "name": "Can't access show user data",
+            "verb": "get",
+            "path": "/user",
+            "status": 403
+        }
+    ],
+    "logged": [
+        {
+            "name": "Can access root",
+            "verb": "get",
+            "path": "/",
+            "status": 200
+        },
+        {
+            "name": "Can access home",
+            "verb": "get",
+            "path": "/home",
+            "status": 200
+        },
+        {
+            "name": "Can't access lang - invalid",
+            "verb": "get",
+            "path": "/lang/fzux",
+            "status": 400
+        },
+        {
+            "name": "Can access lang - fr",
+            "verb": "get",
+            "path": "/lang/fr",
+            "status": 200
+        },
+        {
+            "name": "Can access lang - en",
+            "verb": "get",
+            "path": "/lang/en",
+            "status": 200
+        },
+        {
+            "name": "Can access registration",
+            "verb": "get",
+            "path": "/register",
+            "status": 200
+        },
+        {
+            "name": "Can access show all series",
+            "verb": "get",
+            "path": "/series",
+            "status": 200
+        },
+        {
+            "name": "Can access show one serie",
+            "verb": "get",
+            "path": "/series/593ffaf0a4829c261e31b03d",
+            "status": 200
+        },
+        {
+            "name": "Can't access search - invalid",
+            "verb": "get",
+            "path": "/search",
+            "status": 400
+        },
+         {
+            "name": "Can access search",
+            "verb": "get",
+            "path": "/search?q=test",
+            "status": 200
+        },
+        {
+            "name": "Can't access search by actor - invalid",
+            "verb": "get",
+            "path": "/search/actor",
+            "status": 400
+        },
+        {
+            "name": "Can access search by actor",
+            "verb": "get",
+            "path": "/search/actor?q=test",
+            "status": 200
+        },
+        {
+            "name": "Can't access search by title - invalid",
+            "verb": "get",
+            "path": "/search/title",
+            "status": 400
+        },
+        {
+            "name": "Can access search by title",
+            "verb": "get",
+            "path": "/search/title?q=test",
+            "status": 200
+        },
+        {
+            "name": "Can access user wall",
+            "verb": "get",
+            "path": "/wall",
+            "status": 200
+        },
+        {
+            "name": "Can access chat",
+            "verb": "get",
+            "path": "/chat",
+            "status": 200
+        },
+        {
+            "name": "Can access logout",
+            "verb": "get",
+            "path": "/logout",
+            "status": 200
+        },
+        {
+            "name": "Can access user data",
+            "verb": "get",
+            "path": "/user",
+            "status": 200
+        }
+    ]
+}

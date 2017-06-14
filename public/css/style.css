@@ -44,15 +44,17 @@ body {
     display: none !important;
 }
 
-.ct-visible-sm {
-}
-
 @media only screen and (min-width: 1050px) {
     .ct-visible-md-table-cell {
         display: table-cell !important;
     }
-    
-    .ct-visible-sm {
+}
+
+.ct-visible-sm {
+}
+
+@media only screen and (min-width: 1050px) {
+   .ct-visible-sm {
         display: none;
     }
 }
