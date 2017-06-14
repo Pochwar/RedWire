@@ -63,7 +63,7 @@ class SerieModel {
     registerSerie(title, createdAt, langCode, optionals) {
         // const api_id = optionals.api_id || null;
         // const overview = optionals.overview || null;
-        // const poster = optionals.poster || null;
+        // const poster = optionals.poster || "/img/default.png";
         // const genres = optionals.genres || [];
         // const actors = optionals.actors || [];
         // const comments = optionals.comments || [];
@@ -223,18 +223,18 @@ class SerieModel {
             Serie.findOne({
                 'episodes._id': id,
             },
-                {
-                    'episodes.$': 1,
-                })
-                .then(episode => {
-                    if (episode) {
-                        resolve(episode.toObject());
-                    }
-                    else {
-                        resolve({});
-                    }
-                })
-                .catch(e => reject(e));
+            {
+                'episodes.$': 1,
+            })
+            .then(serie => {
+                if (serie) {
+                    resolve(serie.toObject());
+                }
+                else {
+                    resolve({});
+                }
+            })
+            .catch(e => reject(e));
         });
     }
 
