@@ -89,5 +89,6 @@
     "BIRTHDAY_INVALID": "BIRTHDAY_INVALID",
     "SEARCH_BY_TITLE": "find series by title",
     "SEARCH_BY_ACTOR": "find series by actor",
-    "ERROR_INVALIDQUERY": "ERROR_INVALIDQUERY"
+    "ERROR_INVALIDQUERY": "ERROR_INVALIDQUERY",
+    "MAIL_SENT": "E-mail confirmation sent, check your mails to activate your account"
 }

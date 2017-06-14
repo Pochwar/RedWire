@@ -7,10 +7,10 @@
                 <h2 class="ct-txt-yellow" >
                     {{ __("REGISTRATION") }}
                 </h2>
-                <div class="list-group-item list-group-item-success">
+                <div id="error" class="list-group-item list-group-item-danger">
                 {{ error }}
                 </div>
-                <div class="list-group-item list-group-item-danger">
+                <div id="success" class="list-group-item list-group-item-success">
                 {{ msg }}
                 </div>
                 <div class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</p>
@@ -87,5 +87,25 @@
                 console.log('locale error');
             }
         });
+    </script>
+    <script>
+   
+    (function($){
+    jQuery.fn.checkEmpty = function() {
+       return !$.trim(this.html()).length;
+    };
+    }(jQuery));
+
+    if($("#error").checkEmpty()){
+        $('#error').hide();
+    }else{
+        $('#error').show();
+    }
+
+     if($("#success").checkEmpty()){
+        $('#success').hide();
+    }else{
+        $('#success').show();
+    }
     </script>
 {% endblock %}
