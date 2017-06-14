@@ -9,261 +9,134 @@ const should = chai.should();
 chai.use( chaiHttp );
 
 
-describe('Public section', () => {
+describe('URL - not authenticated', () => {
 
     const routesExpected= [
         {
+            name: 'root',
             verb: 'get',
             path: '/',
             status: 200
         },
         {
+            name: 'home',
             verb: 'get',
-            path: '/lang',
+            path: '/home',
+            status: 403
+        },
+        {
+            name: 'lang - invalid',
+            verb: 'get',
+            path: '/lang/fzux',
             status: 400
         },
         {
+            name: 'lang - fr',
             verb: 'get',
             path: '/lang/fr',
             status: 200
         },
         {
+            name: 'lang - en',
             verb: 'get',
             path: '/lang/en',
             status: 200
         },
         {
+            name: 'registration',
             verb: 'get',
-            path: '/signup',
+            path: '/register',
             status: 200
         },
         {
+            name: 'post login',   
             verb: 'post',
             path: '/login',
-            status: 200
+            status: 200,
+            params: [
+                { key: 'mail', value: 'gabriel@mail.com'},
+                { key: 'password', value : 'gabriel' },
+            ]
         },
-    ];
-
-    routesExpected.forEach( route => {
-         it( route.path, done => {
-            chai.request(server)
-            .get(route.path)
-            .end(function(err, res){
-                res.should.have.status(route.status);
-            done();
-        });
-    });
-    })
-   
-});
-
-describe('Member section', () => {
-
-    const routesExpected= [
         {
+            name: 'show all series',
             verb: 'get',
-            path: '/site',
+            path: '/series',
             status: 200
         },
         {
+            name: 'show one serie',
             verb: 'get',
-            path: '/site/series',
+            path: '/series/593ffaf0a4829c261e31b03d',
             status: 200
         },
         {
+            name: 'search - invalid',
             verb: 'get',
-            path: '/site/comments',
-            status: 404
-        },
-        {
-            verb: 'get',
-            path: '/site/comments/series',
+            path: '/search',
             status: 400
         },
         {
+            name: 'search by actor - invalid',
             verb: 'get',
-            path: '/site/comments/series/10',
-            status: 200
-        },
-        {
-            verb: 'post',
-            path: '/site/comments/series',
-            status: 200
-        },
-        {
-            verb: 'post',
-            path: '/site/comments/season',
-            status: 200
-        },
-        {
-            verb: 'post',
-            path: '/site/notes/critic',
-            status: 200
-        },
-        {
-            verb: 'post',
-            path: '/site/notes/serie',
-            status: 200
-        },
-        {
-            verb: 'put',
-            path: '/site/series',
+            path: '/search/actor',
             status: 400
         },
         {
-            verb: 'put',
-            path: '/site/series/2',
-            status: 200
-        },
-        {
-            verb: 'post',
-            path: '/site/search',
-            status: 404
-        },
-        {
-            verb: 'post',
-            path: '/site/search/actor',
-            status: 200
-        },
-        {
-            verb: 'post',
-            path: '/site/search/title',
-            status: 200
-        },
-        {
+            name: 'search by title - invalid',
             verb: 'get',
-            path: '/site/series/',
-            status: 200
+            path: '/search/title',
+            status: 400
         },
         {
-            verb: 'post',
-            path: '/site/series/add',
-            status: 200
-        },
-        {
+            name: 'user wall',
             verb: 'get',
-            path: '/site/wall',
-            status: 200
+            path: '/wall',
+            status: 403
         },
         {
+            name: 'show chat',
             verb: 'get',
-            path: '/site/episod',
-            status: 404
+            path: '/chat',
+            status: 403
         },
         {
+            name: 'logout',
             verb: 'get',
-            path: '/site/episod/5',
-            status: 200
+            path: '/logout',
+            status: 403
         },
         {
-            verb: 'post',
-            path: '/site/watched/5',
-            status: 200
-        },
-        {
+            name: 'show user data',
             verb: 'get',
-            path: '/site/comments/episod',
-            status: 404
-        },
-        {
-            verb: 'post',
-            path: '/site/comments/episod/5',
-            status: 200
-        },
-        {
-            verb: 'post',
-            path: '/site/notes/episod',
-            status: 200
-        },
-        {
-            verb: 'get',
-            path: '/site/chat',
-            status: 200
-        },
-        {
-            verb: 'get',
-            path: '/site/logout',
-            status: 200
-        },
-        {
-            verb: 'get',
-            path: '/site/user',
-            status: 200
-        },
-        {
-            verb: 'post',
-            path: '/site/notifications',
-            status: 200
-        },
-        {
-            verb: 'put',
-            path: '/site/user',
-            status: 200
+            path: '/user',
+            status: 403
         },
         
     ];
 
     routesExpected.forEach( route => {
-         it( route.path, done => {
-            chai.request(server)
-            .get(route.path)
-            .end(function(err, res){
+        
+        it( `${route.name} => ${route.path}`, done => {
+            
+            let request = chai.request(server);
+
+            if( route.verb == 'get') {
+                request = request.get(route.path);
+            }
+            else if ( route.verb == 'post') {
+                request = request.post(route.path);
+
+                route.params.forEach( param => {
+                    request = request.field( param.key, param.value);
+                });
+            }
+            
+            request.end(function(err, res){
                 res.should.have.status(route.status);
-            done();
+                done();
+            });
         });
-    });
     })
    
 });
-
-describe('Admin section', () => {
-
-    const routesExpected= [
-       
-    ];
-
-    routesExpected.forEach( route => {
-         it( route.path, done => {
-            chai.request(server)
-            .get(route.path)
-            .end(function(err, res){
-                res.should.have.status(route.status);
-            done();
-        });
-    });
-    })
-   
-});
-
-
-/*
-describe('Member section', () => {
-
-    before( done => {
-        chai.request(server)
-        .post('/login')
-        .field('mail', 'gabriel@mail.com')
-        .field('pass', 'gabriel')
-        .end( (err, res) => {
-            done();
-        });
-    });
-
-    it('should connect if no right', done => {
-       chai.request(server)
-       .get('/series')
-       .end( (err,res) => {
-            res.should.have.status(403);
-            done();
-       });
-    })
-   
-    after( done => {
-        chai.request(server)
-        .post('/logout')
-        .end( () => {
-            done();
-        });
-    })
-});
-*/
