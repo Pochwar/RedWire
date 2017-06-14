@@ -23,6 +23,19 @@ class ExtractUser {
                             
                 UserModel.findById( data.id )
                 .then( user => {
+
+                    // delete cookie for invalid user
+                    if( !user.pseudo) {
+
+                        res.cookie(conf.site.cookies.tokenName, 'del', {
+                            maxAge: 0,
+                            httpOnly: true,
+                        });
+
+                        user = {};
+                    }
+
+                    // save user
                     res.locals.user = user;
                     next();
                 })

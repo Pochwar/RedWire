@@ -1,5 +1,8 @@
-const Serie = require('./../schemas/SerieSchema');
-const Actor = require('./../schemas/ActorSchema');
+const mongoose = require('mongoose');
+const SerieSchema = require('./../schemas/SerieSchema');
+const ActorSchema = require('./../schemas/ActorSchema');
+const Serie = mongoose.model('Serie', SerieSchema);
+const Actor =  mongoose.model('Actor', ActorSchema);
 
 class SerieModel {
 
@@ -9,6 +12,9 @@ class SerieModel {
         this._apiImagePath = apiImagePath;
 
         this.findByTitle = this.findByTitle.bind(this);
+        this.findBy = this.findBy.bind(this);
+        this.actorRequest = this.actorRequest.bind(this);
+        this.titleRequest = this.titleRequest.bind(this);
         this.transformImagePath = this.transformImagePath.bind(this);
     }
 
@@ -106,23 +112,43 @@ class SerieModel {
      * @return {Promise} Should return an array containing the series matching the title param
      */
     findByTitle(title, lang, page = null) {
+       return this.findBy('title', title, lang, page);
+    }
+
+    /**
+     * @method
+     * @param {String} actor - The actor user wants to search for
+     * @return {Promise} Should return an array containing the series matching the actor param
+     */
+    findByActor(actor, lang, page = null)  {
+        return this.findBy('actor', actor, lang, page);
+    }
+
+    // default search method
+    findBy(target, query, lang, page = null) {
+        
         return new Promise((resolve, reject) => {
 
             let data = {};
 
-            // 1. counter request
-            const counter = Serie.find({
-                title: new RegExp(title, 'i'),
-                langCode: lang
-            }).count();
+            // 1 . generate request
+            let counter, docs;
+            if( target == 'title') {
+                counter = this.titleRequest(query, lang);
+                docs = this.titleRequest(query, lang);
+            }
+            else if (target == 'actor') {
+                counter = this.actorRequest(query, lang);
+                docs = this.actorRequest(query, lang);
+            }
+            else {
+                throw new Error('SerieModel - findBy - wrong target specified');
+            }
 
-            // 2. pagination request
-            const docs = Serie.find({
-                title: new RegExp(title, 'i'),
-                langCode: lang
-            });
+            // 2. counter request
+            counter.count();
 
-            // skip
+            //3. skip & limit for documents
             if (page) {
                 docs.skip(page * this._resultPerPage);
             }
@@ -133,38 +159,35 @@ class SerieModel {
             // run counter request
             counter.exec()
 
-                // save data & run pagination request
-                .then(number => {
-                    data.total = number;
-                    data.pages = Math.ceil(number / this._resultPerPage);
+            // save data & run pagination request
+            .then(number => {
+                data.total = number;
+                data.pages = Math.ceil(number / this._resultPerPage);
 
-                    return docs.exec();
-                })
-                // transform data & resolve
-                .then(series => {
-                    data.series = series.map(serie => this.transformImagePath(serie));
-                    resolve(data);
-                })
-                .catch(e => reject(e))
+                return docs.exec();
+            })
+            // transform data & resolve
+            .then(series => {
+                data.series = series.map(serie => this.transformImagePath(serie));
+                resolve(data);
+            })
+            .catch(e => reject(e))
         });
     }
 
-    /**
-     * @method
-     * @param {String} actor - The actor user wants to search for
-     * @return {Promise} Should return an array containing the series matching the actor param
-     */
-    findByActor(actor) {
-        return new Promise((resolve, reject) => {
-            Serie.find({
-                // actors: new RegExp(actor, 'i'),
-                actors: {
-                    "$regex": actor,
-                    "$options": "i",
-                },
-            })
-                .then(series => resolve(series.toObject()))
-                .catch(e => reject(e))
+    // generate request for title
+    titleRequest(title, lang) {
+        return Serie.find({
+            title: new RegExp(title, 'i'),
+            langCode: lang
+        });
+    }
+
+    // generate request for actors
+    actorRequest(actor, lang) {
+        return Serie.find({
+            "langCode": lang,
+            "actors.name": new RegExp(actor, 'i'),
         });
     }
 
@@ -242,7 +265,7 @@ class SerieModel {
      * @param {Object} serie - serie returned from the distant api
      * @return {Promise<bool>} Promise with boolean
      */
-    addIfNotExits(serie) {
+    insertApiSerie(serie) {
         return new Promise((resolve, reject) => {
             Serie.update(
                 { api_id: serie.api_id, langCode: serie.langCode, },

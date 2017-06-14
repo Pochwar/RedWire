@@ -1,7 +1,6 @@
 /*
  IMPORT PACKAGES
  */
-const socket = require('socket.io');
 const http = require('http');
 const express = require('express');
 const path = require('path');
@@ -97,7 +96,7 @@ class Server {
         this._app.use(langService.checkCookies);
 
         //chat
-        const chat = new Chat(this._server);
+        new Chat(this._server);
     }
 
     run() {
@@ -179,7 +178,10 @@ class Server {
 
         this._app.get('/home', accessGranted.member, IndexCtrl.indexLoggedAction);
 
+        // search
         this._app.get('/search', accessGranted.everyone, searchCtrl.byTitle);
+        this._app.get('/search/title', accessGranted.everyone, searchCtrl.byTitle);
+        this._app.get('/search/actor', accessGranted.everyone, searchCtrl.byActor);
 
         //trick to get user information client side
         this._app.get('/api/user/data', (req, res) => {

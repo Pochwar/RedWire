@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const actorSchema = new Schema({
-    local_id: {
-        type: Number,
-        required: true,
-    },
+    // local_id: {
+    //     type: Number,
+    //     required: true,
+    // },
     api_id: {
         type: Number,
     },
@@ -27,4 +27,4 @@ const actorSchema = new Schema({
         required: true,
     },
 });
-module.exports = mongoose.model('Actor', actorSchema);
+module.exports = actorSchema;
