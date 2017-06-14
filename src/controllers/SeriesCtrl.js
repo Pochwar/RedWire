@@ -1,5 +1,6 @@
 const winston = require('winston');
 const mongoose = require('mongoose');
+const url = require('url');
 
 mongoose.Promise = global.Promise;
 
@@ -11,7 +12,7 @@ class SeriesCtrl {
         this.getByTitle = this.getByTitle.bind(this);
         this.getById = this.getById.bind(this);
         this.getEpisodeById = this.getEpisodeById.bind(this);
-        this.postUserFollow = this.postUserFollow.bind(this);
+        this.putUserFollow = this.putUserFollow.bind(this);
 
         // this.test();
     }
@@ -54,19 +55,26 @@ class SeriesCtrl {
     }
 
     get(req, res) {
-        this._series.findAll()
-            .then(series => {
-                res.render('series.twig', {
-                    series: series,
-                });
-            })
-            .catch(e => {
-                winston.info(e);
-                res.status(500).render('series.twig', {
-                    status: 500,
-                    error: e,
-                })
-            })
+        
+        // retrieve service & lang
+        const lang =  req.getLocale();
+
+        // search local database
+        this._series.findAll( lang, res.locals.page )
+        
+        // render
+        .then(data => {
+            const currentUrl = res.locals.urlWithoutPages;
+            const defaultPoster = req.app.get('conf').site.default.poster;
+            
+            res.render('series.twig', {data: data, currentUrl, defaultPoster,});
+        })
+        // catch error
+        .catch( err => {
+            winston.info('info', err);
+            const error = res.__('ERROR_SERVER');
+            res.status(500).render('error.twig', {status: 500, error,});
+        });
     }
 
     getForm(req, res) {

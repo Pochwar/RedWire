@@ -14,25 +14,10 @@ class SearchCtrl {
     
     byTitle(req, res ) {
         
-        // parse request
-        const queryData = url.parse(req.url, true).query;
-
-        // check if query is present
-        if ( !queryData.q) {
-            const error = res.__('ERROR_INVALIDQUERY');
-            res.status(400).render('error.twig', {status: 400, error,});
-        }
-
-        // parse page number
-        let p = null;
-        if( queryData.p ){
-            p = parseInt( queryData.p) -1;
-        }
-
-        // check if page number is valid
-        if( p && p < 0 ) {
-            const error = res.__('ERROR_INVALIDQUERY');
-            res.status(400).render('error.twig', {status: 400, error,});
+        // no request
+        if( !res.locals.query) {
+            const error = res.__('ERROR_SERVER');
+            return res.status(500).render('error.twig', {status: 500, error,});
         }
 
         // retrieve service & lang
@@ -40,7 +25,7 @@ class SearchCtrl {
         const lang =  req.getLocale();
 
         // search api
-        tmdbService. searchByTitle( queryData.q, lang)
+        tmdbService. searchByTitle( res.locals.query, lang)
         
         // save api results
         .then( series => {
@@ -52,11 +37,11 @@ class SearchCtrl {
         })
         // search local database
         .then( () => {
-            return this._serieModel.findByTitle( queryData.q, lang, p );
+            return this._serieModel.findByTitle( res.locals.query, lang, res.locals.page );
         })
         // render
         .then(data => {
-            const currentUrl = req.path + '?q='+queryData.q;
+            const currentUrl = res.locals.urlWithoutPages;
             const defaultPoster = req.app.get('conf').site.default.poster;
             
             res.render('series.twig', {data: data, currentUrl, defaultPoster,});
@@ -71,25 +56,10 @@ class SearchCtrl {
 
     byActor(req, res ) {
         
-        // parse request
-        const queryData = url.parse(req.url, true).query;
-
-        // check if query is present
-        if ( !queryData.q) {
-            const error = res.__('ERROR_INVALIDQUERY');
-            res.status(400).render('error.twig', {status: 400, error,});
-        }
-
-        // parse page number
-        let p = null;
-        if( queryData.p ) {
-            p = parseInt( queryData.p) -1;
-        }
-
-        // check if page number is valid
-        if( p && p < 0 ) {
-            const error = res.__('ERROR_INVALIDQUERY');
-            res.status(400).render('error.twig', {status: 400, error,});
+         // no request
+        if( !res.locals.query) {
+            const error = res.__('ERROR_SERVER');
+            return res.status(500).render('error.twig', {status: 500, error,});
         }
 
         // retrieve service & lang
@@ -97,7 +67,7 @@ class SearchCtrl {
         const lang =  req.getLocale();
         
         // search api
-        tmdbService.searchByActors( queryData.q, lang)
+        tmdbService.searchByActors( res.locals.query, lang)
         
         // save api results
         .then( series => {
@@ -109,11 +79,11 @@ class SearchCtrl {
         })
         // search local database
         .then( () => {
-            return this._serieModel.findByActor( queryData.q, lang, p );
+            return this._serieModel.findByActor( res.locals.query, lang,res.locals.page );
         })
         // render
         .then(data => {
-            const currentUrl = req.path + '?q='+queryData.q;
+            const currentUrl = res.locals.urlWithoutPages;
             const defaultPoster = req.app.get('conf').site.default.poster;
             
             res.render('series.twig', {data: data, currentUrl, defaultPoster,});
