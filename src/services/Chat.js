@@ -1,5 +1,6 @@
 const socket = require('socket.io');
 const uniqid = require('uniqid');
+const winston = require('winston');
 
 class Chat {
     constructor(server) {
@@ -22,7 +23,7 @@ class Chat {
                 });
                 users.push(socket.pseudo);
                 io.emit('users', users);
-                console.log(`New user : ${socket.pseudo}`);
+                winston.info('info', `CHAT - connection - New user : ${socket.pseudo}`);
             });
 
             socket.on('msg', msg => {
@@ -31,7 +32,7 @@ class Chat {
                     msg : msg,
                     pseudo : socket.pseudo
                 });
-                console.log(`${socket.pseudo} says : ${msg}`);
+                winston.info('info', `CHAT - msg - ${socket.pseudo} says : ${msg}`);
             });
 
             socket.on('typing', msg => {
@@ -51,7 +52,7 @@ class Chat {
                     users.splice(index, 1);
                 }
                 io.emit('users', users);
-                console.log(`${socket.pseudo} disconnected`)
+                winston.info('info', `CHAT - disconnect -${socket.pseudo} disconnected`)
             });
 
         });
