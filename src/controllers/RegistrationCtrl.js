@@ -84,6 +84,15 @@ class RegistrationCtrl {
             return;
         }
 
+        //check mail
+        let mailOk = UIV.checkMail(req.body.mail);
+        if(!mailOk){
+            res.render('registration.twig', {
+                msg: res.__('MAIL_INVALID'),
+            });
+            return;
+        }
+
         //check langId
         let langIdOk = UIV.checkLangId(req.body.langId);
         if(!langIdOk){

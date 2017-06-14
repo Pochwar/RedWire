@@ -59,7 +59,7 @@
                 <form action="" id="registrationForm3" method="post" encType="multipart/form-data">
                     <div class="form-group">
                         <label class="ct-txt-white" for="mail">{{ __("MAIL") }} * : </label>
-                        <input type="email" name="value" class="form-control" id="mail" placeholder="{{ __("MAIL") }}" value="{{ user.mail }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                        <input type="email" name="mail" class="form-control" id="mail" placeholder="{{ __("MAIL") }}" value="{{ user.mail }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                     </div>
                     <input type="hidden" name="change" value="mail">
                     <input type="hidden" name="userId" value="{{ user._id }}">
@@ -73,9 +73,22 @@
                         <input type="file" name="avatar" class="form-control" id="avatar" placeholder="{{ __("AVATAR") }}" accept=".gif,.jpg,.jpeg,.png" required>
                     </div>
                     <input type="hidden" name="change" value="avatar">
+                    <input type="hidden" name="fileName" value="{{ user.avatar }}">
                     <input type="hidden" name="userId" value="{{ user._id }}">
-                    <input class="btn" type="submit" value="{{ __("CHANGEAVATAR") }}">
+                    <div id="avatar_buttons">
+                        <input class="btn" type="submit" value="{{ __("CHANGEAVATAR") }}">
+                        {% if user.avatar %}
+                            <button class="btn btn-danger" id="delete_avatar">{{ __('DELETE_AVATAR') }}</button>
+                        {% endif %}
+                    </div>
                 </form>
+                {% if user.avatar %}
+                    <form action="" id="registrationForm20" method="post" encType="multipart/form-data">
+                        <input type="hidden" name="change" value="deleteAvatar">
+                        <input type="hidden" name="userId" value="{{ user._id }}">
+                        <input type="hidden" name="fileName" value="{{ user.avatar }}">
+                    </form>
+                {% endif %}
                 <hr>
                 <form action="" id="registrationForm" method="post" encType="multipart/form-data">
                     <div class="form-group">
@@ -95,7 +108,7 @@
                 <form action="" id="registrationForm1" method="post" encType="multipart/form-data">
                     <div class="form-group">
                         <label class="ct-txt-white" for="langId">{{ __("LANG") }} : </label>
-                        <select name="value" class="form-control" id="langId">
+                        <select name="langId" class="form-control" id="langId">
                             <option value=1 {% if user.langId == 1 %}selected{% endif %}>{{ __("LANG_FR") }}</option>
                             <option value=2 {% if user.langId == 2 %}selected{% endif %}>{{ __("LANG_EN") }}</option>
                         </select>
@@ -139,6 +152,11 @@
                 console.log('birthday error');
             }
         });
+
+        $("#delete_avatar").click(e => {
+            e.preventDefault();
+            $("#registrationForm20").submit();
+        })
     </script>
 
 {% endblock %}

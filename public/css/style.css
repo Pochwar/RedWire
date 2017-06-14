@@ -119,16 +119,17 @@ body {
 
 @media only screen and (min-width: 700px) {
 
-.list-group-item-success {
-    padding: 5px;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+    .list-group-item-success {
+        padding: 5px;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 
-.list-group-item-danger {
-    padding: 5px;
-    text-align: center;
+    .list-group-item-danger {
+        padding: 5px;
+        text-align: center;
+    }
 }
 
 @media only screen and (min-width: 992px) {
@@ -383,6 +384,7 @@ wall
 .fs-block {
     height: 270px;
     max-height: 270px;
+}
 
 /*
 * Serie & episode

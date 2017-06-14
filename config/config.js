@@ -42,7 +42,7 @@ const CONF = {
             pass: process.env.CONF_SMTP_PASS,
         },
         image: {
-            authExt: ['jpg', 'jpeg', 'gif', 'png'],
+            authExt: ['.jpg', '.jpeg', '.gif', '.png'],
             maxSize: "1mb"
         }
     },

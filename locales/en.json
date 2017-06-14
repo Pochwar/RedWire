@@ -93,5 +93,6 @@
 	"SELECT_LANG": "SELECT_LANG",
 	"LANG_TO_FR": "LANG_TO_FR",
 	"LANG_TO_EN": "LANG_TO_EN",
-  "MAIL_SENT": "E-mail confirmation sent, check your mails to activate your account"
+	"MAIL_SENT": "E-mail confirmation sent, check your mails to activate your account",
+	"DELETE_AVATAR": "Delete avatar"
 }

@@ -29,18 +29,13 @@ class UserInfoVerificationService {
         return ok;
     }
 
-    checkAvatar(avatar) {
-        let avatarChecked = avatar;
-
-        //check file format
-        const authExt = ['jpg', 'jpeg', 'gif', 'png'];
-        const ext = avatar.mimetype.replace("image/", "");
-        if (authExt.indexOf(ext) === -1){
-            avatarChecked = false
+    checkMail(mail) {
+        const regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let ok = true;
+        if (!mail.match(regexp)){
+            ok = false
         }
-
-        //check file size
-
+        return ok;
     }
    
 }
