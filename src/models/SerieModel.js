@@ -71,13 +71,20 @@ class SerieModel {
         // const validated = optionals.validated || 0;
 
         return new Promise((resolve, reject) => {
+            let actors = [];
+
+            if(optionals.actors){
+                actors = optionals.actors.map((actor) => {
+                    return {name: actor};
+                })
+            }
             Serie.create({
                 api_id: optionals.api_id,
                 title: title,
                 overview: optionals.overview,
                 poster: optionals.poster,
                 genres: optionals.genres,
-                actors: optionals.actors,
+                actors: actors,
                 createdAt: createdAt,
                 updatedAt: createdAt,
                 langCode: langCode,
@@ -293,6 +300,18 @@ class SerieModel {
         }
 
         return serie;
+    }
+
+    followSerie(user, serie) {
+        return new Promise((resolve, reject) => {
+            Serie.update({ _id: serie }, { $push: { followedBy: user} })
+            .then(result => {
+                resolve();
+            })
+            .catch(error => {
+                reject(error);
+            });
+        });
     }
 }
 

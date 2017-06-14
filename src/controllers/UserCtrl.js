@@ -4,6 +4,7 @@ const uniqid = require('uniqid');
 const path = require('path');
 const _ = require('underscore');
 const UserModel = require( './../models/UserModel');
+const mongoose = require('mongoose');
 
 class UserCtrl {
     constructor(conf){
@@ -124,10 +125,7 @@ class UserCtrl {
                 })
             ;
         }
-
-
-
-    }
+    }  
 }
 
 module.exports = UserCtrl;
