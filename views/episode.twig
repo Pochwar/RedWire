@@ -1,22 +1,17 @@
-{% extends "layout/layout.twig" %}
-
-{# scripts #}
-{% block header %}
-    <script src="js/series.js"></script>
-    <link href="css/style.css" rel="stylesheet">
-{% endblock %}
-
 {# contenu #}
 {% block content %}
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-block">
-            <div class="card-header">{{ __("SEASON") }} {{ episode.season }} {{ __("EPISODE") }} {{ episode.number }} </div>
-            <div class="card-title"> {{episode.title}} </div>
-            <p class="card-text">
-                {{ episode.overview }}
-            </p>
-        </div>
+    <div class="">
+        <div class="h2">{{ __("SEASON") }} {{ episode.season }}</div>
+        <span class="h2">
+            <small> {{ __("EPISODE") }} {{ episode.number }}  {{episode.title}} </small>
+        </span>
+        <span class="text-right">
+            <button type="button" id="{{ episode._id }}" class="btn btn-default viewed">Pas vu</button>
+        </span>
+        <p class="">
+            {{ episode.overview }}
+        </p>
     </div>
 </div>
 {% endblock %}
