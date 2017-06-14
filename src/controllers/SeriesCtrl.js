@@ -55,30 +55,16 @@ class SeriesCtrl {
     }
 
     get(req, res) {
-        // parse request
-        const queryData = url.parse(req.url, true).query;
-
-        // parse page number
-        let p = null;
-        if( queryData.p ) {
-            p = parseInt( queryData.p) -1;
-        }
-
-        // check if page number is valid
-        if( p && p < 0 ) {
-            const error = res.__('ERROR_INVALIDQUERY');
-            res.status(400).render('error.twig', {status: 400, error,});
-        }
-
+        
         // retrieve service & lang
         const lang =  req.getLocale();
 
         // search local database
-        this._series.findAll( lang, p )
+        this._series.findAll( lang, res.locals.page )
         
         // render
         .then(data => {
-            const currentUrl = req.path;
+            const currentUrl = res.locals.urlWithoutPages;
             const defaultPoster = req.app.get('conf').site.default.poster;
             
             res.render('series.twig', {data: data, currentUrl, defaultPoster,});

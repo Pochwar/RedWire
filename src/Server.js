@@ -13,6 +13,7 @@ const fileUpload = require('express-fileupload');
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
 const ExtractUser = require('./middleware/ExtractUser');
+const ParseQuery = require('./middleware/ParseQuery');
 
 // controllers
 const RegistrationCtrl = require('./controllers/RegistrationCtrl');
@@ -93,6 +94,9 @@ class Server {
         // check that user's lang is correctly setted
         this._app.use(langService.checkCookies);
 
+        // parse query
+        this._app.use(ParseQuery.toLocals);
+
         //chat
         new Chat(this._server);
     }
@@ -166,14 +170,14 @@ class Server {
         // get all series from DB
         this._app.get('/series', accessGranted.everyone, seriesCtrl.get);
 
-        //get one serie from its id
-        this._app.get('/series/:id', accessGranted.everyone, seriesCtrl.getById);
-
         // get the serie's creation form
         this._app.get('/series/add', accessGranted.member, seriesCtrl.getForm);
 
         // post the form results for creating a serie
         this._app.post('/series/add', accessGranted.member, seriesCtrl.post);
+
+        //get one serie from its id
+        this._app.get('/series/:id', accessGranted.everyone, seriesCtrl.getById);
 
         //follow
         this._app.put('/series/:id/follow', accessGranted.member, seriesCtrl.putUserFollow);
