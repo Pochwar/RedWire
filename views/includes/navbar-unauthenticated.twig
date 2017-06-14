@@ -8,7 +8,7 @@
                 <!--navbar brand-->
                 <div class="navbar-brand ct-navbar-brand" href="#page-top">
                     <img src="img/logo.png">
-                    <span>
+                    <span class="hidden-md hidden-sm">
                         <p class="ct-txt-yellow ct-txt-larger">{{ __("SITENAME") }}</p>
                         <p class="ct-txt-large">{{ __("SITESUBNAME") }}</p>
                     </span>
@@ -29,7 +29,8 @@
             
                 <!-- Menu responsive -->
                 <div class="collapse navbar-collapse" id="menu-responsive">
-                    <ul class="nav navbar-nav navbar-right">
+                    <!-- big screen-->
+                    <ul class="nav navbar-nav navbar-right visible-md visible-lg">
                         <li>
                             <a href="#modal_connection" data-toggle="modal" class="btn btn-default ct-mr-1">{{__("SIGNIN") }}</a>
                         </li>
@@ -43,8 +44,21 @@
                             <a href="lang/en" class="btn btn-primary btn-xs ct-nav-lang">en</a>
                         </li>
                     </ul>
+
+                    <!-- small screens -->
+                    <ul class="nav navbar-nav navbar-right hidden-lg hidden-md">
+                        <li>
+                            <a href="#modal_connection" data-toggle="modal">{{__("SIGNIN") }}</a>
+                        </li>
+                        <li>
+                            <a href="register" >{{__("SIGNUP") }}</a>
+                        </li>
+                        <li>
+                            <a href="#modal_lang" data-toggle="modal">{{__("SELECT_LANG") }}</a>
+                        </li>
+                    </ul>
                 </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -78,3 +92,18 @@
     </div>
 </div>
 
+<!-- modal de changement de langue -->
+<div class="modal fade" id="modal_lang" tabindex="-1" role="dialog" aria-hidden="true">   
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <ul>
+                <li>
+                    <a href="lang/fr">{{__('LANG_TO_FR')}}</a>
+                </li>
+                <li>
+                    <a href="lang/en">{{__('LANG_TO_EN')}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
