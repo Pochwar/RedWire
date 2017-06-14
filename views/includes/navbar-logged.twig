@@ -8,19 +8,19 @@
                 <!--navbar brand-->
                 <div class="navbar-brand ct-navbar-brand" href="#page-top">
                     <img src="img/logo.png">
-                    <span>
+                    <span class="ct-visible-md-table-cell">
                         <p class="ct-txt-yellow ct-txt-larger">{{ __("SITENAME") }}</p>
                         <p class="ct-txt-large">{{ __("SITESUBNAME") }}</p>
                     </span>
                 </div>
             </div>
 
-            <div class="col-md-9 col-flex-centered">
+            <div class="col-md-9 col-flex-centered hidden-sm hidden-xs">
                {% include "./searchbar.twig" %}
             </div>
 
             <div class="col-md-9 col-flex-centered">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right ct-visible-md-table-cell">
                     <li>
                         <a href="lang/fr" class="btn btn-primary btn-xs ct-nav-lang">fr</a>
                     </li>
@@ -32,7 +32,19 @@
                     </li>
                 </ul>
             </div>
+       
+        </div>
+    </div>
+</nav>
 
+<!-- navigation : recherche sur petits écrans (bootstrap responsive ne fonctionne pas ici) -->
+<nav class="navbar white navbar-default ct-no-margin visible-sm visible-xs">
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12" >
+                {% include "./searchbar.twig" %}
+            </div>
         </div>
     </div>
 </nav>
@@ -69,16 +81,38 @@
                     <li>
                         <a href="/wall" >{{ __("PROFILE") }}</a>
                     </li>
-
-                    {% if user.roleId == 2 %}
-                        {% include "../includes/moderate.twig" %}
-                    {% elseif user.roleId == 3 %}
-                        {% include "../includes/moderate.twig" %}
+                    
+                    {% if user.roleId >= 2 %}
+                        <li>
+                            {% include "../includes/moderate.twig" %}
+                        </li>
                     {% endif %}
-
+                    
+                    <li class="hidden-lg">
+                        <a href="#modal_lang" data-toggle="modal">{{__("SELECT_LANG") }}</a>
+                    </li>
+                    <li class="hidden-lg">
+                        <a href="/logout">{{ __("DISCONNECT") }}</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
     </div>
 </nav>
+
+<!-- modal de changement de langue -->
+<div class="modal fade" id="modal_lang" tabindex="-1" role="dialog" aria-hidden="true">   
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <ul>
+                <li>
+                    <a href="lang/fr">{{__('LANG_TO_FR')}}</a>
+                </li>
+                <li>
+                    <a href="lang/en">{{__('LANG_TO_EN')}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

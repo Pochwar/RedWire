@@ -24,7 +24,7 @@ body {
  * see http://getbootstrap.com.vn/examples/equal-height-columns/  
  * Only on big screen to preserve responsiveness */
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 700px) {
     .row-eq-height {
         display: -webkit-box;
         display: -webkit-flex;
@@ -38,6 +38,24 @@ body {
     }
 }
 
+
+/* visibility*/
+.ct-visible-md-table-cell {
+    display: none !important;
+}
+
+.ct-visible-sm {
+}
+
+@media only screen and (min-width: 1050px) {
+    .ct-visible-md-table-cell {
+        display: table-cell !important;
+    }
+    
+    .ct-visible-sm {
+        display: none;
+    }
+}
 
 /* navbar logo */
 
@@ -98,6 +116,8 @@ body {
 #btnret {
     margin-top: 20px;
 }
+
+@media only screen and (min-width: 700px) {
 
 .list-group-item-success {
     padding: 5px;
@@ -291,7 +311,7 @@ chat
 
 #clients {}
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 700px) {
     .ct-fs-block {
         height: 400px;
         max-height: 400px;
