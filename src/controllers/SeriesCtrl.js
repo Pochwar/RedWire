@@ -11,6 +11,7 @@ class SeriesCtrl {
         this.getByTitle = this.getByTitle.bind(this);
         this.getById = this.getById.bind(this);
         this.getEpisodeById = this.getEpisodeById.bind(this);
+        this.postUserFollow = this.postUserFollow.bind(this);
 
         // this.test();
     }
@@ -76,14 +77,14 @@ class SeriesCtrl {
         const api_id = req.body.api_id || null;
         const overview = req.body.overview || null;
         const poster = req.body.poster || "/img/default.png";
-        const genres = req.body.genres.split(";") || [];
-        const actors = req.body.actors.split(";") || [];
+        const genres = req.body.genres ? req.body.genres.split(";") : [];
+        const actors = req.body.actors ? req.body.actors.split(";") : [];
         const comments = req.body.comments || [];
         const episodes = [];
         const counter = req.body.counterEpisode;
         for (let i = 1; i < counter; i++) {
             if (counter > 0 && !(req.body.episode + i).number && !(req.body.episode + i).season) {
-                res.render("add.twig", {
+                return res.render("add.twig", {
                     msg: res.__('REQUIREDFIELDS'),
                 })
             } else {
@@ -93,15 +94,16 @@ class SeriesCtrl {
         const validated = req.body.validated || 0;
         const date = new Date();
         if (!req.body.title || !req.body.langCode) {
-            res.render("add.twig", {
+            return res.render("add.twig", {
                 msg: res.__('REQUIREDFIELDS'),
             })
         }
 
 
         this._series.registerSerie(
-            req.title,
+            req.body.title,
             date,
+            req.getLocale(),
             {
                 api_id: api_id,
                 title: req.body.title,
@@ -124,7 +126,7 @@ class SeriesCtrl {
                 })
             })
             .catch(e => {
-                winston.info('Error caught: ' + e);
+                winston.info('SeriesCtrl/post/Error caught: ' + e);
                 res.status(500)
                     .render("error.twig", {
                         status: 500,
@@ -176,6 +178,29 @@ class SeriesCtrl {
                     })
             })
     }
+
+    putUserFollow(req, res) {
+        //check db connection
+        if (mongoose.connection._readyState !== 1) {
+            res.render('error.twig', {
+                status: 500,
+                error: res.__('ERROR_SERVER'),
+            });
+            return;
+        }
+
+        console.log(res.locals.user);
+        this._series.followSerie(res.locals.user._id, req.params.id)
+        .then(() => {
+            res.json({ msg: "OK" });
+        })
+        .catch((error) => {
+            winston.info("info", error);
+            res.json({ msg: "Error" });
+        })
+       
+    }
+
 }
 
 module.exports = SeriesCtrl;
