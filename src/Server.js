@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
 const ExtractUser = require('./middleware/ExtractUser');
-const ParseQuery = require('./middleware/ParseQuery');
+// const ParseQuery = require('./middleware/ParseQuery');
 
 // controllers
 const RegistrationCtrl = require('./controllers/RegistrationCtrl');
@@ -26,7 +26,6 @@ const ChatCtrl = require('./controllers/ChatCtrl');
 const SearchCtrl = require('./controllers/SearchCtrl');
 const UserCtrl = require('./controllers/UserCtrl');
 const MailCtrl = require('./controllers/MailCtrl');
-
 // models
 const SerieModel = require("./models/SerieModel");
 
@@ -101,7 +100,7 @@ class Server {
         this._app.use(langService.checkCookies);
 
         // parse query
-        this._app.use(ParseQuery.toLocals);
+        // this._app.use(ParseQuery.toLocals);
 
         //chat
         new Chat(this._server);
