@@ -63,7 +63,7 @@ class SerieModel {
     registerSerie(title, createdAt, langCode, optionals) {
         // const api_id = optionals.api_id || null;
         // const overview = optionals.overview || null;
-        // const poster = optionals.poster || null;
+        // const poster = optionals.poster || "/img/default.png";
         // const genres = optionals.genres || [];
         // const actors = optionals.actors || [];
         // const comments = optionals.comments || [];
@@ -71,13 +71,20 @@ class SerieModel {
         // const validated = optionals.validated || 0;
 
         return new Promise((resolve, reject) => {
+            let actors = [];
+
+            if(optionals.actors){
+                actors = optionals.actors.map((actor) => {
+                    return {name: actor};
+                })
+            }
             Serie.create({
                 api_id: optionals.api_id,
                 title: title,
                 overview: optionals.overview,
                 poster: optionals.poster,
                 genres: optionals.genres,
-                actors: optionals.actors,
+                actors: actors,
                 createdAt: createdAt,
                 updatedAt: createdAt,
                 langCode: langCode,
@@ -223,18 +230,18 @@ class SerieModel {
             Serie.findOne({
                 'episodes._id': id,
             },
-                {
-                    'episodes.$': 1,
-                })
-                .then(episode => {
-                    if (episode) {
-                        resolve(episode.toObject());
-                    }
-                    else {
-                        resolve({});
-                    }
-                })
-                .catch(e => reject(e));
+            {
+                'episodes.$': 1,
+            })
+            .then(serie => {
+                if (serie) {
+                    resolve(serie.toObject());
+                }
+                else {
+                    resolve({});
+                }
+            })
+            .catch(e => reject(e));
         });
     }
 
@@ -293,6 +300,18 @@ class SerieModel {
         }
 
         return serie;
+    }
+
+    followSerie(user, serie) {
+        return new Promise((resolve, reject) => {
+            Serie.update({ _id: serie }, { $push: { followedBy: user} })
+            .then(result => {
+                resolve();
+            })
+            .catch(error => {
+                reject(error);
+            });
+        });
     }
 }
 

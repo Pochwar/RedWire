@@ -26,6 +26,7 @@ const ChatCtrl = require('./controllers/ChatCtrl');
 const SearchCtrl = require('./controllers/SearchCtrl');
 const UserCtrl = require('./controllers/UserCtrl');
 const AddCtrl = require('./controllers/AddCtrl');
+const MailCtrl = require('./controllers/MailCtrl');
 
 // models
 const SerieModel = require("./models/SerieModel");
@@ -34,8 +35,6 @@ const SerieModel = require("./models/SerieModel");
 const TokenService = require('./services/token.js');
 const LangService = require('./services/LangService');
 const TmdbService = require('./services/TmdbService');
-
-//chat
 const Chat = require('./services/Chat');
 
 class Server {
@@ -66,7 +65,7 @@ class Server {
 
         //configure i18n
         i18n.configure({
-            locales: ['fr', 'en',],
+            locales: ['fr', 'en', ],
 
             defaultLocale: 'fr',
             directory: path.join(__dirname, '/../locales'),
@@ -127,6 +126,7 @@ class Server {
         const searchCtrl = new SearchCtrl(serieModel);
         const userCtrl = new UserCtrl(this._conf);
         const addCtrl = new AddCtrl();
+        const mailCtrl = new MailCtrl(this._conf);
 
         // init access control
         /*
@@ -141,6 +141,12 @@ class Server {
             this._conf.site.roles.superadmin
         );
 
+
+        // send a verification mail
+        this._app.get('/send', accessGranted.everyone, mailCtrl.send.bind(mailCtrl));
+
+        // verify a mail
+        this._app.get('/verify', accessGranted.everyone, mailCtrl.verify);
 
         /*  examples for admin
             this._app.get('/admin', accessGranted.moderator, adminCtrl.get);
@@ -171,6 +177,9 @@ class Server {
         // post the form results for creating a serie
         this._app.post('/series/add', accessGranted.member, seriesCtrl.post);
 
+        //follow
+        this._app.put('/series/:id/follow', accessGranted.member, seriesCtrl.putUserFollow);
+
         // get one episode from its id
         this._app.get('/episode/:id', accessGranted.everyone, seriesCtrl.getEpisodeById);
 
@@ -185,7 +194,7 @@ class Server {
 
         //trick to get user information client side
         this._app.get('/api/user/data', (req, res) => {
-            if(res.locals.user){
+            if (res.locals.user) {
                 res.json({
                     pseudo: res.locals.user.pseudo,
                     birthday: res.locals.user.birthday,
@@ -218,6 +227,7 @@ class Server {
         this._app.get('/wall', accessGranted.member, userCtrl.getWall);
         this._app.get('/user', accessGranted.member, userCtrl.getUserInfo);
         this._app.post('/user', accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
+
 
         //logout
         this._app.get('/logout', accessGranted.member, (req, res) => {

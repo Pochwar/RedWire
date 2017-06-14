@@ -37,6 +37,10 @@ const CONF = {
             1: "fr",
             2: "en",
         },
+        smtp: {
+            mail: process.env.CONF_SMTP_MAIL,
+            pass: process.env.CONF_SMTP_PASS,
+        },
     },
     API: {
         tmdb: {

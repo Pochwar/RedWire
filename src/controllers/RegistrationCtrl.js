@@ -73,14 +73,14 @@ class RegistrationCtrl {
 
         //check and format birthday
         var dateRegex = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-        if(!req.body.birthday.match(dateRegex)){
+        if (!req.body.birthday.match(dateRegex)) {
             res.render('registration.twig', {
                 msg: res.__('BIRTHDAY_INVALID'),
             });
             return;
         }
         const birthdayArray = req.body.birthday.split("/");
-        const birthday = new Date(birthdayArray[2], (birthdayArray[1]-1), birthdayArray[0]);
+        const birthday = new Date(birthdayArray[2], (birthdayArray[1] - 1), birthdayArray[0]);
 
         //hash password
         const saltRounds = 10;
@@ -99,9 +99,7 @@ class RegistrationCtrl {
                 )
                 .then(object => {
                     winston.info(`### user ${object.pseudo} created ! ###`);
-                    res.render('registration.twig', {
-                        msg: res.__('SUCCESS'),
-                    });
+                    res.redirect('/send?to=' + req.body.mail);
                 })
                 .catch(err => {
                     winston.info(`error :  ${err.message}`);

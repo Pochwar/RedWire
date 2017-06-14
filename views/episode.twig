@@ -1,11 +1,17 @@
-{% extends "layout/layout.twig" %}
-
-{# scripts #}
-{% block header %}
-    <script src="js/series.js"></script>
-{% endblock %}
-
 {# contenu #}
 {% block content %}
-
+<div class="container-fluid">
+    <div class="">
+        <div class="h2">{{ __("SEASON") }} {{ episode.season }}</div>
+        <span class="h2">
+            <small> {{ __("EPISODE") }} {{ episode.number }}  {{episode.title}} </small>
+        </span>
+        <span class="text-right">
+            <button type="button" id="{{ episode._id }}" class="btn btn-default viewed">Pas vu</button>
+        </span>
+        <p class="">
+            {{ episode.overview }}
+        </p>
+    </div>
+</div>
 {% endblock %}

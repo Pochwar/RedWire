@@ -61,5 +61,6 @@
 	"PASSWORD_CONF": "PASSWORD_CONF",
 	"PASSMUSTBEEQUAL": "PASSMUSTBEEQUAL",
 	"LANG": "LANG",
-	"REGISTER": "REGISTER"
+	"REGISTER": "REGISTER",
+  "MAIL_SENT": "E-mail de confirmation envoyé, vérifiez vos mails pour activer votre compte"
 }
