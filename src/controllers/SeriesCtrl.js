@@ -1,6 +1,5 @@
 const winston = require('winston');
 const mongoose = require('mongoose');
-const url = require('url');
 
 mongoose.Promise = global.Promise;
 
@@ -13,6 +12,7 @@ class SeriesCtrl {
         this.getById = this.getById.bind(this);
         this.getEpisodeById = this.getEpisodeById.bind(this);
         this.putUserFollow = this.putUserFollow.bind(this);
+        this.getModify = this.getModify.bind(this);
 
         // this.test();
     }
@@ -64,30 +64,25 @@ class SeriesCtrl {
     }
 
     get(req, res) {
-        
-        // retrieve service & lang
-        const lang =  req.getLocale();
-
-        // search local database
-        this._series.findAll( lang, res.locals.page )
-        
-        // render
-        .then(data => {
-            const currentUrl = res.locals.urlWithoutPages;
-            const defaultPoster = req.app.get('conf').site.default.poster;
-            
-            res.render('series.twig', {data: data, currentUrl, defaultPoster,});
-        })
-        // catch error
-        .catch( err => {
-            winston.info('info', err);
-            const error = res.__('ERROR_SERVER');
-            res.status(500).render('error.twig', {status: 500, error,});
-        });
+        this._series.findAll()
+            .then(series => {
+                res.render('series.twig', {
+                    series: series,
+                });
+            })
+            .catch(e => {
+                winston.info(e);
+                res.status(500).render('series.twig', {
+                    status: 500,
+                    error: e,
+                })
+            })
     }
 
     getForm(req, res) {
-        res.render('add.twig')
+        res.render('add.twig', {
+            title : res.__("ADDSERIE")
+        })
     }
 
     post(req, res) {
@@ -102,7 +97,7 @@ class SeriesCtrl {
         for (let i = 1; i < counter; i++) {
             if (counter > 0 && !(req.body.episode + i).number && !(req.body.episode + i).season) {
                 return res.render("add.twig", {
-                    msg: res.__('REQUIREDFIELDS'),
+                    error: res.__('REQUIREDFIELDS'),
                 })
             } else {
                 episodes.push(req.body.episode + i)
@@ -112,10 +107,9 @@ class SeriesCtrl {
         const date = new Date();
         if (!req.body.title || !req.body.langCode) {
             return res.render("add.twig", {
-                msg: res.__('REQUIREDFIELDS'),
+                error: res.__('REQUIREDFIELDS'),
             })
         }
-
 
         this._series.registerSerie(
             req.body.title,
@@ -206,18 +200,33 @@ class SeriesCtrl {
             return;
         }
 
-        console.log(res.locals.user);
         this._series.followSerie(res.locals.user._id, req.params.id)
         .then(() => {
             res.json({ msg: "OK" });
         })
         .catch((error) => {
-            winston.info("info", error);
             res.json({ msg: "Error" });
-        })
-       
+        })    
     }
 
+    getModify(req, res) {
+        const _id = mongoose.Types.ObjectId(req.params.id)
+        this._series.findById(_id)
+            .then(serie => {
+                res.render('add.twig', {
+                    title : res.__("MODIFY_SERIE"),
+                    serie: serie,
+                })
+            })
+            .catch(e => {
+                winston.info('Une erreur est survenue: ' + e);
+                res.status(500)
+                    .render("error.twig", {
+                        status: 500,
+                        error: res.__('ERROR_SERVER'),
+                    })
+            })
+    }
 }
 
 module.exports = SeriesCtrl;

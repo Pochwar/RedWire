@@ -80,6 +80,7 @@ class SerieModel {
                     return {name: actor};
                 })
             }
+            console.log(title);
             Serie.create({
                 api_id: optionals.api_id,
                 title: title,
@@ -327,6 +328,7 @@ class SerieModel {
             });
         });
     }
+
 }
 
 module.exports = SerieModel;

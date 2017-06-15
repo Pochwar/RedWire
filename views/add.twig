@@ -4,33 +4,39 @@
     <div class="container-fluid">
         <div class="row ct-bg-grey">
             <div class="col-md-offset-2 col-md-6">
-                <h2 class="ct-txt-yellow" >
-                    {{__("ADDSERIE")}}
-                </h2>
-                <form action="/series/add" id="addSeriesForm" method="post" encType="multipart/form-data">
+            	<h2 class="ct-txt-yellow">
+            		{{ title }}
+            	</h2>
+                <div id="error" class="list-group-item list-group-item-danger">
+                	{{ error }}
+                </div>
+                <div id="success" class="list-group-item list-group-item-success">
+                	{{ msg }}
+                </div>
+                <form action="" id="addSeriesForm" method="post">
 	                <p class="ct-txt-white">(*) {{__("REQUIREDFIELDS")}}</p>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="title">{{__("TITLE")}} * : </label>
-	                            <input type="text" name="title" class="form-control" id="title" placeholder="{{ __("TITLE") }}" minlength="1" maxlength="50" required>
+	                            <input type="text" name="title" class="form-control" id="title" placeholder="{{ __("TITLE") }}" minlength="1" maxlength="50" value="{{ serie.title }}" required>
 	                        </div>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="langCode">{{__("LANGCODE")}} * : </label>
-	                            <select type="text" name="langCode" class="form-control" id="langCode" placeholder="{{ __("LANGCODE") }}">
-	                            	<option>{{__("LANG_FR")}}</option>
-	                            	<option>{{__("LANG_EN")}}</option>
-	                            </select>
+	                            <select name="langCode" class="form-control" id="langCode">
+		                            <option value="fr" {% if serie.langCode == "fr" %}selected{% endif %}>{{ __("LANG_FR") }}</option>
+		                            <option value="en" {% if serie.langCode == "en" %}selected{% endif %}>{{ __("LANG_EN") }}</option>
+                        </select>
 	                        </div>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="overview">{{__("OVERVIEW")}} : </label>
-	                            <textarea type="text" name="overview" class="form-control" id="overview" placeholder="{{ __("OVERVIEW") }}" minlength="3" required></textarea>
+	                            <textarea type="text" name="overview" class="form-control" id="overview" placeholder="{{ __("OVERVIEW") }}" minlength="3" required>{{ serie.overview }}</textarea>
 	                        </div>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="poster">{{__("POSTER")}} : </label>
-	                            <input type="file" name="poster" class="form-control" id="poster" placeholder="{{ __("POSTER") }}">
+	                            <input type="file" name="poster" class="form-control" id="poster" placeholder="{{ __("POSTER") }}" value="{{ serie.poster }}">
 	                        </div>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="actors">{{__("ACTORS")}} : </label>
-	                            <input type="text" name="actors" class="form-control" id="actors" placeholder="{{ __("ACTORS") }}" minlength="3" required>
+	                            <input type="text" name="actors" class="form-control" id="actors" placeholder="{{ __("NAME_ACTORS") }}" minlength="3" value="{% for actor in serie.actors %}{{ actor.name }}{% endfor %}">
 	                        </div>
 	                    
 
@@ -142,6 +148,28 @@ $("#add_episode").click(function(){
 	addEpisode();
 })
 </script>
+
+<script>
+   
+    (function($){
+    jQuery.fn.checkEmpty = function() {
+       return !$.trim(this.html()).length;
+    };
+    }(jQuery));
+
+    if($("#error").checkEmpty()){
+        $('#error').hide();
+    }else{
+        $('#error').show();
+    }
+
+     if($("#success").checkEmpty()){
+        $('#success').hide();
+    }else{
+        $('#success').show();
+    }
+</script>
+
 
 
 {% endblock %}
