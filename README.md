@@ -51,3 +51,25 @@ Use testing to see valid routing, unit testing, etc...
 use `npm run documentation` to test the npm module [documentation](https://www.npmjs.com/package/documentation) using [JSDoc](http://usejsdoc.org/) in your code
 
 As-is the actual command build and run a server wich display the generated documentation in HTML. It is strongly advised that you check the documentation manuel to learn how to configure it.
+
+
+## File uploads
+
+Multer package is used to manage file uploads.
+It handles file renaming, file filter (to check extensions), file size limit.
+Multer config is set in the Multer class service.
+
+Usage : add "upload" (which is an instance of Multer) as a middleware in the route where you need to handle a file upload, and set as parameter the name of the input that need to be managed by multer. Ex :
+
+the html :
+
+`<form action="" method="post" encType="multipart/form-data">`
+`<input type="file" name="avatar">`
+`<input type="submit" value="ok">`
+`</form>`
+
+the route :
+
+`this._app.post('/user', this.upload.single('avatar'), userCtrl.putUserInfo);`
+
+then get the file in the controller with : `res.file`

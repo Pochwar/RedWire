@@ -41,6 +41,13 @@ const CONF = {
             mail: process.env.CONF_SMTP_MAIL,
             pass: process.env.CONF_SMTP_PASS,
         },
+        image: {
+            authExt: ['.jpg', '.jpeg', '.gif', '.png'],
+            maxSize: "1mb"
+        },
+        authErrMsg: {
+            userMod: ['UIM_noChange', 'UIM_dbError', 'UIM_passNoMatch', 'UIM_passAlphaNumError', 'UIM_passError', 'UIM_passChangeOk', 'UIM_avatarChangeOk', 'UIM_avatarDeletetionError', 'UIM_avatarDeleted', 'UIM_birthdayError', 'UIM_birthdayChangeOk', 'UIM_langIdError', 'UIM_langIdChangeOk', 'UIM_mailError', 'UIM_mailChangeOk', 'UIM_firstnameAlphaNumError', 'UIM_firstnameChangeOk', 'UIM_lastnameAlphaNumError', 'UIM_lastnameChangeOk', 'UIM_pseudoAlphaNumError', 'UIM_pseudoChangeOk'],
+        }
     },
     API: {
         tmdb: {

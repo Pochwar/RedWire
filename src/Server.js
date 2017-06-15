@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const i18n = require('i18n');
 const winston = require('winston');
 const bodyParser = require('body-parser');
-const fileUpload = require('express-fileupload');
+const session = require('express-session')
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
@@ -27,7 +27,6 @@ const ChatCtrl = require('./controllers/ChatCtrl');
 const SearchCtrl = require('./controllers/SearchCtrl');
 const UserCtrl = require('./controllers/UserCtrl');
 const MailCtrl = require('./controllers/MailCtrl');
-
 // models
 const SerieModel = require("./models/SerieModel");
 
@@ -35,7 +34,9 @@ const SerieModel = require("./models/SerieModel");
 const TokenService = require('./services/token.js');
 const LangService = require('./services/LangService');
 const TmdbService = require('./services/TmdbService');
+const UserInfoVerificationService = require('./services/UserInfoVerificationService');
 const Chat = require('./services/Chat');
+const Multer = require('./services/Multer');
 
 class Server {
     constructor(conf) {
@@ -57,8 +58,17 @@ class Server {
             extended: true,
         }));
 
-        //use file upload
-        this._app.use(fileUpload());
+        //Multer file upload
+        this.upload = new Multer(this._conf);
+
+        //use flash
+        this._app.use(session({
+            secret: 'fishbluck',
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: true }
+        }));
+        this._app.use(require('flash')());
 
         // save config in app
         this._app.set('conf', conf);
@@ -81,6 +91,11 @@ class Server {
 
         const tmdbService = new TmdbService(this._conf.API.tmdb.token);
         this._app.set('tmdbService', tmdbService);
+
+        const UIV = new UserInfoVerificationService(this._conf);
+        this._app.set('UIV', UIV);
+
+        const chat = new Chat(this._server);
 
         //use cookie
         this._app.use(cookieParser());
@@ -224,8 +239,8 @@ class Server {
 
         //user
         this._app.get('/wall', accessGranted.member, userCtrl.getWall);
-        this._app.get('/user', accessGranted.member, userCtrl.getUserInfo);
-        this._app.post('/user', accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
+        this._app.get('/user', accessGranted.member, userCtrl.getUserInfo.bind(userCtrl));
+        this._app.post('/user', this.upload.single('avatar'), accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
 
 
         //logout

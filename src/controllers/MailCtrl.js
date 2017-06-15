@@ -28,9 +28,9 @@ class MailCtrl {
         this.host = req.get('host');
         const link = "http://" + this.host + "/verify?id=" + this.rand;
         this.mailOptions.to = req.query.to;
-        this.mailOptions.html = "Hello,<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>",
+        this.mailOptions.html = "Hello,<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>";
 
-            winston.info(this.mailOptions);
+        winston.info(this.mailOptions);
         this.smtpTransport.sendMail(this.mailOptions, function(error, response) {
             if (error) {
                 winston.info(error);
