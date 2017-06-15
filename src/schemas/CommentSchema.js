@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const commentsSchema = new Schema({
+const commentSchema = new Schema({
     title: {
         type: String,
         required: true,
@@ -33,6 +33,11 @@ const commentsSchema = new Schema({
     },
     user: {
         type: Schema.Types.ObjectId,
+        required: true,
+    },
+    userPseudo: {
+        type: String,
+        required: true,
     },
     usersLike: {
         type: [{
@@ -45,7 +50,7 @@ const commentsSchema = new Schema({
         }, ],
     },
     serie: {
-        type: Number,
+        type: Schema.Types.ObjectId,
     },
 });
-module.exports = mongoose.model('Comments', commentsSchema);
+module.exports = commentSchema;

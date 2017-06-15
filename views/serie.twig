@@ -9,8 +9,8 @@
 {# contenu #}
 {% block content %}
     <div class="container-fluid">
-        <div class ="row">
-            <div class="media serie">
+        <div class="row ct-bg-grey">
+            <div class="media serie col-md-offset-1 col-md-10">
                 <div class="media-left">
                     <img class="" src="{{ serie.poster }}" alt="{{ serie.title }}"></img>
                 </div>
@@ -29,9 +29,9 @@
             {% endif %}
         {% endfor %}
 
-        <div class="row">
+        <div class="row ct-bg-grey">
         {% for season in seasons %}
-            <div class="season">
+            <div class="season serie col-md-offset-2 col-md-8">
                 <div class="h2">{{ __("SEASON") }} {{ season }}</div>
                 {% for episode in serie.episodes if episode.season == season %}
                     <div class="episode">{% include 'episode.twig' %}</div>
@@ -39,6 +39,21 @@
             </div>
         {% endfor %}
         </div>
-
+        {% include 'comments.twig' %}
+        <div class="row ct-bg-grey">
+            <div class="col-md-offset-1 col-md-6">
+                {% for comment in comments %}
+                <span class="h2">
+                    <small>{{ comment.title }}</small>
+                </span>
+                <span class="h3 pull-right">
+                    <small>{{ __("COMMENT_POSTED") }} {{ comment.updateAt }} {{ __("BY_USER")}} {{ comment.userPseudo }}</small>
+                </span>
+                <div class="ct-txt-white">
+                    {{ comment.body }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const SerieSchema = require('./../schemas/SerieSchema');
+const CommentSchema = require('./../schemas/CommentSchema');
 const ActorSchema = require('./../schemas/ActorSchema');
 const Serie = mongoose.model('Serie', SerieSchema);
 const Actor =  mongoose.model('Actor', ActorSchema);
+const Comment = mongoose.model('Comments', CommentSchema);
 
 class SerieModel {
 
@@ -225,15 +227,15 @@ class SerieModel {
             Serie.findOne({
                 _id: id,
             })
-                .then(serie => {
-                    if (serie) {
-                        resolve(serie.toObject());
-                    }
-                    else {
-                        resolve({});
-                    }
-                })
-                .catch(e => reject(e));
+            .then(serie => {
+                if (serie) {
+                    resolve(serie.toObject());
+                }
+                else {
+                    resolve({});
+                }
+            })
+            .catch(e => reject(e));
         });
     }
 
@@ -323,14 +325,36 @@ class SerieModel {
         return new Promise((resolve, reject) => {
             Serie.update({ _id: serie }, { $push: { followedBy: user} })
             .then(result => {
-                resolve();
+                resolve(result);
             })
             .catch(error => {
                 reject(error);
             });
         });
     }
-
+    
+    addComment(userId, userPseudo, langId, serieId, commentTitle, commentBody, note) {
+        return new Promise((resolve, reject) => {
+            Comment.create({
+                title: commentTitle,
+                body: commentBody,
+                serie: serieId,
+                note: note,
+                user: userId,
+                userPseudo: userPseudo,
+                langId: langId,
+            })
+            .then(() => {
+                Comment.find({ serie: serieId })
+                    .then(comments => {
+                        resolve(comments)
+                    })
+            })
+            .catch(error => {
+                reject(error);
+            });
+        })
+    }
 }
 
 module.exports = SerieModel;

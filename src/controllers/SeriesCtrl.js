@@ -12,7 +12,11 @@ class SeriesCtrl {
         this.getById = this.getById.bind(this);
         this.getEpisodeById = this.getEpisodeById.bind(this);
         this.putUserFollow = this.putUserFollow.bind(this);
+<<<<<<< HEAD
         this.getModify = this.getModify.bind(this);
+=======
+        this.postComment = this.postComment.bind(this);
+>>>>>>> add POST comments & comments list in series.twig
 
         // this.test();
     }
@@ -207,8 +211,39 @@ class SeriesCtrl {
             res.json({ msg: "OK" });
         })
         .catch((error) => {
+            winston.info(error);
             res.json({ msg: "Error" });
-        })    
+        })
+    }
+
+    postComment(req, res) {
+        winston.info(res.locals.user.langId)
+        this._series.addComment(
+            res.locals.user._id,
+            res.locals.user.pseudo,
+            res.locals.user.langId,
+            req.params.id,
+            req.body.comment_title,
+            req.body.comment,
+            "5"
+            )
+            .then((comments) => {
+                this._series.findById(req.params.id)
+                .then(serie => {
+                    res.render('serie.twig', {
+                        serie: serie,
+                        comments: comments,
+                    })
+                })
+            })
+            .catch((error) => {
+                    winston.info(error);
+                    res.statut(500).render('error.twig', {
+                        status: 500,
+                        error: res.__('ERROR_SERVER'),
+                    });
+            })
+
     }
 
     getModify(req, res) {
