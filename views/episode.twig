@@ -1,17 +1,24 @@
 {# contenu #}
 {% block content %}
-<div class="container-fluid">
-    <div class="">
-        <div class="h2">{{ __("SEASON") }} {{ episode.season }}</div>
-        <span class="h2">
-            <small> {{ __("EPISODE") }} {{ episode.number }}  {{episode.title}} </small>
-        </span>
-        <span class="text-right">
-            <button type="button" id="{{ episode._id }}" class="btn btn-default viewed">Pas vu</button>
-        </span>
-        <p class="">
-            {{ episode.overview }}
-        </p>
-    </div>
+<div>
+    <span class="h2">
+        <small> {{ __("EPISODE") }} {{ episode.number }}  {{episode.title}} </small>
+    </span>
+    <span class="pull-right">
+        {% set viewed = false %}
+        {% for episodeViewed in user.episodesViewed %}
+            {% if episodeViewed.toString() == episode._id.toString() %}
+                {% set viewed = true %}
+            {% endif %}
+        {% endfor %}
+        {% if viewed == true %}
+                <button type="button" id="{{ episode._id }}" class="btn btn-success btn-xs viewed">&#10003; Vu</button>
+            {% else %}
+                <button type="button" id="{{ episode._id }}" class="btn btn-warning btn-xs viewed">Pas vu</button>
+            {% endif %}
+    </span>
+    <p>
+        {{ episode.overview }}
+    </p>
 </div>
 {% endblock %}
