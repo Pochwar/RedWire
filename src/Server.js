@@ -39,6 +39,7 @@ const Multer = require('./services/Multer');
 class Server {
     constructor(conf) {
 
+        //get configuation
         this._conf = conf;
 
         //set express server
