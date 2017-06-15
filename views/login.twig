@@ -6,7 +6,7 @@
 
 <!-- Login Form -->
 <p>{{ __("LOGIN") }}</p>
-<p>
+{#<p>
 {% if msg == "loginError" %}
 
         {{ __("LOGINERROR") }}
@@ -24,7 +24,8 @@
         {{ __("EMPTYERROR") }}
 
 {% endif %}
-</p>
+</p>#}
+
 <form action="" method="post">
     <p>
         <label for="mail">{{ __("MAIL") }}</label>
