@@ -75,7 +75,6 @@ class SeriesCtrl {
     }
 
     post(req, res) {
-        console.log(req.body);
         const api_id = req.body.api_id || null;
         const overview = req.body.overview || null;
         const poster = req.body.poster || "/img/default.png";
@@ -86,33 +85,21 @@ class SeriesCtrl {
         const counter = req.body.counterEpisode;
         for (let i = 1; i < counter; i++) {
             if (counter > 0 && !(req.body.episode + i).number && !(req.body.episode + i).season) {
-                        console.log(0);
-
                 return res.render("add.twig", {
                     error: res.__('REQUIREDFIELDS'),
                 })
             } else {
-                                        console.log(1);
-
                 episodes.push(req.body.episode + i)
             }
         }
-                                console.log(2);
-
         const validated = req.body.validated || 0;
         const date = new Date();
         if (!req.body.title || !req.body.langCode) {
-                                    console.log(4);
-
             return res.render("add.twig", {
                 error: res.__('REQUIREDFIELDS'),
             })
         }
-                                console.log(3);
 
-
-        console.log(req.body.title);
-        console.log(actors);
         this._series.registerSerie(
             req.body.title,
             date,
