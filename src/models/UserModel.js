@@ -1,10 +1,10 @@
-const UserSchema = require( './../schemas/UserSchema');
+const UserSchema = require('./../schemas/UserSchema');
 const winston = require('winston');
 const ObjectId = require('mongodb').ObjectID;
 
 class UserModel {
 
-    registerInDb(firstname, lastname, pseudo, birthday, mail, createdAt, password, ban, langId, roleId){
+    registerInDb(firstname, lastname, pseudo, birthday, mail, createdAt, password, ban, langId, roleId) {
         return new Promise((resolve, reject) => {
             UserSchema.create({
                 firstname: firstname,
@@ -17,8 +17,8 @@ class UserModel {
                 password: password,
                 ban: ban,
                 langId: langId,
-                roleId : roleId,
-            },(err, object) => {
+                roleId: roleId,
+            }, (err, object) => {
                 if (err) {
                     reject(err)
                 } else {
@@ -28,25 +28,25 @@ class UserModel {
         })
     }
 
-    findByMail(mail){
+    findByMail(mail) {
         return new Promise((resolve, reject) => {
             UserSchema.findOne({
-                mail: mail,
-            })
+                    mail: mail,
+                })
                 .then(user => {
-                    if( user && user.pseudo) {
-                        resolve(user.toObject() );
-                    }
-
-                    else {
+                    if (user && user.pseudo) {
+                        resolve(user.toObject());
+                    } else {
                         resolve({});
                     }
-                    
+
                 })
                 .catch(e => reject(e))
         });
     }
 
+    <<
+    << << < HEAD
     /**
      * @method
      * 
@@ -54,6 +54,9 @@ class UserModel {
      * @param {String} dataToChange - attribute to change
      * @param {String|Number|Boolean} value - new value
      */
+        ===
+        === = >>>
+        >>> > modification erreur modal de co + icone renvoie à '/'
     updateData(userId, dataToChange, value) {
         // if (dataToChange === "langId"){
         //     console.log("weshhhh");
@@ -61,14 +64,22 @@ class UserModel {
 
         // }
         return new Promise((resolve, reject) => {
-            let update={};
-            update[dataToChange]=value;
-            UserSchema.update({_id: ObjectId(userId)}, { $set: update})
-                .then(document => resolve(document))
-                .catch(e => reject(e))
+            let update = {};
+            update[dataToChange] = value;
+            UserSchema.update({ _id: ObjectId(userId) }, { $set: update })
+                .then(document => {
+                    winston.info("data updated");
+                    resolve(document)
+                })
+                .catch(e => {
+                    winston.info("data update error");
+                    reject(e)
+                })
         });
     }
 
+    <<
+    << << < HEAD
     /**
      * @method
      * 
@@ -81,27 +92,33 @@ class UserModel {
     viewedEpisode(userId, value, remove) {
         if (remove === "false") {
             return new Promise((resolve, reject) => {
-                UserSchema.update({_id: ObjectId(userId)}, { $addToSet: { episodesViewed: value }})
+                UserSchema.update({ _id: ObjectId(userId) }, { $addToSet: { episodesViewed: value } })
                     .then(document => resolve(document))
                     .catch(e => reject(e))
             });
         } else {
             return new Promise((resolve, reject) => {
-                UserSchema.update({_id: ObjectId(userId)}, { $pull: { episodesViewed: value }})
+                UserSchema.update({ _id: ObjectId(userId) }, { $pull: { episodesViewed: value } })
                     .then(document => resolve(document))
                     .catch(e => reject(e))
             });
         }
     }
 
-    static findById( id) {
-       
-        return UserSchema.findOne({
-            _id: id,
-        });
-        
+    static findById(id) {
+
+        ===
+        === =
+        static findById(id) {
+
+            >>>
+            >>> > modification erreur modal de co + icone renvoie à '/'
+            return UserSchema.findOne({
+                _id: id,
+            });
+
+        }
+
     }
 
-}
-
-module.exports = UserModel;
+    module.exports = UserModel;

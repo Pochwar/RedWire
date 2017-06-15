@@ -26,7 +26,6 @@ const LangCtrl = require('./controllers/LangCtrl');
 const ChatCtrl = require('./controllers/ChatCtrl');
 const SearchCtrl = require('./controllers/SearchCtrl');
 const UserCtrl = require('./controllers/UserCtrl');
-const MailCtrl = require('./controllers/MailCtrl');
 // models
 const SerieModel = require("./models/SerieModel");
 
@@ -37,6 +36,7 @@ const TmdbService = require('./services/TmdbService');
 const UserInfoVerificationService = require('./services/UserInfoVerificationService');
 const Chat = require('./services/Chat');
 const Multer = require('./services/Multer');
+const MailService = require('./services/MailService');
 
 class Server {
     constructor(conf) {
@@ -97,6 +97,9 @@ class Server {
 
         const chat = new Chat(this._server);
 
+        const mailService = new MailService(this._conf);
+        this._app.set('mailService', mailService);
+
         //use cookie
         this._app.use(cookieParser());
 
@@ -143,7 +146,7 @@ class Server {
         const chatCtrl = new ChatCtrl();
         const searchCtrl = new SearchCtrl(serieModel);
         const userCtrl = new UserCtrl(this._conf);
-        const mailCtrl = new MailCtrl(this._conf);
+
 
         // init access control
         /*
@@ -157,13 +160,6 @@ class Server {
             this._conf.site.roles.moderator,
             this._conf.site.roles.superadmin
         );
-
-
-        // send a verification mail
-        this._app.get('/send', accessGranted.everyone, mailCtrl.send.bind(mailCtrl));
-
-        // verify a mail
-        this._app.get('/verify', accessGranted.everyone, mailCtrl.verify);
 
         /*  examples for admin
             this._app.get('/admin', accessGranted.moderator, adminCtrl.get);
@@ -247,6 +243,9 @@ class Server {
         this._app.get('/user', accessGranted.member, userCtrl.getUserInfo.bind(userCtrl));
         this._app.post('/user', this.upload.single('avatar'), accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
         this._app.put('/user', accessGranted.member, userCtrl.putUserEpisodes.bind(userCtrl));
+
+        //mail
+        this._app.get('/verify', accessGranted.everyone, registrationCtrl.verify);
 
 
         //logout
