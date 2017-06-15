@@ -49,6 +49,11 @@ const userSchema = new Schema({
         type: Boolean,
         required: true,
     },
+    mailValid: {
+        type: Boolean,
+        require: true,
+        default: false,
+    },
     langId: {
         type: Number,
         required: true,

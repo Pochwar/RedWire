@@ -163,7 +163,7 @@ class Server {
         this._app.get('/send', accessGranted.everyone, mailCtrl.send.bind(mailCtrl));
 
         // verify a mail
-        this._app.get('/verify', accessGranted.everyone, mailCtrl.verify);
+        this._app.get('/verify', accessGranted.everyone, mailCtrl.verify.bind(mailCtrl));
 
         /*  examples for admin
             this._app.get('/admin', accessGranted.moderator, adminCtrl.get);

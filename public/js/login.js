@@ -1,30 +1,38 @@
 $(document).ready(function() {
-	$("#login_form").on("submit", function(e){
-	    e.preventDefault();
+    $('#emailErr').hide();
+    $('#modal_connection #cancel').on('click', function() {
+        $('#connection_email').val('');
+        $('#connection_pwd').val('');
+        $('#emailErr').text('');
+        $('#emailErr').hide();
+    });
+    $('#modal_connection .close').on('click', function() {
+        $('#connection_email').val('');
+        $('#connection_pwd').val('');
+        $('#emailErr').text('');
+        $('#emailErr').hide();
+    });
+    $("#login_form").on("submit", function(e) {
+        e.preventDefault();
 
-		const data ={
-	            "mail" : $('#connection_email').val(),
-	            "password" : $('#connection_pwd').val(),
-	        }
+        const data = {
+            "mail": $('#connection_email').val(),
+            "password": $('#connection_pwd').val(),
+        }
 
-	    $.ajax({
-	       url : '/login', 
-	       type : 'POST', 
-	       data : data,
-	       success: response => {
-	       	console.log(response.msg);
-	       	if (response.msg === "loginOk") {
-	       		$('#modal_connection').modal('toggle');
-	       		window.location.replace("/home");
-	       	} else {
-	       		alert('Erreur de login');
-	       	}
+        $.ajax({
+            url: '/login',
+            type: 'POST',
+            data: data,
+            success: response => {
+                $('#modal_connection').modal('toggle');
+                window.location.replace("/home");
+            },
+            error: error => {
+                $('#emailErr').text(error.responseJSON.msg);
+                $('#emailErr').show();
+            }
+        });
 
-	       },
-	       error: error => {
-	       	 alert('Erreur de login');
-	       }
-	    });
-	   
-	});
+    });
 });
