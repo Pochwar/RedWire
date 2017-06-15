@@ -1,6 +1,5 @@
 const winston = require('winston');
 const mongoose = require('mongoose');
-const url = require('url');
 
 mongoose.Promise = global.Promise;
 
@@ -56,26 +55,19 @@ class SeriesCtrl {
     }
 
     get(req, res) {
-        
-        // retrieve service & lang
-        const lang =  req.getLocale();
-
-        // search local database
-        this._series.findAll( lang, res.locals.page )
-        
-        // render
-        .then(data => {
-            const currentUrl = res.locals.urlWithoutPages;
-            const defaultPoster = req.app.get('conf').site.default.poster;
-            
-            res.render('series.twig', {data: data, currentUrl, defaultPoster,});
-        })
-        // catch error
-        .catch( err => {
-            winston.info('info', err);
-            const error = res.__('ERROR_SERVER');
-            res.status(500).render('error.twig', {status: 500, error,});
-        });
+        this._series.findAll()
+            .then(series => {
+                res.render('series.twig', {
+                    series: series,
+                });
+            })
+            .catch(e => {
+                winston.info(e);
+                res.status(500).render('series.twig', {
+                    status: 500,
+                    error: e,
+                })
+            })
     }
 
     getForm(req, res) {

@@ -89,5 +89,9 @@
 	"DATEFORMAT": "jj/mm/aaaa",
 	"MAIL_SENT": "E-mail de confirmation envoyé, vérifiez vos mails pour activer votre compte",
 	"SEARCH_BY_TITLE": "Rechercher par titre",
-	"SEARCH_BY_ACTOR": "Rechercher par acteur"
+	"SEARCH_BY_ACTOR": "Rechercher par acteur",
+	"SELECT_LANG": "SELECT_LANG",
+	"LANG_TO_FR": "LANG_TO_FR",
+	"LANG_TO_EN": "LANG_TO_EN",
+	"NAME_ACTORS": "Prénom Nom;Prénom Nom;Prénom Nom"
 }

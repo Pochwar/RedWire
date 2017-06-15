@@ -115,5 +115,6 @@
 	"UIM_lastnameAlphaNumError": "Error : lastname has forbiden characters",
 	"UIM_lastnameChangeOk": "Lastname succesfully changed",
 	"UIM_pseudoAlphaNumError": "Error : pseudo has forbiden characters",
-	"UIM_pseudoChangeOk": "Pseudo succesfully changed"
+	"UIM_pseudoChangeOk": "Pseudo succesfully changed",
+	"NAME_ACTORS": "Firstname Lastname;Firstname Lastname;Firstname Lastname"
 }

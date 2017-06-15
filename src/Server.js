@@ -199,6 +199,7 @@ class Server {
 
         //update
         this._app.get('/series/:id/update', accessGranted.member,seriesCtrl.getModify);
+        this._app.post('/series/:id/update', accessGranted.member, seriesCtrl.post);
 
         // get one episode from its id
         this._app.get('/episode/:id', accessGranted.everyone, seriesCtrl.getEpisodeById);
