@@ -80,6 +80,8 @@ class SerieModel {
                     return {name: actor};
                 })
             }
+            console.log("fdwfqrqz");
+            console.log(title);
             Serie.create({
                 api_id: optionals.api_id,
                 title: title,

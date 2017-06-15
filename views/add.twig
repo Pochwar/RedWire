@@ -7,7 +7,14 @@
                 <h2 class="ct-txt-yellow" >
                     {{__("ADDSERIE")}}
                 </h2>
-                <form action="" id="addSeriesForm" method="post" encType="multipart/form-data">
+                <div id="error" class="list-group-item list-group-item-danger">
+                {{ error }}
+                </div>
+
+                <div id="success" class="list-group-item list-group-item-success">
+                {{ msg }}
+                </div>
+                <form action="" id="addSeriesForm" method="post">
 	                <p class="ct-txt-white">(*) {{__("REQUIREDFIELDS")}}</p>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="title">{{__("TITLE")}} * : </label>
@@ -15,7 +22,7 @@
 	                        </div>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="langCode">{{__("LANGCODE")}} * : </label>
-	                            <select name="value" class="form-control" id="langId">
+	                            <select name="langCode" class="form-control" id="langCode">
 		                            <option value="fr" {% if serie.langCode == "fr" %}selected{% endif %}>{{ __("LANG_FR") }}</option>
 		                            <option value="en" {% if serie.langCode == "en" %}selected{% endif %}>{{ __("LANG_EN") }}</option>
                         </select>
@@ -30,7 +37,7 @@
 	                        </div>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="actors">{{__("ACTORS")}} : </label>
-	                            <input type="text" name="actors" class="form-control" id="actors" placeholder="{{ __("NAME_ACTORS") }}" minlength="3" value="{% for actor in serie.actors %}{{ actor.name }};{% endfor %}">
+	                            <input type="text" name="actors" class="form-control" id="actors" placeholder="{{ __("NAME_ACTORS") }}" minlength="3" value="{% for actor in serie.actors %}{{ actor.name }}{% endfor %}">
 	                        </div>
 	                    
 
