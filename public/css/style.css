@@ -392,3 +392,26 @@ wall
 * Serie & episode
 */
 
+.serie div {
+    background-color: #333;
+    color: #e8e8e8;
+}
+
+.serie-title {
+    font-weight: bold;
+}
+
+.episode div {
+    background-color: #333;
+    color: #e8e8e8;
+}
+
+.episode span {
+    background-color: #333;
+    color: #e8e8e8;
+}
+
+.season {
+    background-color: #333;
+    color: #e8e8e8;
+}

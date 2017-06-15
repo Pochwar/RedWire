@@ -239,8 +239,10 @@ class Server {
 
         //user
         this._app.get('/wall', accessGranted.member, userCtrl.getWall);
+
         this._app.get('/user', accessGranted.member, userCtrl.getUserInfo.bind(userCtrl));
         this._app.post('/user', this.upload.single('avatar'), accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
+        this._app.put('/user', accessGranted.member, userCtrl.putUserEpisodes.bind(userCtrl));
 
 
         //logout
