@@ -1,5 +1,4 @@
 const multer  = require('multer')
-const imager = require('multer-imager');
 
 class Multer {
     constructor(conf) {

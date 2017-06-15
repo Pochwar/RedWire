@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const i18n = require('i18n');
 const winston = require('winston');
 const bodyParser = require('body-parser');
+const session = require('express-session')
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
@@ -59,6 +60,15 @@ class Server {
 
         //Multer file upload
         this.upload = new Multer(this._conf);
+
+        //use flash
+        this._app.use(session({
+            secret: 'fishbluck',
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: true }
+        }));
+        this._app.use(require('flash')());
 
         // save config in app
         this._app.set('conf', conf);
@@ -229,7 +239,7 @@ class Server {
 
         //user
         this._app.get('/wall', accessGranted.member, userCtrl.getWall);
-        this._app.get('/user', accessGranted.member, userCtrl.getUserInfo);
+        this._app.get('/user', accessGranted.member, userCtrl.getUserInfo.bind(userCtrl));
         this._app.post('/user', this.upload.single('avatar'), accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
 
 

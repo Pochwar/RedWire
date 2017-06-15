@@ -16,12 +16,17 @@ class UserCtrl {
     }
 
     getUserInfo(req, res) {
-        let msg = "";
+        let i18nMsg = ""
         if (!_.isEmpty(req.query.msg)) {
-            msg = req.query.msg;
+            const msg = req.query.msg;
+            winston.info(msg)
+            if (this._conf.site.authErrMsg.userMod.includes(msg)) {
+                winston.info("test")
+                i18nMsg = res.__(msg)
+            }
         }
         res.render('user.twig', {
-            msg: msg,
+            msg: i18nMsg,
         });
     }
 
@@ -53,7 +58,7 @@ class UserCtrl {
 
         //no change
         if(!dataToChange){
-            res.redirect('/user?msg=noChange');
+            res.redirect('/user?msg=UIM_noChange');
         }
 
         //User Information Verification
@@ -63,27 +68,27 @@ class UserCtrl {
         if(dataToChange === "password"){
             //check passwords are same
             if (req.body.password !== req.body.passwordConf) {
-                res.redirect('/user?msg=passNoMatch');
+                res.redirect('/user?msg=UIM_passNoMatch');
             }
 
             //check password is alphanumeric
             let checkPassAlphaNum = UIV.checkAlphaNumOnly(req.body.password);
             if (!checkPassAlphaNum) {
-                res.redirect('/user?msg=passNoAlphaNum');
+                res.redirect('/user?msg=UIM_passAlphaNumError');
             }
 
             const saltRounds = 10;
             encrypt.hash(req.body.password, saltRounds, (err, hash) => {
                 if(err) {
-                    res.redirect('/user?msg=passError');
+                    res.redirect('/user?msg=UIM_passError');
                 } else {
                     winston.info(userId)
                     user.updateData(userId, dataToChange, hash)
                         .then(document => {
-                            res.redirect('/user?msg='+dataToChange);
+                            res.redirect('/user?msg=UIM_passChangeOk');
                         })
                         .catch(err =>{
-                            res.redirect('/user?msg=dbError');
+                            res.redirect('/user?msg=UIM_dbError');
                         })
                     ;
                 }
@@ -103,25 +108,25 @@ class UserCtrl {
                         //set new avatar
                         user.updateData(userId, dataToChange, req.file.filename)
                             .then( () => {
-                                res.redirect('/user?msg='+dataToChange);
+                                res.redirect('/user?msg=UIM_avatarChangeOk');
                             })
                             .catch( () => {
-                                res.redirect('/user?msg=avatarError');
+                                res.redirect('/user?msg=UIM_dbError');
                             })
                         ;
                     })
                     .catch( () => {
-                        res.redirect('/user?msg=avatarDeletetionError');
+                        res.redirect('/user?msg=UIM_avatarDeletetionError');
                     })
                 ;
             } else {
                 //set new avatar
                 user.updateData(userId, dataToChange, req.file.filename)
                     .then( () => {
-                        res.redirect('/user?msg='+dataToChange);
+                        res.redirect('/user?msg=UIM_avatarChangeOk');
                     })
                     .catch( () => {
-                        res.redirect('/user?msg=avatarError');
+                        res.redirect('/user?msg=UIM_dbError');
                     })
                 ;
             }
@@ -131,10 +136,10 @@ class UserCtrl {
         else if(dataToChange === "deleteAvatar"){
             deleteAvatar(req.body.fileName)
                 .then( () => {
-                    res.redirect('/user?msg=avatarDeleted');
+                    res.redirect('/user?msg=UIM_avatarDeleted');
                 })
                 .catch( () => {
-                    res.redirect('/user?msg=avatarDeletetionError');
+                    res.redirect('/user?msg=UIM_avatarDeletetionError');
                 })
             ;
         }
@@ -144,7 +149,7 @@ class UserCtrl {
             //check birthday
             let birthdayOk = UIV.checkDateFormat(req.body.birthday);
             if(!birthdayOk){
-                res.redirect('/user?msg=birthdayError');
+                res.redirect('/user?msg=UIM_birthdayError');
             }
 
             const birthdayArray = req.body.birthday.split("/");
@@ -153,11 +158,11 @@ class UserCtrl {
             user.updateData(userId, dataToChange, birthday)
                 .then(document => {
                     winston.info("ok")
-                    res.redirect('/user?msg='+dataToChange);
+                    res.redirect('/user?msg=UIM_birthdayChangeOk');
                 })
                 .catch(err => {
                     winston.info(`error : ${err}`)
-                    res.redirect('/user?msg='+dataToChange+'Error');
+                    res.redirect('/user?msg=UIM_dbError');
                 })
             ;
         }
@@ -167,17 +172,17 @@ class UserCtrl {
             //check birthday
             let langIdOk = UIV.checkLangId(req.body.langId);
             if(!langIdOk){
-                res.redirect('/user?msg=langIdError');
+                res.redirect('/user?msg=UIM_langIdError');
             }
 
             user.updateData(userId, dataToChange, req.body.langId)
                 .then(document => {
                     winston.info("ok")
-                    res.redirect('/user?msg='+dataToChange);
+                    res.redirect('/user?msg=UIM_langIdChangeOk');
                 })
                 .catch(err => {
                     winston.info(`error : ${err}`)
-                    res.redirect('/user?msg='+dataToChange+'Error');
+                    res.redirect('/user?msg=UIM_dbError');
                 })
             ;
         }
@@ -187,17 +192,17 @@ class UserCtrl {
             //check birthday
             let mailOk = UIV.checkMail(req.body.mail);
             if(!mailOk){
-                res.redirect('/user?msg=mailError');
+                res.redirect('/user?msg=UIM_mailError');
             }
 
             user.updateData(userId, dataToChange, req.body.mail)
                 .then(document => {
                     winston.info("ok")
-                    res.redirect('/user?msg='+dataToChange);
+                    res.redirect('/user?msg=UIM_mailChangeOk');
                 })
                 .catch(err => {
                     winston.info(`error : ${err}`)
-                    res.redirect('/user?msg='+dataToChange+'Error');
+                    res.redirect('/user?msg=UIM_dbError');
                 })
             ;
         }
@@ -207,17 +212,17 @@ class UserCtrl {
             //check password is alphanumeric
             let checkAlphaNum = UIV.checkAlphaNumOnly(req.body.value);
             if (!checkAlphaNum) {
-                res.redirect('/user?msg=alphaNumError');
+                res.redirect('/user?msg=UIM_'+dataToChange+'AlphaNumError');
             }
 
             user.updateData(userId, dataToChange, req.body.value)
                 .then( () => {
                     winston.info("ok")
-                    res.redirect('/user?msg='+dataToChange);
+                    res.redirect('/user?msg=UIM_'+dataToChange+'ChangeOk');
                 })
                 .catch( err => {
                     winston.info(`error : ${err}`)
-                    res.redirect('/user?msg='+dataToChange+'Error');
+                    res.redirect('/user?msg=UIM_dbError');
                 })
             ;
         }
