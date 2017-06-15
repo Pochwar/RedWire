@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser');
 const i18n = require('i18n');
 const winston = require('winston');
 const bodyParser = require('body-parser');
-const session = require('express-session')
 
 // middleware
 const AccessGranted = require('./middleware/AccessGranted');
