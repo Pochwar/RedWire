@@ -1,6 +1,4 @@
-/*
- IMPORT PACKAGES
- */
+// packages
 const http = require('http');
 const express = require('express');
 const path = require('path');
@@ -26,6 +24,7 @@ const ChatCtrl = require('./controllers/ChatCtrl');
 const SearchCtrl = require('./controllers/SearchCtrl');
 const UserCtrl = require('./controllers/UserCtrl');
 const MailCtrl = require('./controllers/MailCtrl');
+
 // models
 const SerieModel = require("./models/SerieModel");
 
