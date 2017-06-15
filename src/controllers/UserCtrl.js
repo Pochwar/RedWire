@@ -11,6 +11,7 @@ class UserCtrl {
     constructor(conf){
         this._conf = conf;
     }
+
     getWall(req, res) {
         res.render('wall.twig');
     }
@@ -28,6 +29,28 @@ class UserCtrl {
         res.render('user.twig', {
             msg: i18nMsg,
         });
+    }
+
+    putUserEpisodes(req, res) {
+        const episodeId = req.body.episodeId;
+        const userId = res.locals.user._id;
+        const remove = req.body.remove;
+
+        const user = new UserModel();
+
+        user.viewedEpisode(userId, episodeId, remove)
+            .then( () => {
+                res.json({
+                    msg: res.__("ADDED_EPISODE"),
+                })
+            })
+            .catch( err => {
+                winston.info(err);
+                res.status(500).json({
+                        status: 500,
+                        error: err,
+                    })
+            })
     }
 
     putUserInfo(req, res) {
