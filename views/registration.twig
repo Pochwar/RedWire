@@ -14,7 +14,7 @@
                 {{ msg }}
                 </div>
                 <div class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</p>
-                    <form action="" id="registrationForm" method="post" encType="multipart/form-data">
+                    <form action="" id="registrationForm" method="post">
                         <div class="form-group">
                             <label class="ct-txt-white" for="firstname">{{ __("FIRSTNAME") }} * : </label>
                             <input type="text" name="firstname" class="form-control" id="firstname" placeholder="{{ __("FIRSTNAME") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
@@ -89,7 +89,7 @@
         });
     </script>
     <script>
-   
+
     (function($){
     jQuery.fn.checkEmpty = function() {
        return !$.trim(this.html()).length;

@@ -22,7 +22,6 @@ class UserCtrl {
             const msg = req.query.msg;
             winston.info(msg)
             if (this._conf.site.authErrMsg.userMod.includes(msg)) {
-                winston.info("test")
                 i18nMsg = res.__(msg)
             }
         }

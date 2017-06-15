@@ -52,23 +52,14 @@ class Server {
         //set public path
         this._app.use(express.static(path.join(__dirname, '/../public')));
 
+        //Multer file upload
+        this.upload = new Multer(this._conf);
+
         //use body parser
         this._app.use(bodyParser.json());
         this._app.use(bodyParser.urlencoded({
             extended: true,
         }));
-
-        //Multer file upload
-        this.upload = new Multer(this._conf);
-
-        //use flash
-        this._app.use(session({
-            secret: 'fishbluck',
-            resave: false,
-            saveUninitialized: true,
-            cookie: { secure: true }
-        }));
-        this._app.use(require('flash')());
 
         // save config in app
         this._app.set('conf', conf);
@@ -76,7 +67,6 @@ class Server {
         //configure i18n
         i18n.configure({
             locales: ['fr', 'en', ],
-
             defaultLocale: 'fr',
             directory: path.join(__dirname, '/../locales'),
             cookie: this._conf.site.cookies.i18nName,
@@ -94,8 +84,6 @@ class Server {
 
         const UIV = new UserInfoVerificationService(this._conf);
         this._app.set('UIV', UIV);
-
-        const chat = new Chat(this._server);
 
         //use cookie
         this._app.use(cookieParser());
