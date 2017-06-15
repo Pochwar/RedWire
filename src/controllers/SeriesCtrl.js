@@ -71,7 +71,9 @@ class SeriesCtrl {
     }
 
     getForm(req, res) {
-        res.render('add.twig')
+        res.render('add.twig', {
+            title : res.__("ADDSERIE")
+        })
     }
 
     post(req, res) {
@@ -203,6 +205,7 @@ class SeriesCtrl {
         this._series.findById(_id)
             .then(serie => {
                 res.render('add.twig', {
+                    title : res.__("MODIFY_SERIE"),
                     serie: serie,
                 })
             })

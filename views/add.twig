@@ -4,15 +4,14 @@
     <div class="container-fluid">
         <div class="row ct-bg-grey">
             <div class="col-md-offset-2 col-md-6">
-                <h2 class="ct-txt-yellow" >
-                    {{__("ADDSERIE")}}
-                </h2>
+            	<h2 class="ct-txt-yellow">
+            		{{ title }}
+            	</h2>
                 <div id="error" class="list-group-item list-group-item-danger">
-                {{ error }}
+                	{{ error }}
                 </div>
-
                 <div id="success" class="list-group-item list-group-item-success">
-                {{ msg }}
+                	{{ msg }}
                 </div>
                 <form action="" id="addSeriesForm" method="post">
 	                <p class="ct-txt-white">(*) {{__("REQUIREDFIELDS")}}</p>
@@ -149,6 +148,28 @@ $("#add_episode").click(function(){
 	addEpisode();
 })
 </script>
+
+<script>
+   
+    (function($){
+    jQuery.fn.checkEmpty = function() {
+       return !$.trim(this.html()).length;
+    };
+    }(jQuery));
+
+    if($("#error").checkEmpty()){
+        $('#error').hide();
+    }else{
+        $('#error').show();
+    }
+
+     if($("#success").checkEmpty()){
+        $('#success').hide();
+    }else{
+        $('#success').show();
+    }
+</script>
+
 
 
 {% endblock %}
