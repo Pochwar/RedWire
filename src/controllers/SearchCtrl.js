@@ -17,7 +17,7 @@ class SearchCtrl {
         // no request
         if( !res.locals.query) {
             const error = res.__('ERROR_SERVER');
-            return res.status(500).render('error.twig', {status: 500, error,});
+            return res.status(400).render('error.twig', {status: 400, error,});
         }
 
         // retrieve service & lang
@@ -50,16 +50,17 @@ class SearchCtrl {
         .catch( err => {
             winston.info('info', err);
             const error = res.__('ERROR_SERVER');
+
             res.status(500).render('error.twig', {status: 500, error,});
         });
     }
 
-    byActor(req, res ) {
+    byActor(req, res, next ) {
         
          // no request
         if( !res.locals.query) {
             const error = res.__('ERROR_SERVER');
-            return res.status(500).render('error.twig', {status: 500, error,});
+            return res.status(400).render('error.twig', {status: 400, error,});
         }
 
         // retrieve service & lang
@@ -92,6 +93,7 @@ class SearchCtrl {
         .catch( err => {
             winston.info('info', err);
             const error = res.__('ERROR_SERVER');
+
             res.status(500).render('error.twig', {status: 500, error,});
         });
     }

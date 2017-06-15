@@ -24,10 +24,8 @@ class LangCtrl {
                 res.redirect('/');
             }
         } else {
-            res.status(404);
-            res.render('404.twig', {
-                url: req.url,
-            })
+            const error = res.__('ERROR_SERVER');
+            return res.status(400).render('error.twig', {status: 400, error,});
         }
     }
 

@@ -8,20 +8,8 @@ mongoose.Promise = global.Promise;
 
 class LoginCtrl {
     
-    /*
-    get(req, res) {
-        let msg = "";
-
-        if (!_.isEmpty(req.query.msg)) {
-            msg = req.query.msg;
-        }
-        res.render('login.twig', {
-            msg: msg,
-        });
-    }
-    */
     post(req, res) {
-        console.log(req.body);
+        
         //check fields
         if (
             _.isEmpty(req.body.mail) ||
