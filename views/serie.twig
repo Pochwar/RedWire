@@ -59,7 +59,12 @@
                 {% endfor %}
             </div>
         {% endfor %}
+
+        <span class="pull-right">
+        <a href="/update/{{serie._id}}" id="btndeco" class="btn btn-default btn-modify">{{ __("MODIFY_SERIE") }}</a>
+        </span>
         </div>
+
         {% include 'comments.twig' %}
         <div class="row ct-bg-grey">
             <div class="col-md-offset-1 col-md-6">
@@ -73,7 +78,10 @@
                 <div class="ct-txt-white">
                     {{ comment.body }}
                 </div>
+
                 {% endfor %}
+                <br><br><br>
+
             </div>
         </div>
     </div>
