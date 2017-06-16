@@ -11,11 +11,18 @@
                 {% set viewed = true %}
             {% endif %}
         {% endfor %}
-        {% if viewed == true %}
-                <button type="button" id="{{ episode._id }}" class="btn btn-success btn-xs viewed">&#10003; {{ __(VIEWED_TRUE) }}</button>
-            {% else %}
-                <button type="button" id="{{ episode._id }}" class="btn btn-warning btn-xs viewed">{{ __(VIEWED_FALSE) }}</button>
-            {% endif %}
+
+        {% if followed == true %}
+            <button type="button" id="{{ episode._id }}" class="btn btn-success btn-xs viewed">
+                <span style="" id="button-viewed-true">&#10003; {{ __("VIEWED_TRUE") }}</span>
+                <span style="display:none" id="button-viewed-false">{{ __("VIEWED_FALSE") }}</span>
+            </button>
+        {% else %}
+            <button type="button" id="{{ episode._id }}" class="btn btn-warning btn-xs viewed">
+                <span style="display:none" id="button-viewed-true">&#10003; {{ __("FVIEWED_TRUE") }}</span>
+                <span id="button-viewed-false">{{ __("VIEWED_FALSE") }}</span>
+            </button>
+        {% endif %}
     </span>
     <p>
         {{ episode.overview }}

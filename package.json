@@ -12,7 +12,8 @@
     "test": "mocha --recursive || (exit 0)",
     "test:watch": "mocha -w --recursive || (exit 0)",
     "test:serie": "mocha --recursive --grep Serie || (exit 0)",
-    "documentation": "node ./node_modules/documentation/bin/documentation.js serve --watch"
+    "documentation": "node ./node_modules/documentation/bin/documentation.js serve --watch",
+    "documentation:html": "node ./node_modules/documentation/bin/documentation.js build -f html -o doc_tech"
   },
   "repository": {
     "type": "git",
