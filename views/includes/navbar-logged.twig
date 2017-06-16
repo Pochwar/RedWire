@@ -1,0 +1,122 @@
+<!-- Navigation : recherche-->
+<nav class="navbar white navbar-default ct-no-margin">
+    
+    <div class="container-fluid">
+        <div class="row row-eq-height">
+
+            <div class="col-md-3">
+                <!--navbar brand-->
+                <div class="navbar-brand ct-navbar-brand" href="#page-top">
+                    <a href="/home">
+                        <img src="img/logo.png">
+                    </a>
+                    <span>
+                        <p class="ct-txt-yellow ct-txt-larger">{{ __("SITENAME") }}</p>
+                        <p class="ct-txt-large">{{ __("SITESUBNAME") }}</p>
+                    </span>
+                </div>
+                
+            </div>
+
+            <div class="col-md-9 col-flex-centered hidden-sm hidden-xs">
+               {% include "./searchbar.twig" %}
+            </div>
+
+            <div class="col-md-9 col-flex-centered">
+                <ul class="nav navbar-nav navbar-right ct-visible-md-table-cell">
+                    <li>
+                        <a href="lang/fr" class="btn btn-primary btn-xs ct-nav-lang">fr</a>
+                    </li>
+                    <li>
+                        <a href="lang/en" class="btn btn-primary btn-xs ct-nav-lang">en</a>
+                    </li>
+                    <li>
+                        <a href="/logout" id="btndeco" class="btn btn-default">{{ __("DISCONNECT") }}</a>
+                    </li>
+                </ul>
+            </div>
+       
+        </div>
+    </div>
+</nav>
+
+<!-- navigation : recherche sur petits écrans (bootstrap responsive ne fonctionne pas ici) -->
+<nav class="navbar white navbar-default ct-no-margin visible-sm visible-xs">
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12" >
+                {% include "./searchbar.twig" %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Navigation : liens-->
+<nav class="navbar white navbar-default ct-no-margin">
+    
+    <div class="container-fluid">
+    <div class="row row-eq-height">
+
+        <!--bouton toggle -->
+        <div class="col-md-12 col-flex-centered" >
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-responsive">
+                    <span class="sr-only">Menu</span> Menu <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        
+            <!-- Menu responsive -->
+            <div class="collapse navbar-collapse" id="menu-responsive">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/home" >{{ __("HOME") }}</a>
+                    </li>
+                    <li>
+                        <a href="/series">{{ __("SERIES") }}</a>
+                    </li>
+                    <li>
+                        <a href="/chat">{{ __("CHAT") }}</a>
+                    </li>
+                    <li>
+                        <a href="/series/add">{{ __("CONTRIBUTE") }}</a>
+                    </li>
+                    <li>
+                        <a href="/wall" >{{ __("PROFILE") }}</a>
+                    </li>
+                    
+                    <!-- onglet modération : for V2 -->
+<!--                     {% if user.roleId >= 2 %}
+                        <li>
+                            {% include "../includes/moderate.twig" %}
+                        </li>
+                    {% endif %}
+ -->                    
+                    <li class="hidden-lg">
+                        <a href="#modal_lang" data-toggle="modal">{{__("SELECT_LANG") }}</a>
+                    </li>
+                    <li class="hidden-lg">
+                        <a href="/logout">{{ __("DISCONNECT") }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>
+
+<!-- modal de changement de langue -->
+<div class="modal fade" id="modal_lang" tabindex="-1" role="dialog" aria-hidden="true">   
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <ul>
+                <li>
+                    <a href="lang/fr">{{__('LANG_TO_FR')}}</a>
+                </li>
+                <li>
+                    <a href="lang/en">{{__('LANG_TO_EN')}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

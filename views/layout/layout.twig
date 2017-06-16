@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <title>{{ __("SITENAME") }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="./../">
+
+    <!-- jquery as bs dependency -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- googlefont dependency -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <!-- bs-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" />
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+    <!-- custom style -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!-- custom js -->
+    <script src="/js/bootstrap-custom.js"></script>
+    <script src="/js/search.js"></script>
+
+    <!-- include script -->
+    {% include "../includes/script.twig" %}
+
+    {% block header %}{% endblock %}
+</head>
+
+<body>
+{% if user.pseudo %}
+{% include "../includes/navbar-logged.twig" %}
+{% else %}
+{% include "../includes/navbar-unauthenticated.twig" %}
+{% endif %}
+
+{% block content %}{% endblock %}
+
+<!-- footer -->
+<footer>    
+    <div class="container-fluid">
+        <div class="row ct-bg-grey">
+            <div class="col-md-12 text-center">
+                <a href="mailto:fishblockdl20@gmail.com">{{__('ADMIN_CONTACT')}}</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,96 @@
+{% extends "layout/layout.twig" %}
+
+{# scripts #}
+{% block header %}
+    <script src="js/serie.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+{% endblock %}
+
+{# contenu #}
+{% block content %}
+<div class="container-fluid">
+    <div class="row ct-bg-grey">
+        <div class="media serie col-md-offset-1 col-md-10">
+            
+            <div class="media-left">
+                <img class="serie-poster" src="{{ serie.poster ? serie.poster : defaultPoster }}" alt="{{ serie.title }}" title="{{ serie.title}}"></img>
+            </div>
+
+            <div class="media-body">
+                <span class="media-heading h1 serie-title">{{ serie.title }}</span>
+                
+                {#
+                <span class="pull-right">
+                    {% set followed = false %}
+                    {% for serieFollowed in user.seriesFollowed %}
+                        {% if serieFollowed.toString() == serie._id.toString() %}
+                            {% set followed = true %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if followed == true %}
+                        <button type="button" id="{{ serie._id }}" class="btn btn-success btn-xs followed">
+                            <span style="" id="button-followed-true">&#10003; {{ __("FOLLOWED_TRUE") }}</span>
+                            <span style="display:none" id="button-followed-false">{{ __("FOLLOWED_FALSE") }}</span>
+                        </button>
+                    {% else %}
+                        <button type="button" id="{{ serie._id }}" class="btn btn-warning btn-xs followed">
+                            <span style="display:none" id="button-followed-true">&#10003; {{ __("FOLLOWED_TRUE") }}</span>
+                            <span id="button-followed-false">{{ __("FOLLOWED_FALSE") }}</span>
+                        </button>
+                    {% endif %}
+                
+                </span>
+                #}
+                <p>{{ serie.overview }}</p>
+            </div>
+        </div>
+    </div>
+
+    {% set seasons = [] %}
+
+    {% for episode in serie.episodes %}
+        {% if episode.season not in seasons %}
+            {% set seasons = seasons|merge([episode.season]) %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="row ct-bg-grey">
+    {% for season in seasons %}
+        <div class="season serie col-md-offset-2 col-md-8">
+            <div class="h2">{{ __("SEASON") }} {{ season }}</div>
+            {% for episode in serie.episodes if episode.season == season %}
+                <div class="episode">{% include 'episode.twig' %}</div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+
+    {# NExt versions
+    <span class="pull-right">
+    <a href="/update/{{serie._id}}" id="btndeco" class="btn btn-default btn-modify">{{ __("MODIFY_SERIE") }}</a>
+    </span>
+    </div>
+    #}
+
+    {% include 'comments.twig' %}
+    <div class="row ct-bg-grey">
+        <div class="col-md-offset-1 col-md-6">
+            {% for comment in serie.comments %}
+            <span class="h2">
+                <small>{{ comment.title }}</small>
+            </span>
+            <span class="h3 pull-right">
+                <small>{{ __("COMMENT_POSTED") }} {{ comment.updateAt | date("d/m/Y h:i")}} {{ __("BY_USER")}} {{ comment.userPseudo }}</small>
+            </span>
+            <div class="ct-txt-white">
+                {{ comment.body }}
+            </div>
+
+            {% endfor %}
+            <br><br><br>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

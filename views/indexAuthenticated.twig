@@ -1,0 +1,49 @@
+{% extends "layout/layout.twig" %}
+
+{% block content %}
+
+<!-- header section -->
+<header>
+    <div class="container-fluid">
+        <div class="row ct-fs-block" id="ban-home-1">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                    <p>{{ __("HELLO") }}</p>
+                    <p>{{ __("AUTH") }} {{ user.pseudo }}</p>
+                </h2>
+                <p class="ct-txt-white">
+                    {{ __("DISCUSS") }}
+                </p>
+                <br><br>
+                <p class="ban-index-connected">
+                    {{ __("BAN1") }}
+                </p>
+                <br><br>
+                <a href="/chat" id="btndeco" class="btn btn-default">{{ __("CHAT") }}</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- content section -->
+<section>
+     <div class="container-fluid">
+        <div class="row ct-fs-block" id="ban-home-2">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                  {{ __("FOLLOW") }}
+                </h2>
+                <br><br><br>
+                <p class="ban-index-connected">
+                    {{ __("BAN2") }}
+                </p>
+                <br><br>
+                <a href="/series" id="btndeco" class="btn btn-default">{{ __("SERIES") }}</a>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

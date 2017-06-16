@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}} | 404</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="./../">
+
+    <!-- jquery as bs dependency -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- googlefont dependency -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <!-- bs-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- custom style -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- custom js -->
+    <script src="js/bootstrap-custom.js"></script>
+</head>
+<body>
+<div id="degrade">
+<div id="deadurl">
+    <h2>
+        Oops 404 !!
+    </h2>
+    <br>
+    <br>
+    <img id="link" src="/img/DEADLINK.png"><br>
+    <br>
+    <h4>
+        {{ __("DEADLINK") }}
+        <br> 
+        {{ url }} {{ __("DONTEXIST") }}
+    </h4>
+    <br>
+
+    <button id="btnret" class="btn btn-default" type="button">{{ __("RETURN") }}</button>
+    
+</div>
+</div>
+<script>
+//get host
+var protocol = window.location.protocol
+var host = document.location.hostname;
+var port = document.location.port;
+if (port){
+    host = host+":"+port;
+}
+
+$("#btnret").click(function(){
+    document.location.href = protocol + "//" + host;
+})
+</script>
+</body>
+</html>
+
+

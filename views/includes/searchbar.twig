@@ -1,0 +1,19 @@
+<!-- formulaire de recherche -->
+<form method="GET" action="/search" id="search-form">
+    <div class="input-group input-group-lg">
+    
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-search"></span> <span class="caret"></span></button>
+            
+            <ul class="dropdown-menu">
+                <li><a href="#" id="search-title">{{__('SEARCH_BY_TITLE')}}</a></li>
+                <li><a href="#" id="search-actor">{{__('SEARCH_BY_ACTOR')}}</a></li>
+            </ul>
+        </div>
+
+        <input type="text" class="form-control" placeholder="{{__('SEARCH_PLACEHOLDER')}}" name="q" id="search-input">
+        <span class="input-group-btn">
+            <input type="submit" class="btn btn-default" value="Go!" />
+        </span>
+    </div>
+</form>

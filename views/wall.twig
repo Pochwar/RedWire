@@ -1,0 +1,55 @@
+{% extends "layout/layout.twig" %}
+
+{% block content %}
+
+    <div >
+        <div class="row ct-bg-grey fs-block">
+            <div class="col-md-offset-1 col-md-10">
+            	<p class="modifyUser">
+            	    <a href="/user" class="ct-txt-white">{{ __("MODIFY") }}</a>
+            	</p>
+                {% if user.avatar %}
+				    <img class="avatar" src="{{avatarPath}}{{ user.avatar }}"/>
+                {% else %}
+                    <img class="avatar" src="{{ defaultAvatar }}"/>
+                {% endif %}
+
+				<div class="infoUser">
+					<h2 class="ct-txt-yellow">
+					{{ user.pseudo }}
+	                </h2>
+	                <p class="ct-txt-white">{{ user.lastname }}</p>
+	                <p class="ct-txt-white">{{ user.firstname }}</p>
+	                <p class="ct-txt-white">{{ user.birthday|date("d/m/Y") }}</p>
+                </div>
+
+                    
+                <!-- bouton bannir : for V2 -->
+<!--                 {% if user.roleId == 2 %}
+                    {% include "includes/banish.twig" %}
+                {% elseif user.roleId == 3 %}
+                    {% include "includes/banish.twig" %}
+                {% endif %}
+ -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <p class="ct-txt-white">{{ user.comments }}</p>
+                <p class="ct-txt-white">{{ user.usersLike }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row ct-bg-grey ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <p class="ct-txt-white">{{ user.followedBy }}</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

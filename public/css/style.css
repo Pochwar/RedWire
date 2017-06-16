@@ -1,0 +1,532 @@
+/* default rules */
+
+html,
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span {
+    color: #333;
+    font-family: 'Open Sans Bold', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+
+/*images accueil*/
+
+#ban_index_1 {
+    background-image: url('../img/ban_index_3.png');
+    background-size: cover;
+}
+
+#ban_index_2 {
+    background-image: url('../img/ban_index_4.png');
+    background-size: cover;
+}
+
+#ban_index_3 {
+    background-image: url('../img/ban_index_5.png');
+    background-size: cover;
+}
+
+#ban_index_4 {
+    background-image: url('../img/ban_index_2.png');
+    background-size: cover;
+}
+
+
+/* Bootstrap 3 row's  with equal height columns (flexbox)
+ * Cols based on flexbox to center content horizontally & vertically
+ * see http://getbootstrap.com.vn/examples/equal-height-columns/  
+ * Only on big screen to preserve responsiveness */
+
+@media only screen and (min-width: 700px) {
+    .row-eq-height {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+    .col-flex-centered {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+/* visibility*/
+
+.ct-visible-md-table-cell {
+    display: none !important;
+}
+
+@media only screen and (min-width: 1050px) {
+    .ct-visible-md-table-cell {
+        display: table-cell !important;
+    }
+}
+
+.ct-visible-sm {}
+
+@media only screen and (min-width: 1050px) {
+    .ct-visible-sm {
+        display: none;
+    }
+}
+
+
+/* navbar logo */
+
+.ct-navbar-brand {
+    display: table;
+}
+
+.ct-navbar-brand>a>img {
+    display: table-cell;
+    height: 100px;
+    vertical-align: middle;
+}
+
+.ct-navbar-brand>span {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.ct-navbar-brand>span>p {
+    margin: 15px 0 20px 10px;
+}
+
+#btndeco {
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.navbar-default .navbar-nav>li .ct-nav-lang {
+    top: 4px;
+    padding: 5px;
+    color: #fff;
+    width: 30px;
+    margin: 2px
+}
+
+@media only screen and (min-width: 992px) {
+    .ct-nav-lang {
+        margin-top: -50px;
+    }
+}
+
+
+/*MailSent*/
+
+#sent {
+    height: 200px;
+    width: 200px;
+}
+
+#degrade2 {
+    background-image: linear-gradient(#3d99ff, #000);
+}
+
+
+/*MailConfirmation*/
+
+#valid {
+    height: 200px;
+    width: 200px;
+}
+
+#degrade3 {
+    background-image: linear-gradient(#3d99ff, #000);
+}
+
+
+/*Error*/
+
+#err {
+    height: 200px;
+    width: 200px;
+}
+
+#degrade4 {
+    background-image: linear-gradient(#ff6d6d, #000);
+}
+
+
+/* 404 */
+
+#deadurl {
+    padding: 50px;
+    text-align: center;
+    height: 100vh;
+}
+
+#deadurl>h2 {
+    color: #fff;
+}
+
+#degrade {
+    background-image: linear-gradient(#000, #fff);
+}
+
+#link {
+    width: 500px;
+    height: 250px;
+}
+
+#btnret {
+    margin-top: 20px;
+}
+
+
+/*
+registration form
+ */
+
+#registrationForm input[type="submit"] {
+    color: #000;
+}
+
+
+/*messages*/
+
+@media only screen and (min-width: 700px) {
+    .list-group-item-success {
+        padding: 5px;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .list-group-item-danger {
+        padding: 5px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
+
+
+/* margin / padding */
+
+.ct-no-padding {
+    padding: 0 !important;
+}
+
+.ct-no-margin {
+    margin: 0;
+}
+
+.ct-mr-1 {
+    margin-right: 1em;
+}
+
+.ct-mb-1 {
+    margin-top: 1em;
+}
+
+.ct-ml-1 {
+    margin-left: 1em;
+}
+
+
+/* position */
+
+.ct-to-left {
+    position: absolute;
+    left: 0;
+}
+
+.ct-to-right {
+    position: absolute;
+    right: 0;
+}
+
+
+/* text */
+
+.ct-txt-larger {
+    font-size: 2em;
+}
+
+.ct-txt-large {
+    font-size: 1.2em;
+}
+
+.ct-txt-grey {
+    color: #333;
+}
+
+.ct-txt-yellow {
+    color: #FFB125;
+}
+
+.ct-txt-white {
+    color: #fff;
+}
+
+.ct-txt-red {
+    color: #f00;
+}
+
+.show-on-hover {
+    visibility: hidden;
+}
+
+.ct-bg-grey-alpha:hover .show-on-hover {
+    visibility: visible;
+}
+
+
+/* bg color */
+
+.ct-bg-grey {
+    background-color: #333;
+}
+
+.ct-bg-grey-alpha {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.ct-bg-grey-alpha:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.ct-bg-yellow {
+    background-color: #FFB125;
+}
+
+
+/* borders */
+
+.ct-border-red {
+    border: 1px solid red;
+}
+
+
+/* full screen block */
+
+.ct-fs-block {
+    height: 200px;
+    max-height: 200px;
+}
+
+@media only screen and (min-width: 700px) {
+    .ct-fs-block {
+        height: 400px;
+        max-height: 400px;
+    }
+}
+
+
+/* width / height */
+
+.w150 {
+    width: 150px;
+}
+
+
+/*
+chat
+*/
+
+#superChat {}
+
+#chat {
+    block-size: 400px;
+    overflow: scroll;
+    background: #fff;
+}
+
+.selfMsg,
+.userMsg {
+    background: #327493;
+    color: #fff;
+    padding: 5px;
+    margin: 10px 5px;
+    width: 80%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    position: relative;
+}
+
+.selfMsg {
+    background: #327493;
+    margin-left: 20%;
+}
+
+.selfMsg:before {
+    content: "";
+    position: absolute;
+    right: 10px;
+    bottom: -9px;
+    border-left: 10px solid transparent;
+    border-top: 10px solid #327493;
+}
+
+.userMsg {
+    background: #329333;
+}
+
+.userMsg:before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    bottom: -9px;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #329333;
+}
+
+.userName {
+    margin: 0;
+}
+
+#msg {
+    color: #FFB125;
+}
+
+.msg {
+    margin: 0;
+}
+
+#chatMsg {
+    width: 100%;
+    height: 50px;
+}
+
+#send {}
+
+#info {
+    height: 20px;
+    margin-bottom: 5px;
+}
+
+#clients {}
+
+
+/* SERIES */
+
+#panel {
+    margin: 10px 0;
+}
+
+#panel .row {
+    display: flex;
+    align-items: center;
+}
+
+#panel-poster {
+    margin: 10px 0;
+}
+
+.poster {
+    position: relative;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.title {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 150px;
+    text-align: center;
+    text-transform: capitalize;
+    color: white;
+}
+
+
+/*
+wall
+*/
+
+.avatar {
+    float: left;
+    width: 150px;
+    height: 150px;
+    margin-left: 25px;
+    margin-right: 10px;
+    margin-top: 0px;
+    position: absolute;
+    z-index: 1;
+}
+
+.modifyUser {
+    margin-top: 40px;
+    font-size: 10px;
+    margin-left: 40px;
+}
+
+.infoUser {
+    margin-left: 220px;
+}
+
+.banish {
+    float: right;
+    margin-right: 0px;
+}
+
+.fs-block {
+    height: 270px;
+    max-height: 270px;
+}
+
+
+/*
+* Serie & episode
+*/
+
+.serie div {
+    background-color: #333;
+    color: #e8e8e8;
+}
+
+.serie-poster {
+    width: 150px;
+}
+
+.serie-title {
+    font-weight: bold;
+}
+
+.episode div {
+    background-color: #333;
+    color: #e8e8e8;
+}
+
+.episode span {
+    background-color: #333;
+    color: #e8e8e8;
+}
+
+.season {
+    background-color: #333;
+    color: #e8e8e8;
+}
+
+
+/*
+* index connectec
+*/
+
+#ban-home-1 {
+    background-image: url(../img/ban-home-1.jpg);
+    background-size: cover;
+}
+
+#ban-home-2 {
+    background-image: url(../img/ban-home-2.jpeg);
+    background-size: cover;
+}
+
+.ban-index-connected {
+    text-align: justify;
+    color: #FFF;
+    font-size: 20px;
+    font-weight: bold;
+}

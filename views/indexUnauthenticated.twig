@@ -1,0 +1,72 @@
+{% extends "layout/layout.twig" %}
+
+{% block content %}
+
+
+<!-- header section -->
+<header>
+    <div class="container-fluid" id="ban_index_1">
+        <div class="row ct-bg-grey-alpha ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                    {{ __("HELLO") }}
+                </h2>
+                <p class="ct-txt-white show-on-hover">
+                     {{ __("DISCUSS") }}
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- content section -->
+<section>
+     <div class="container-fluid" id="ban_index_2">
+        <div class="row ct-bg-grey-alpha ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                    {{ __("FOLLOW") }}
+                </h2>
+                <p class="ct-txt-white show-on-hover">
+                    {{ __("FOLLOW_DETAIL") }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- content section -->
+<section>
+     <div class="container-fluid" id="ban_index_3">
+        <div class="row ct-bg-grey-alpha ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                     {{ __("NOTE") }}
+                </h2>
+                <p class="ct-txt-white show-on-hover">
+                    {{ __("NOTE_DETAIL") }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- content section -->
+<section>
+     <div class="container-fluid" id="ban_index_4">
+        <div class="row ct-bg-grey-alpha ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                     {{ __("JOIN") }}
+                </h2>
+                <div class="ct-txt-white show-on-hover">
+                    <p>{{ __("JOIN_DETAIL") }}</p>
+                    <a href="register" class="btn btn-default ct-mr-1">{{__("SIGNUP") }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+

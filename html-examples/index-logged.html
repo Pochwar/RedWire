@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>FishBlock</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- jquery as bs dependency -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- googlefont dependency -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <!-- bs-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- custom style -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- custom js -->
+    <script src="js/bootstrap-custom.js"></script>
+</head>
+
+<body>
+        
+<!-- Navigation : recherche-->
+<nav class="navbar white navbar-default ct-no-margin">
+    
+    <div class="container-fluid">
+        <div class="row row-eq-height">
+
+            <div class="col-md-3">
+                <!--navbar brand-->
+                <div class="navbar-brand ct-navbar-brand" href="#page-top">
+                    <img src="img/logo.png">
+                    <span>
+                        <p class="ct-txt-yellow ct-txt-larger">FishBlock</p>
+                        <p class="ct-txt-large">Le site qu'il est bien pour les séries</p>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-9 col-flex-centered">
+                <!-- formulaire de recherche -->
+                <form>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon " id="sizing-addon1">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<!-- Navigation : liens-->
+<nav class="navbar white navbar-default ct-no-margin">
+    
+    <div class="container-fluid">
+    <div class="row row-eq-height">
+
+        <!--bouton toggle -->
+        <div class="col-md-12 col-flex-centered" >
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-responsive">
+                    <span class="sr-only">Menu</span> Menu <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        
+            <!-- Menu responsive -->
+            <div class="collapse navbar-collapse" id="menu-responsive">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="page-scroll">
+                        <a href="index.html" >Accueil</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#" >Séries</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#" >Chat</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#" >Contribuer</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#" >Profil</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Modération
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Modérer les séries</a></li>
+                            <li><a href="#">Modérer les commentaires</a></li>
+                            <li><a href="#">Gérer les modérateurs</a></li>
+                            <li><a href="#">Gérer les bans</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>
+
+<!-- header section -->
+<header>
+    <div class="container-fluid">
+        <div class="row ct-bg-grey ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                    Bienvenue sur le site FishBlock
+                </h2>
+                <p class="ct-txt-white">
+                    Discutez, partagez vos critiques avec vos amis.
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- content section -->
+<section>
+     <div class="container-fluid">
+        <div class="row ct-fs-block">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                    Suivez, commentez vos séries préférées
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- footer -->
+<footer>    
+    <div class="container-fluid">
+        <div class="row ct-bg-grey">
+            <div class="col-md-offset-5 col-md-1">
+                <a href="mailto:contact@site.com">Contact@site.com</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

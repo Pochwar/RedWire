@@ -1,0 +1,170 @@
+{% extends "layout/layout.twig" %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row ct-bg-grey">
+            <div class="col-md-offset-2 col-md-6">
+                <h2 class="ct-txt-yellow" >
+                    {{ __("PROFILMODIFICATION") }}
+                </h2>
+                <div id="msg">{{ msg }}</div>
+                <p class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</p>
+                <form action="" id="registrationForm7" method="post" encType="multipart/form-data">
+                    <div class="form-group">
+                        <label class="ct-txt-white" for="firstname">{{ __("FIRSTNAME") }} * : </label>
+                        <input type="text" name="value" class="form-control" id="firstname" placeholder="{{ __("FIRSTNAME") }}" minlength="3" maxlength="20" pattern="\w{3,20}" value="{{ user.firstname }}" required>
+                        <small id="firstnameHelp" class="form-text text-muted">{{ __("ALPHANUM_FORMAT") }}</small>
+                    </div>
+                    <input type="hidden" name="change" value="firstname">
+                    <input type="hidden" name="userId" value="{{ user._id }}">
+                    <input class="btn" type="submit" value="{{ __("CHANGEFIRSTNAME") }}">
+                </form>
+                <hr>
+                <form action="" id="registrationForm6" method="post" encType="multipart/form-data">
+                    <div class="form-group">
+                        <label class="ct-txt-white" for="lastname">{{ __("LASTNAME") }} * : </label>
+                        <input type="text" name="value" class="form-control" id="lastname" placeholder="{{ __("LASTNAME") }}" minlength="3" maxlength="20" pattern="\w{3,20}" value="{{ user.lastname }}" required>
+                        <small id="lastnameHelp" class="form-text text-muted">{{ __("ALPHANUM_FORMAT") }}</small>
+                    </div>
+                <input type="hidden" name="change" value="lastname">
+                    <input type="hidden" name="userId" value="{{ user._id }}">
+                <input class="btn" type="submit" value="{{ __("CHANGELASTNAME") }}">
+                </form>
+                <hr>
+                <form action="" id="registrationForm5" method="post" encType="multipart/form-data">
+                    <div class="form-group">
+                        <label class="ct-txt-white" for="pseudo">{{ __("PSEUDO") }} * : </label>
+                        <input type="text" name="value" class="form-control" id="pseudo" placeholder="{{ __("PSEUDO") }}" minlength="3" maxlength="20" pattern="\w{3,20}" value="{{ user.pseudo }}" required>
+                        <small id="pseudoHelp" class="form-text text-muted">{{ __("ALPHANUM_FORMAT") }}</small>
+                    </div>
+                    <input type="hidden" name="change" value="pseudo">
+                    <input type="hidden" name="userId" value="{{ user._id }}">
+                    <input class="btn" type="submit" value="{{ __("CHANGEPSEUDO") }}">
+                </form>
+                <hr>
+                <form action="" id="registrationForm4" method="post" encType="multipart/form-data">
+                    <div class="form-group">
+                        <label class="ct-txt-white" for="birthday">{{ __("BDAY") }} * : </label>
+                        <input type='text' class="form-control" name="birthday" class="form-control" id='datetimepicker' placeholder="{{ __("BDAY") }}" required/>
+                        <small id="birthdayHelp" class="form-text text-muted">{{ __("DATE_FORMAT") }}</small>
+                    </div>
+                    <input type="hidden" name="change" value="birthday">
+                    <input type="hidden" name="userId" value="{{ user._id }}">
+                    <input class="btn" type="submit" value="{{ __("CHANGEBIRTHDAY") }}">
+                </form>
+                <hr>
+                <form action="" id="registrationForm3" method="post" encType="multipart/form-data">
+                    <div class="form-group">
+                        <label class="ct-txt-white" for="mail">{{ __("MAIL") }} * : </label>
+                        <input type="email" name="mail" class="form-control" id="mail" placeholder="{{ __("MAIL") }}" value="{{ user.mail }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                        <small id="mailHelp" class="form-text text-muted">{{ __("MAIL_FORMAT") }}</small>
+                    </div>
+                    <input type="hidden" name="change" value="mail">
+                    <input type="hidden" name="userId" value="{{ user._id }}">
+                    <input class="btn" type="submit" value="{{ __("CHANGEMAIL") }}">
+                </form>
+                <hr>
+                <form action="" id="registrationForm2" method="post" encType="multipart/form-data">
+                    <div class="form-group">
+                        <label class="ct-txt-white" for="avatar">{{ __("AVATAR") }} * : </label><br/>
+                        {% if user.avatar %}<img src="{{avatarPath}}{{ user.avatar }}" width="150px" />{% endif %}
+                        <input type="file" name="avatar" class="form-control" id="avatar" placeholder="{{ __("AVATAR") }}" accept=".gif,.jpg,.jpeg,.png" required>
+                        <small id="avatarHelp" class="form-text text-muted">{{ __("AVATAR_TYPE") }}</small>
+                    </div>
+                    
+                    <input type="hidden" name="change" value="avatar">
+                    <input type="hidden" name="fileName" value="{{ user.avatar }}">
+                    <input type="hidden" name="userId" value="{{ user._id }}">
+                    <div id="avatar_buttons">
+                        <input class="btn" type="submit" value="{{ __("CHANGEAVATAR") }}">
+                        {% if user.avatar %}
+                            <button class="btn btn-danger" id="delete_avatar">{{ __('DELETE_AVATAR') }}</button>
+                        {% endif %}
+                    </div>
+                </form>
+                {% if user.avatar %}
+                    <form action="" id="registrationForm20" method="post" encType="multipart/form-data">
+                        <input type="hidden" name="change" value="deleteAvatar">
+                        <input type="hidden" name="userId" value="{{ user._id }}">
+                        <input type="hidden" name="fileName" value="{{ user.avatar }}">
+                    </form>
+                {% endif %}
+                <hr>
+                <form action="" id="registrationForm" method="post" encType="multipart/form-data">
+                    <div class="form-group">
+                        <label class="ct-txt-white" for="pass">{{ __("PASSWORD") }} * : </label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="{{ __("PASSWORD") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
+                        <small id="passwordHelp" class="form-text text-muted">{{ __("ALPHANUM_FORMAT") }}</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="ct-txt-white" for="passConf">{{ __("PASSWORD_CONF") }} * : </label>
+                        <input type="password" name="passwordConf" class="form-control" id="passwordConf" placeholder="{{ __("PASSWORD_CONF") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
+                        <small id="passwordConfHelp" class="form-text text-muted">{{ __("RETYPE_PASSWORD") }}</small>
+                    </div>
+                    <div id="passCheck" class="ct-txt-red" ><p>{{ __("PASSMUSTBEEQUAL") }}</p></div>
+                    <input type="hidden" name="change" value="password">
+                    <input type="hidden" name="userId" value="{{ user._id }}">
+                    <input class="btn" type="submit" value="{{ __("CHANGEPASSWORD") }}">
+                </form>
+                <hr>
+                <form action="" id="registrationForm1" method="post" encType="multipart/form-data">
+                    <div class="form-group">
+                        <label class="ct-txt-white" for="langId">{{ __("DEFAULT_LANG") }} : </label>
+                        <select name="langId" class="form-control" id="langId">
+                            <option value=1 {% if user.langId == 1 %}selected{% endif %}>{{ __("LANG_FR") }}</option>
+                            <option value=2 {% if user.langId == 2 %}selected{% endif %}>{{ __("LANG_EN") }}</option>
+                        </select>
+                        <small id="langHelp" class="form-text text-muted">{{ __("CHOOSE_LANG") }}</small>
+                    </div>
+                    <input type="hidden" name="change" value="langId">
+                    <input type="hidden" name="userId" value="{{ user._id }}">
+                    <input class="btn" type="submit" value="{{ __("CHANGELANG") }}">
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/passCheck.js"></script>
+    <script type="text/javascript">
+        //get birthday and locale
+        var birthday = "";
+        var locale = "";
+        var maxDate = "";
+        $.ajax({
+            url : '/api/user/data',
+            type : 'GET',
+            success: function(data) {
+                if(data.birthday){
+                    var birthdayTemp = new Date(data.birthday);
+                    maxDate = Date.now() - data.maxDate;
+                    var d = birthdayTemp.getDate();
+                    var m = birthdayTemp.getMonth();
+                    var y = birthdayTemp.getFullYear();
+                    birthday = new Date(y, m, d);
+                    locale = data.locale;
+                    //format datepicker plugin
+                    $(function () {
+                        $("#datetimepicker").datetimepicker({
+                            locale: locale,
+                            viewMode: 'years',
+                            format: "DD/MM/YYYY",
+//                            maxDate: maxDate,
+                            defaultDate: birthday,
+                            useCurrent: false,
+                        });
+                    });
+                }
+            },
+            error: error => {
+                console.log('birthday error');
+            }
+        });
+
+        $("#delete_avatar").click(e => {
+            e.preventDefault();
+            $("#registrationForm20").submit();
+        })
+    </script>
+
+{% endblock %}
