@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ActorSchema = require('./ActorSchema');
+const CommentSchema = require('./commentSchema');
 
-// episodeSchema is nested (embeded) in seriesSchema
-const episodeSchema = new Schema({
+// EpisodeSchema is nested (embeded) in seriesSchema
+const EpisodeSchema = new Schema({
     api_id: {
         type: Number,
     },
@@ -78,10 +79,10 @@ const serieSchema = new Schema({
         type: Boolean,
     },
     episodes: {
-        type: [episodeSchema,],
+        type: [EpisodeSchema,],
     },
     comments: {
-        type: [Schema.Types.ObjectId,],
+        type: [CommentSchema,],
     },
     followedBy: {
         type: [Schema.Types.ObjectId,],

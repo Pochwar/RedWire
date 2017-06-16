@@ -123,4 +123,12 @@
 	"ADDED_EPISODE": "ADDED_EPISODE",
 	"BAN1": "We are waiting for you on the chat of our site to exchange all together on our favorite series",
 	"BAN2": "Do not forget to follow your favorite series. A lot of series are waiting for you. Let's go!!"
+	"COMMENTS": "COMMENTS",
+	"COMMENT_TITLE": "COMMENT_TITLE",
+	"COMMENT_TITLE_PLACEHOLDER": "COMMENT_TITLE_PLACEHOLDER",
+	"COMMENT_CONTENT": "COMMENT_CONTENT",
+	"COMMENT_CONTENT_PLACEHOLDER": "COMMENT_CONTENT_PLACEHOLDER",
+	"COMMENT_SUMBIT": "COMMENT_SUMBIT",
+	"COMMENT_POSTED": "COMMENT_POSTED",
+	"BY_USER": "BY_USER"
 }
