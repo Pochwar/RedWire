@@ -17,17 +17,25 @@
                 <div class="media-body">
                     <span class="media-heading h1 serie-title">{{ serie.title }}</span>
                     <span class="pull-right">
-                        {% set viewed = false %}
+                        {% set followed = false %}
                         {% for serieFollowed in user.seriesFollowed %}
                             {% if serieFollowed.toString() == serie._id.toString() %}
-                                {% set viewed = true %}
+                                {% set followed = true %}
                             {% endif %}
                         {% endfor %}
-                        {% if viewed == true %}
-                            <button type="button" id="{{ serie._id }}" class="btn btn-success btn-xs followed">&#10003; {{ __("FOLLOWED_TRUE") }}</button>
+
+                        {% if followed == true %}
+                            <button type="button" id="{{ serie._id }}" class="btn btn-success btn-xs followed">
+                                <span style="" id="button-followed-true">&#10003; {{ __("FOLLOWED_TRUE") }}</span>
+                                <span style="display:none" id="button-followed-false">{{ __("FOLLOWED_FALSE") }}</span>
+                            </button>
                         {% else %}
-                            <button type="button" id="{{ serie._id }}" class="btn btn-warning btn-xs followed">{{ __("FOLLOWED_FALSE") }}</button>
+                            <button type="button" id="{{ serie._id }}" class="btn btn-warning btn-xs followed">
+                                <span style="display:none" id="button-followed-true">&#10003; {{ __("FOLLOWED_TRUE") }}</span>
+                                <span id="button-followed-false">{{ __("FOLLOWED_FALSE") }}</span>
+                            </button>
                         {% endif %}
+
                     </span>
                     <p>{{ serie.overview }}</p>
                 </div>

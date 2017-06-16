@@ -6,4 +6,4 @@
 .env
 test.env
 locales/*
-
+/doc_tech
