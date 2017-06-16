@@ -208,6 +208,14 @@ body {
     color: #f00;
 }
 
+.hide-on-hover{
+    display: block;
+}
+
+ct-bg-grey-alpha:hover .hide-on-hover {
+    display: none;
+}
+
 /* bg color */
 
 .ct-bg-grey {
@@ -216,6 +224,10 @@ body {
 
 .ct-bg-grey-alpha {
     background-color: rgba(0,0,0,0.7);
+}
+
+.ct-bg-grey-alpha:hover {
+    background-color: rgba(0,0,0,0.3);
 }
 
 .ct-bg-yellow {
