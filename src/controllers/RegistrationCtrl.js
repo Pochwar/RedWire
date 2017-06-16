@@ -77,9 +77,10 @@ class RegistrationCtrl {
         }
 
         //check birthday
-        let birthdayOk = UIV.checkDateFormat(req.body.birthday);
-        if (!birthdayOk) {
-            res.status(400).render('registration.twig', {
+        let birthdayFormatOk = UIV.checkDateFormat(req.body.birthday);
+        let birthdayAgeOk = UIV.checkAge(req.body.birthday)
+        if (!birthdayFormatOk || !birthdayAgeOk) {
+            res.status(400).res.render('registration.twig', {
                 status: 400,
                 error: res.__('BIRTHDAY_INVALID'),
             });

@@ -81,6 +81,7 @@ class UserCtrl {
         //no change
         if(!dataToChange){
             res.redirect('/user?msg=UIM_noChange');
+            return;
         }
 
         //User Information Verification
@@ -91,26 +92,31 @@ class UserCtrl {
             //check passwords are same
             if (req.body.password !== req.body.passwordConf) {
                 res.redirect('/user?msg=UIM_passNoMatch');
+                return;
             }
 
             //check password is alphanumeric
             let checkPassAlphaNum = UIV.checkAlphaNumOnly(req.body.password);
             if (!checkPassAlphaNum) {
                 res.redirect('/user?msg=UIM_passAlphaNumError');
+                return;
             }
 
             const saltRounds = 10;
             encrypt.hash(req.body.password, saltRounds, (err, hash) => {
                 if(err) {
                     res.redirect('/user?msg=UIM_passError');
+                    return;
                 } else {
                     winston.info(userId)
                     user.updateData(userId, dataToChange, hash)
                         .then(document => {
                             res.redirect('/user?msg=UIM_passChangeOk');
+                            return;
                         })
                         .catch(err =>{
                             res.redirect('/user?msg=UIM_dbError');
+                            return;
                         })
                     ;
                 }
@@ -119,8 +125,6 @@ class UserCtrl {
 
         //change avatar
         else if(dataToChange === "avatar"){
-
-            //TODO : get error from Multer
 
             //if user has already an avatar
             if (req.body.fileName != ""){
@@ -131,14 +135,17 @@ class UserCtrl {
                         user.updateData(userId, dataToChange, req.file.filename)
                             .then( () => {
                                 res.redirect('/user?msg=UIM_avatarChangeOk');
+                                return;
                             })
                             .catch( () => {
                                 res.redirect('/user?msg=UIM_dbError');
+                                return;
                             })
                         ;
                     })
                     .catch( () => {
                         res.redirect('/user?msg=UIM_avatarDeletetionError');
+                        return;
                     })
                 ;
             } else {
@@ -146,9 +153,11 @@ class UserCtrl {
                 user.updateData(userId, dataToChange, req.file.filename)
                     .then( () => {
                         res.redirect('/user?msg=UIM_avatarChangeOk');
+                        return;
                     })
                     .catch( () => {
                         res.redirect('/user?msg=UIM_dbError');
+                        return;
                     })
                 ;
             }
@@ -159,9 +168,11 @@ class UserCtrl {
             deleteAvatar(req.body.fileName)
                 .then( () => {
                     res.redirect('/user?msg=UIM_avatarDeleted');
+                    return;
                 })
                 .catch( () => {
                     res.redirect('/user?msg=UIM_avatarDeletetionError');
+                    return;
                 })
             ;
         }
@@ -169,9 +180,11 @@ class UserCtrl {
         //change date
         else if(dataToChange === "birthday"){
             //check birthday
-            let birthdayOk = UIV.checkDateFormat(req.body.birthday);
-            if(!birthdayOk){
+            let birthdayFormatOk = UIV.checkDateFormat(req.body.birthday);
+            let birthdayAgeOk = UIV.checkAge(req.body.birthday)
+            if(!birthdayFormatOk || !birthdayAgeOk){
                 res.redirect('/user?msg=UIM_birthdayError');
+                return;
             }
 
             const birthdayArray = req.body.birthday.split("/");
@@ -181,10 +194,12 @@ class UserCtrl {
                 .then(document => {
                     winston.info("ok")
                     res.redirect('/user?msg=UIM_birthdayChangeOk');
+                    return;
                 })
                 .catch(err => {
                     winston.info(`error : ${err}`)
                     res.redirect('/user?msg=UIM_dbError');
+                    return;
                 })
             ;
         }
@@ -195,16 +210,19 @@ class UserCtrl {
             let langIdOk = UIV.checkLangId(req.body.langId);
             if(!langIdOk){
                 res.redirect('/user?msg=UIM_langIdError');
+                return;
             }
 
             user.updateData(userId, dataToChange, req.body.langId)
                 .then(document => {
                     winston.info("ok")
                     res.redirect('/user?msg=UIM_langIdChangeOk');
+                    return;
                 })
                 .catch(err => {
                     winston.info(`error : ${err}`)
                     res.redirect('/user?msg=UIM_dbError');
+                    return;
                 })
             ;
         }
@@ -215,16 +233,19 @@ class UserCtrl {
             let mailOk = UIV.checkMail(req.body.mail);
             if(!mailOk){
                 res.redirect('/user?msg=UIM_mailError');
+                return;
             }
 
             user.updateData(userId, dataToChange, req.body.mail)
                 .then(document => {
                     winston.info("ok")
                     res.redirect('/user?msg=UIM_mailChangeOk');
+                    return;
                 })
                 .catch(err => {
                     winston.info(`error : ${err}`)
                     res.redirect('/user?msg=UIM_dbError');
+                    return;
                 })
             ;
         }
@@ -235,16 +256,19 @@ class UserCtrl {
             let checkAlphaNum = UIV.checkAlphaNumOnly(req.body.value);
             if (!checkAlphaNum) {
                 res.redirect('/user?msg=UIM_'+dataToChange+'AlphaNumError');
+                return;
             }
 
             user.updateData(userId, dataToChange, req.body.value)
                 .then( () => {
                     winston.info("ok")
                     res.redirect('/user?msg=UIM_'+dataToChange+'ChangeOk');
+                    return;
                 })
                 .catch( err => {
                     winston.info(`error : ${err}`)
                     res.redirect('/user?msg=UIM_dbError');
+                    return;
                 })
             ;
         }

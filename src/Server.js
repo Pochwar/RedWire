@@ -208,11 +208,13 @@ class Server {
                 res.json({
                     pseudo: res.locals.user.pseudo,
                     birthday: res.locals.user.birthday,
-                    locale: res.locals.locale
+                    locale: res.locals.locale,
+                    maxDate: this._conf.site.default.ageMax,
                 })
             } else {
                 res.json({
-                    locale: res.locals.locale
+                    locale: res.locals.locale,
+                    maxDate: this._conf.site.default.ageMax,
                 })
             }
         });
