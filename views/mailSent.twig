@@ -1,7 +1,59 @@
-{% extends "layout/layout.twig" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}} {{ __('MAIL_SEND') }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="./../">
 
-{% block content %}
+    <!-- jquery as bs dependency -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-{{ __('MAIL_DEPLOY')}}
+    <!-- googlefont dependency -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-{% endblock %}
+    <!-- bs-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- custom style -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- custom js -->
+    <script src="js/bootstrap-custom.js"></script>
+</head>
+<body>
+<div id="degrade2">
+<div id="deadurl">
+    <h2>
+        {{ __('MAIL_DEPLOY')}}
+    </h2>
+    <br>
+    <br>
+    <img id="sent" src="/img/mailSent.png"><br>
+    <br>
+    <h4>
+        
+    </h4>
+    <br>
+
+    <button id="btnret" class="btn btn-default" type="button">{{ __("RETURN") }}</button>
+    
+</div>
+</div>
+<script>
+//get host
+var protocol = window.location.protocol
+var host = document.location.hostname;
+var port = document.location.port;
+if (port){
+    host = host+":"+port;
+}
+
+$("#btnret").click(function(){
+    document.location.href = protocol + "//" + host;
+})
+</script>
+    
+</body>
+</html>
