@@ -79,7 +79,7 @@ body {
 .ct-navbar-brand {
     display: table;
 }
-.ct-navbar-brand>img {
+.ct-navbar-brand>a>img {
     display: table-cell;
     height: 100px;
     vertical-align: middle;
@@ -131,6 +131,12 @@ body {
     margin-top: 20px;
 }
 
+/*
+registration form
+ */
+#registrationForm input[type="submit"]{
+    color: #000;
+}
 
 /*messages*/
 @media only screen and (min-width: 700px) {
@@ -208,12 +214,12 @@ body {
     color: #f00;
 }
 
-.hide-on-hover{
-    display: block;
+.show-on-hover{
+    visibility: hidden;
 }
 
-ct-bg-grey-alpha:hover .hide-on-hover {
-    display: none;
+.ct-bg-grey-alpha:hover .show-on-hover {
+    visibility: visible;
 }
 
 /* bg color */
@@ -223,11 +229,11 @@ ct-bg-grey-alpha:hover .hide-on-hover {
 }
 
 .ct-bg-grey-alpha {
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0,0,0,0.3);
 }
 
 .ct-bg-grey-alpha:hover {
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.7);
 }
 
 .ct-bg-yellow {

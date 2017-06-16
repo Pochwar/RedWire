@@ -109,7 +109,7 @@
 	"UNCONFIRMED_MAIL": "UNCONFIRMED_MAIL",
 	"MAIL_CONFIRMED": "MAIL_CONFIRMED",
 	"BAN1": "Nous vous attendons sur le tchat de notre site pour échanger tous ensemble sur nos séries préférées!",
-	"BAN2": "N'oubliez pas de suivre vos séries préférées. Un grand nombre de séries vous attendent. C'est parti!"
+	"BAN2": "N'oubliez pas de suivre vos séries préférées. Un grand nombre de séries vous attendent. C'est parti!",
 	"HELLO": "HELLO",
 	"ADDED_EPISODE": "ADDED_EPISODE",
 	"BIRTHDAY_INVALID": "BIRTHDAY_INVALID",
@@ -124,5 +124,12 @@
 	"COMMENT_SUMBIT": "COMMENT_SUMBIT",
 	"COMMENTS": "COMMENTS",
 	"COMMENT_POSTED": "COMMENT_POSTED",
-	"BY_USER": "BY_USER"
+	"BY_USER": "BY_USER",
+	"FOLLOW_DETAIL": "FOLLOW_DETAIL",
+	"NOTE_DETAIL": "NOTE_DETAIL",
+	"JOIN_DETAIL": "JOIN_DETAIL",
+	"ALPHANUM_FORMAT": "ALPHANUM_FORMAT",
+	"DATE_FORMAT": "DATE_FORMAT",
+	"MAIL_FORMAT": "MAIL_FORMAT",
+	"RETYPE_PASSWORD": "RETYPE_PASSWORD"
 }

@@ -17,20 +17,20 @@
                     <form action="" id="registrationForm" method="post">
                         <div class="form-group">
                             <label class="ct-txt-white" for="firstname">{{ __("FIRSTNAME") }} * : </label>
-                            <input type="text" name="firstname" class="form-control" id="firstname" placeholder="{{ __("FIRSTNAME") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
+                            <input type="text" name="firstname" class="form-control" id="firstname" placeholder="{{ __("ALPHANUM_FORMAT") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
                         </div>
                         <div class="form-group">
                             <label class="ct-txt-white" for="lastname">{{ __("LASTNAME") }} * : </label>
-                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="{{ __("LASTNAME") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
+                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="{{ __("ALPHANUM_FORMAT") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
                         </div>
                         <div class="form-group">
                             <label class="ct-txt-white" for="pseudo">{{ __("PSEUDO") }} * : </label>
-                            <input type="text" name="pseudo" class="form-control" id="pseudo" placeholder="{{ __("PSEUDO") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
+                            <input type="text" name="pseudo" class="form-control" id="pseudo" placeholder="{{ __("ALPHANUM_FORMAT") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
                         </div>
                         <div class="form-group">
                             <label class="ct-txt-white" for="birthday">{{ __("BDAY") }} * : </label>
                             <div class="input-group date" id="datetimepicker">
-                                <input type="text" name="birthday" class="form-control" id="birthday" placeholder="{{ __("DATEFORMAT") }}" required>
+                                <input type="text" name="birthday" class="form-control" id="birthday" placeholder="{{ __("DATE_FORMAT") }}" required>
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>
@@ -39,15 +39,15 @@
                         </div>
                         <div class="form-group">
                             <label class="ct-txt-white" for="mail">{{ __("MAIL") }} * : </label>
-                            <input type="email" name="mail" class="form-control" id="mail" placeholder="{{ __("MAIL") }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                            <input type="email" name="mail" class="form-control" id="mail" placeholder="{{ __("MAIL_FORMAT") }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                         </div>
                         <div class="form-group">
                             <label class="ct-txt-white" for="pass">{{ __("PASSWORD") }} * : </label>
-                            <input type="password" name="password" class="form-control" id="password" placeholder="{{ __("PASSWORD") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
+                            <input type="password" name="password" class="form-control" id="password" placeholder="{{ __("ALPHANUM_FORMAT") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
                         </div>
                         <div class="form-group">
                             <label class="ct-txt-white" for="passConf">{{ __("PASSWORD_CONF") }} * : </label>
-                            <input type="password" name="passwordConf" class="form-control" id="passwordConf" placeholder="{{ __("PASSWORD_CONF") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
+                            <input type="password" name="passwordConf" class="form-control" id="passwordConf" placeholder="{{ __("RETYPE_PASSWORD") }}" minlength="3" maxlength="20" pattern="\w{3,20}" required>
                         </div>
                         <div id="passCheck" class="ct-txt-red" ><p>{{ __("PASSMUSTBEEQUAL") }}</p></div>
                         <div class="form-group">
