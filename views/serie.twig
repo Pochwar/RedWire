@@ -15,7 +15,20 @@
                     <img class="" src="{{ serie.poster ? serie.poster : defaultPoster }}" alt="{{ serie.title }}"></img>
                 </div>
                 <div class="media-body">
-                    <div class="media-heading h1 serie-title">{{ serie.title }}</div>
+                    <span class="media-heading h1 serie-title">{{ serie.title }}</span>
+                    <span class="pull-right">
+                        {% set viewed = false %}
+                        {% for serieFollowed in user.seriesFollowed %}
+                            {% if serieFollowed.toString() == serie._id.toString() %}
+                                {% set viewed = true %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if viewed == true %}
+                            <button type="button" id="{{ serie._id }}" class="btn btn-success btn-xs followed">&#10003; {{ __("FOLLOWED_TRUE") }}</button>
+                        {% else %}
+                            <button type="button" id="{{ serie._id }}" class="btn btn-warning btn-xs followed">{{ __("FOLLOWED_FALSE") }}</button>
+                        {% endif %}
+                    </span>
                     <p>{{ serie.overview }}</p>
                 </div>
             </div>

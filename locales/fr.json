@@ -523,5 +523,7 @@
 	"UIM_birthdayError": "UIM_birthdayError",
 	"UIM_langIdChangeOk": "UIM_langIdChangeOk",
 	"UIM_avatarChangeOk": "UIM_avatarChangeOk",
-	"DELETE_AVATAR": "DELETE_AVATAR"
+	"DELETE_AVATAR": "DELETE_AVATAR",
+	"FOLLOWED_FALSE": "FOLLOWED_FALSE",
+	"FOLLOWED_TRUE": "FOLLOWED_TRUE"
 }

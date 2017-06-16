@@ -98,6 +98,7 @@ class SeriesCtrl {
         const genres = req.body.genres ? req.body.genres.split(";") : [];
         const actors = req.body.actors ? req.body.actors.split(";") : [];
         const comments = req.body.comments || [];
+        const followedBy = [];
         const episodes = [];
         const counter = req.body.counterEpisode || 0;
 
@@ -149,6 +150,7 @@ class SeriesCtrl {
                 validated: validated,
                 episodes: episodes,
                 comments: comments,
+                followedBy: followedBy,
             }
         )
             .then(serie => {
@@ -223,7 +225,10 @@ class SeriesCtrl {
             return;
         }
 
-        this._series.followSerie(res.locals.user._id, req.params.id)
+        const remove = req.body.remove;
+        winston.info('SerieCtrl serieId: ' + req.params.id)
+
+        this._series.followSerie(res.locals.user._id, req.params.id, remove)
         .then(() => {
             res.json({ msg: "OK" });
         })

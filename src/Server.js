@@ -183,7 +183,7 @@ class Server {
         // comment serie
         this._app.post("/series/:id", accessGranted.member, seriesCtrl.postComment);
 
-        //follow
+        // follow
         this._app.put('/series/:id/follow', accessGranted.member, seriesCtrl.putUserFollow);
 
         //update
@@ -242,7 +242,10 @@ class Server {
         this._app.get('/verify', accessGranted.everyone, registrationCtrl.verify);
 
         // add/remove viewed episode from current user
-        this._app.put('/user', accessGranted.member, userCtrl.putUserEpisodes.bind(userCtrl));
+        this._app.put('/user/episodes', accessGranted.member, userCtrl.putUserEpisodes.bind(userCtrl));
+
+        // add/remove followed serie from current user
+        this._app.put('/user/series', accessGranted.member, userCtrl.putUserSeries.bind(userCtrl));
 
         //logout
         this._app.get('/logout', accessGranted.member, (req, res) => {

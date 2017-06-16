@@ -99,6 +99,31 @@ class UserModel {
      * 
      * @return {Promise}
      */
+    followedSerie(userId, serieId, remove) {
+        if (remove == "false") {
+            return new Promise((resolve, reject) => {
+                UserSchema.update({_id: ObjectId(userId)}, { $addToSet: { seriesFollowed: serieId }})
+                    .then(result => {resolve(result)})
+                    .catch(e => reject(e))
+            });
+        } else {
+            return new Promise((resolve, reject) => {
+                UserSchema.update({_id: ObjectId(userId)}, { $pull: { seriesFollowed: serieId }})
+                    .then(result => resolve(result))
+                    .catch(e => reject(e))
+            });
+        }
+    }
+
+    /**
+     * @method
+     * 
+     * @param {String} userId - serie's Id (alpha-numeric string in ObjectId()) in DB
+     * @param {ObjectId} episodeId - new value
+     * @param {Boolean} remove - is data to be removed ?
+     * 
+     * @return {Promise}
+     */
     viewedEpisode(userId, episodeId, remove) {
         if (remove == "false") {
             return new Promise((resolve, reject) => {
