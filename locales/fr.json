@@ -103,5 +103,7 @@
 	"BIRTHDAY_INVALID": "BIRTHDAY_INVALID",
 	"MAIL_DEPLOY": "MAIL_DEPLOY",
 	"UNCONFIRMED_MAIL": "UNCONFIRMED_MAIL",
-	"MAIL_CONFIRMED": "MAIL_CONFIRMED"
+	"MAIL_CONFIRMED": "MAIL_CONFIRMED",
+	"BAN1": "Nous vous attendons sur le tchat de notre site pour échanger tous ensemble sur nos séries préférées!",
+	"BAN2": "N'oubliez pas de suivre vos séries préférées. Un grand nombre de séries vous attendent. C'est parti!"
 }
