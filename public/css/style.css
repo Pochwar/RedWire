@@ -486,6 +486,10 @@ wall
     color: #e8e8e8;
 }
 
+.serie-poster {
+    width: 150px;
+}
+
 .serie-title {
     font-weight: bold;
 }

@@ -68,7 +68,10 @@ class SeriesCtrl {
     }
 
     get(req, res) {
-        this._series.findAll()
+         const lang =  req.getLocale();
+        const page = res.locals.page ;
+
+        this._series.findAll(lang, page)
             // render
             .then(data => {
                 const currentUrl = res.locals.urlWithoutPages;
@@ -94,7 +97,7 @@ class SeriesCtrl {
     post(req, res) {
         const api_id = req.body.api_id || null;
         const overview = req.body.overview || null;
-        const poster = req.file.filename || null;
+        const poster = req.file ? req.file.filename : null;
         const genres = req.body.genres ? req.body.genres.split(";") : [];
         const actors = req.body.actors ? req.body.actors.split(";") : [];
         const comments = req.body.comments || [];
@@ -122,7 +125,7 @@ class SeriesCtrl {
                     season: req.body["numberSeason_"+i],
                 }
                 episodes.push(episodeObject);
-                console.log(episodes);
+
             }
         }
         const validated = req.body.validated || 0;
@@ -132,7 +135,7 @@ class SeriesCtrl {
                 error: res.__('REQUIREDFIELDS'),
             })
         }
-        console.log(episodes);
+
         this._series.registerSerie(
             req.body.title,
             date,
@@ -154,10 +157,11 @@ class SeriesCtrl {
             }
         )
             .then(serie => {
+                console.log(serie);
                 winston.info("Serie registred: " + serie.title)
                 const defaultPoster = req.app.get("conf").site.default.poster;
                 res.render("serie.twig", {
-                    series: serie,
+                    serie: serie,
                     defaultPoster: defaultPoster,
                 })
             })
@@ -182,8 +186,11 @@ class SeriesCtrl {
         const _id = mongoose.Types.ObjectId(req.params.id)
         this._series.findById(_id)
             .then(serie => {
+                const defaultPoster = req.app.get("conf").site.default.poster;
+                console.log(poster);
                 res.render('serie.twig', {
                     serie: serie,
+                    defaultPoster: defaultPoster,
                 })
             })
             .catch(e => {

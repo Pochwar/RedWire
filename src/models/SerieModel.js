@@ -21,7 +21,9 @@ class SerieModel {
         this.actorRequest = this.actorRequest.bind(this);
         this.titleRequest = this.titleRequest.bind(this);
         this.allRequest = this.allRequest.bind(this);
+        this.registerSerie = this.registerSerie.bind(this);
         this.transformImagePath = this.transformImagePath.bind(this);
+        
     }
 
 
@@ -59,7 +61,7 @@ class SerieModel {
                     return {name: actor};
                 })
             }
-            console.log(title);
+            
             Serie.create({
                 api_id: optionals.api_id,
                 title: title,
@@ -77,7 +79,8 @@ class SerieModel {
                 if (err) {
                     reject(err)
                 } else {
-                    resolve(object)
+                    const serie = this.transformImagePath(object);
+                    resolve(serie);
                 }
             });
         })
@@ -207,7 +210,7 @@ class SerieModel {
             .then(serie => {
                 if (serie) {
                     serie.toObject();
-                    serie.poster = serie.poster ? this._siteImagePath + serie.poster : null;
+                    serie = this.transformImagePath(serie)
                     resolve(serie);
                 }
                 else {
@@ -289,7 +292,7 @@ class SerieModel {
         if (!serie.poster) {
             return serie;
         }
-
+        console.log(serie.poster);
         if (serie.api_id) {
             serie.poster = this._apiImagePath + serie.poster;
         }

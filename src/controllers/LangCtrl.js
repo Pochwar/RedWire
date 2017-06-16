@@ -17,12 +17,14 @@ class LangCtrl {
             const langService = req.app.get('langService');
             langService.sendCookie(res, lang);
 
-            //redirect
-            if(req.headers.referer !== undefined){
-                res.redirect(req.headers.referer);
-            } else {
-                res.redirect('/');
-            }
+            //redirect (need linking between series translation)
+            // if(req.headers.referer !== undefined){
+            //     res.redirect(req.headers.referer);
+            // } else {
+            //     res.redirect('/');
+            // }
+
+            res.redirect('/');
         } else {
             const error = res.__('ERROR_SERVER');
             return res.status(400).render('error.twig', {status: 400, error,});
