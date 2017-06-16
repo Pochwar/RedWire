@@ -175,7 +175,7 @@ class Server {
         this._app.get('/series/add', accessGranted.member, seriesCtrl.getForm);
 
         // post the form results for creating a serie
-        this._app.post('/series/add', this.upload.single('poster'), seriesCtrl.post);
+        this._app.post('/series/add', accessGranted.member, this.upload.single('poster'), seriesCtrl.post);
 
         //get one serie from its id
         this._app.get('/series/:id', accessGranted.everyone, seriesCtrl.getById);
