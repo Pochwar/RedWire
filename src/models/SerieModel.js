@@ -165,21 +165,23 @@ class SerieModel {
             // 2. counter request
             counter.count();
 
-            //3. skip & limit for documents
-            if (page) {
-                docs.skip(page * this._resultPerPage);
-            }
-
-            // limit
-            docs.limit(this._resultPerPage);
-
             // run counter request
             counter.exec()
 
             // save data & run pagination request
             .then(number => {
+
+                // number of results & pages
                 data.total = number;
                 data.pages = Math.ceil(number / this._resultPerPage);
+
+                //3. skip & limit for documents if valid page
+                if (page && page <= data.pages) {
+                    docs.skip(page * this._resultPerPage);
+                }
+
+                // limit
+                docs.limit(this._resultPerPage);
 
                 return docs.exec();
             })
