@@ -18,7 +18,7 @@ class MailService {
 
 
         this.idUnik = {};
-        this.host = "";
+        this.http = "";
         this.send = this.send.bind(this);
         this.verify = this.verify.bind(this);
     }
