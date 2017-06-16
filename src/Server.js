@@ -25,6 +25,7 @@ const SearchCtrl = require('./controllers/SearchCtrl');
 const UserCtrl = require('./controllers/UserCtrl');
 // models
 const SerieModel = require("./models/SerieModel");
+const UserModel = require("./models/UserModel");
 
 // services
 const TokenService = require('./services/token.js');
@@ -120,13 +121,15 @@ class Server {
             this._conf.site.default.posterPath,
             this._conf.API.tmdb.posterPath);
 
+            const userModel = new UserModel();
+
         /*
         INIT CONTROLLERS
          */
 
         const registrationCtrl = new RegistrationCtrl(this._conf);
         const loginCtrl = new LoginCtrl();
-        const seriesCtrl = new SeriesCtrl(serieModel);
+        const seriesCtrl = new SeriesCtrl(serieModel, userModel);
         const adminHomeCtrl = new AdminHomeCtrl();
         const indexCtrl = new IndexCtrl();
         const langCtrl = new LangCtrl(this._conf);

@@ -79,6 +79,22 @@ class UserModel {
      * 
      * @param {String} userId - serie's Id (alpha-numeric string in ObjectId()) in DB
      * @param {ObjectId} episodeId - new value
+     * 
+     * @return {Promise}
+     */
+    commentedEpisode(userId, episodeId) {
+        return new Promise((resolve, reject) => {
+            UserSchema.update({_id: ObjectId(userId)}, { $push: { comments: episodeId }})
+                .then(result => resolve(result))
+                .catch(e => reject(e))
+        });
+    }
+
+    /**
+     * @method
+     * 
+     * @param {String} userId - serie's Id (alpha-numeric string in ObjectId()) in DB
+     * @param {ObjectId} episodeId - new value
      * @param {Boolean} remove - is data to be removed ?
      * 
      * @return {Promise}
