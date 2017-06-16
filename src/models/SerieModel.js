@@ -342,7 +342,7 @@ class SerieModel {
                 }
             )
             .then((result) => {
-                resolve(result)
+                resolve(result.toObject())
                 })
             .catch(error => {
                 reject(error);

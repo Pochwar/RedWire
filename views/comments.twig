@@ -1,24 +1,22 @@
 {# contenu #}
 {% block content %}
- <div class="container-fluid">
-    <div class="row ct-bg-grey">
-        <div class="col-md-offset-1 col-md-6">
-            <h2 class="ct-txt-yellow" >
-                {{ __("COMMENTS") }}
-            </h2>
-            <form action="/series/{{ serie._id }}" method="post">
-                <div class="form-group">
-                    <label class="ct-txt-white" for="title">{{ __("COMMENT_TITLE") }}</label>
-                    <input type="text" class="form-control" name="comment_title" placeholder="{{ __("COMMENT_TITLE_PLACEHOLDER") }}" required>
-                </div>
-                <div class="form-group">
-                    <label class="ct-txt-white" for="comment">{{ __("COMMENT_CONTENT") }}</label>
-                    <textarea  class="form-control" name="comment" placeholder="{{ __("COMMENT_CONTENT_PLACEHOLDER") }}" required></textarea>
-                </div>
-                
-                <input type="submit" value="{{ __("COMMENT_SUMBIT") }}">
-            </form>
-        </div>
+<div class="row ct-bg-grey">
+    <div class="col-md-offset-1 col-md-6">
+        <h2 class="ct-txt-yellow" >
+            {{ __("COMMENTS") }}
+        </h2>
+        <form action="/series/{{ serie._id }}" method="post">
+            <div class="form-group">
+                <label class="ct-txt-white" for="title">{{ __("COMMENT_TITLE") }}</label>
+                <input type="text" class="form-control" name="comment_title" placeholder="{{ __("COMMENT_TITLE_PLACEHOLDER") }}" required>
+            </div>
+            <div class="form-group">
+                <label class="ct-txt-white" for="comment">{{ __("COMMENT_CONTENT") }}</label>
+                <textarea  class="form-control" name="comment" placeholder="{{ __("COMMENT_CONTENT_PLACEHOLDER") }}" required></textarea>
+            </div>
+            
+            <input type="submit" value="{{ __("COMMENT_SUMBIT") }}">
+        </form>
     </div>
 </div>
 {% endblock %}

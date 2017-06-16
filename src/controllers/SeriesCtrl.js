@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 class SeriesCtrl {
-    constructor(model) {
-        this._series = model;
+    constructor(serieModel, userModel) {
+        this._series = serieModel;
+        this._user = userModel;
         this.get = this.get.bind(this);
         this.post = this.post.bind(this);
         this.getByTitle = this.getByTitle.bind(this);
@@ -214,7 +215,6 @@ class SeriesCtrl {
     }
 
     postComment(req, res) {
-        winston.info("azetgy")
         this._series.addComment(
             res.locals.user._id,
             res.locals.user.pseudo,
@@ -225,10 +225,11 @@ class SeriesCtrl {
             "5"
             )
             .then(serie => {
-                winston.info(serie.toObject())
                 res.render('serie.twig', {
                     serie: serie,
-                })
+                });
+                const episodeId = serie.comments[serie.comments.length - 1]._id
+                this._user.commentedEpisode(res.locals.user._id, episodeId)
             })
             .catch((error) => {
                     winston.info(error);
