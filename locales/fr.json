@@ -151,7 +151,7 @@
     "MAIL_FORMAT": "MAIL_FORMAT",
     "RETYPE_PASSWORD": "RETYPE_PASSWORD",
     "AVATAR_TYPE": "AVATAR_TYPE",
-    "DELETE_AVATAR": "DELETE_AVATAR"
+    "DELETE_AVATAR": "DELETE_AVATAR",
     "SITENAME": "FishBlock",
     "SITESUBNAME": "Le site qu'il est bien pour les séries",
     "SITENAME": "SITENAME",
@@ -296,7 +296,7 @@
     "BY_USER": "BY_USER",
     "DEADLINK": "DEADLINK",
     "DONTEXIST": "DONTEXIST",
-    "RETURN": "RETURN"
+    "RETURN": "RETURN",
     "DONTEXIST": "DONTEXIST",
     "RETURN": "RETURN",
     "SITENAME": "SITENAME",
@@ -514,5 +514,7 @@
 	"CHOOSE_LANG": "CHOOSE_LANG",
 	"DEFAULT_LANG": "DEFAULT_LANG",
 	"UIM_birthdayChangeOk": "UIM_birthdayChangeOk",
-	"UIM_birthdayError": "UIM_birthdayError"
+	"UIM_birthdayError": "UIM_birthdayError",
+	"FOLLOWED_FALSE": "FOLLOWED_FALSE",
+	"FOLLOWED_TRUE": "FOLLOWED_TRUE"
 }

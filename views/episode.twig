@@ -12,9 +12,9 @@
             {% endif %}
         {% endfor %}
         {% if viewed == true %}
-                <button type="button" id="{{ episode._id }}" class="btn btn-success btn-xs viewed">&#10003; Vu</button>
+                <button type="button" id="{{ episode._id }}" class="btn btn-success btn-xs viewed">&#10003; {{ __(VIEWED_TRUE) }}</button>
             {% else %}
-                <button type="button" id="{{ episode._id }}" class="btn btn-warning btn-xs viewed">Pas vu</button>
+                <button type="button" id="{{ episode._id }}" class="btn btn-warning btn-xs viewed">{{ __(VIEWED_FALSE) }}</button>
             {% endif %}
     </span>
     <p>
