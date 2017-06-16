@@ -65,10 +65,12 @@ class SeriesCtrl {
 
     get(req, res) {
         this._series.findAll()
-            .then(series => {
-                res.render('series.twig', {
-                    series: series,
-                });
+            // render
+            .then(data => {
+                const currentUrl = res.locals.urlWithoutPages;
+                const defaultPoster = req.app.get('conf').site.default.poster;
+                
+                res.render('series.twig', {data: data, currentUrl, defaultPoster,});
             })
             .catch(e => {
                 winston.info(e);
