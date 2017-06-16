@@ -83,8 +83,6 @@ class Server {
         const UIV = new UserInfoVerificationService(this._conf);
         this._app.set('UIV', UIV);
 
-        const chat = new Chat(this._server);
-
         const mailService = new MailService(this._conf);
         this._app.set('mailService', mailService);
 
