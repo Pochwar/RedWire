@@ -16,25 +16,23 @@ describe('TmdbService', () => {
 
     describe('#searchByTitle', () => {
         
-        it('find series by title', done => {
+        it('find series by title', () => {
 
-            tmdbService.searchByTitle('games ', 'fr')
+            return tmdbService.searchByTitle('games ', 'fr')
             .then( series => {
                 expect( series.length).to.exist;
                 
-                done();
             });
             
         });
     });
 
     describe('#searchByActors', () => {
-         it('find series by actors', done => {
+         it('find series by actors', () => {
 
-            tmdbService.searchByActors('eva ', 'fr')
+            return tmdbService.searchByActors('eva ', 'fr')
             .then( series => {
                 expect( series.length).to.exist;
-                done();
             });
             
         });
@@ -42,30 +40,14 @@ describe('TmdbService', () => {
     
     describe('#getSerie', () => {
          
-         it('find series by id', done => {
+         it('find series by id', () => {
 
-            tmdbService.getSerie(30, 'fr')
+            return tmdbService.getSerie(30, 'fr')
             .then( series => {
                 expect( Object.keys(series) ).to.exist;
-                done();
             });
             
         });
     });
-
-    /*
-    describe('#getSeason', () => {
-         
-         it('find season by id', done => {
-            tmdbService.getSeason(30, 8,'fr')
-            .then( season => {
-                console.log(season);
-                expect( Object.keys(season) ).to.exist;
-                done();
-            });
-            
-        });
-    });
-    */
     
 });

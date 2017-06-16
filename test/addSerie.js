@@ -12,12 +12,12 @@ chai.use( chaiHttp );
 const conf = require('../config/config');
 
 // dataset for testing
-const registerData = require('./register-dataset.js');
+const registerData = require('./addSerie-dataset.js');
 
-// Test login
-describe(registerData.route.name, () => {
+// Test Serie
+describe('Serie : ' + registerData.route.name, () => {
 
-    // invalid credentials
+    // all datas
     registerData.dataset.forEach( dataset => {
         it(`${dataset.name} => ${registerData.route.verb} ${registerData.route.path}`, () => {
             

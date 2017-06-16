@@ -31,9 +31,8 @@ class RegistrationCtrl {
             _.isEmpty(req.body.passwordConf) ||
             _.isEmpty(req.body.langId)
         ) {
-            console.log(req.body);
-            res.render('registration.twig', {
-                status: 500,
+            res.status(400).render('registration.twig', {
+                status: 400,
                 error: res.__('ERROR_EMPTY'),
             });
             return;
@@ -41,8 +40,8 @@ class RegistrationCtrl {
 
         //check passwords
         if (req.body.password !== req.body.passwordConf) {
-            res.render('registration.twig', {
-                status: 500,
+            res.status(400).render('registration.twig', {
+                status:400,
                 error: res.__('ERROR_PASS'),
             });
             return;
@@ -50,8 +49,8 @@ class RegistrationCtrl {
 
         //check db connection
         if (mongoose.connection._readyState !== 1) {
-            res.render('registration.twig', {
-                status: 500,
+            res.status(400).render('registration.twig', {
+                status: 400,
                 error: res.__('ERROR_SERVER'),
             });
             return;
@@ -70,8 +69,9 @@ class RegistrationCtrl {
         })
 
         if (!alphaNumFieldsOk) {
-            res.render('registration.twig', {
-                msg: res.__('ALPHANUM_ONLY'),
+            res.status(400).render('registration.twig', {
+                status: 400,
+                error: res.__('ALPHANUM_ONLY'),
             });
             return;
         }
@@ -79,8 +79,9 @@ class RegistrationCtrl {
         //check birthday
         let birthdayOk = UIV.checkDateFormat(req.body.birthday);
         if (!birthdayOk) {
-            res.render('registration.twig', {
-                msg: res.__('BIRTHDAY_INVALID'),
+            res.status(400).render('registration.twig', {
+                status: 400,
+                error: res.__('BIRTHDAY_INVALID'),
             });
             return;
         }
@@ -88,8 +89,9 @@ class RegistrationCtrl {
         //check mail
         let mailOk = UIV.checkMail(req.body.mail);
         if (!mailOk) {
-            res.render('registration.twig', {
-                msg: res.__('MAIL_INVALID'),
+            res.status(400).render('registration.twig', {
+                status: 400,
+                error: res.__('MAIL_INVALID'),
             });
             return;
         }
@@ -97,8 +99,9 @@ class RegistrationCtrl {
         //check langId
         let langIdOk = UIV.checkLangId(req.body.langId);
         if (!langIdOk) {
-            res.render('registration.twig', {
-                msg: res.__('LANGID_INVALID'),
+            res.status(400).render('registration.twig', {
+                status: 400,
+                error: res.__('LANGID_INVALID'),
             });
             return;
         }
@@ -144,29 +147,29 @@ class RegistrationCtrl {
                     res.render('mailSent.twig');
                 })
                 .catch(err => {
-                    winston.info(`error :  ${err.message}`);
+                    winston.info(`RegistrationCtrl - post - error :  ${err.message}`);
                     if (err.message.match(/duplicate/i)) {
                         if (err.message.match(/pseudo/i)) {
-                            res.render('registration.twig', {
+                            res.status(500).render('registration.twig', {
                                 status: 500,
                                 error: res.__('ERROR_PSEUDO'),
                             });
                             return;
                         } else if (err.message.match(/mail/i)) {
-                            res.render('registration.twig', {
+                            res.status(500).render('registration.twig', {
                                 status: 500,
                                 error: res.__('ERROR_MAIL'),
                             });
                             return;
                         } else {
-                            res.render('registration.twig', {
+                            res.status(500).render('registration.twig', {
                                 status: 500,
                                 error: res.__('ERROR_SERVER'),
                             });
                             return;
                         }
                     }
-                    res.render('registration.twig', {
+                    res.status(500).render('registration.twig', {
                         status: 500,
                         error: res.__('ERROR_SERVER'),
                     });

@@ -11,10 +11,7 @@
     "lint": "eslint  ./src/**/*.js || (exit 0)",
     "test": "mocha --recursive || (exit 0)",
     "test:watch": "mocha -w --recursive || (exit 0)",
-    "test:public": "mocha --recursive --grep Public || (exit 0)",
-    "test:member": "mocha --recursive --grep Member || (exit 0)",
-    "test:admin": "mocha --recursive --grep Admin || (exit 0)",
-    "test:tmdb": "mocha --recursive --grep Tmdb || (exit 0)",
+    "test:serie": "mocha --recursive --grep Serie || (exit 0)",
     "documentation": "node ./node_modules/documentation/bin/documentation.js serve --watch"
   },
   "repository": {
