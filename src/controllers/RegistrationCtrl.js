@@ -31,6 +31,7 @@ class RegistrationCtrl {
             _.isEmpty(req.body.passwordConf) ||
             _.isEmpty(req.body.langId)
         ) {
+            console.log(req.body);
             res.render('registration.twig', {
                 status: 500,
                 error: res.__('ERROR_EMPTY'),
@@ -68,7 +69,7 @@ class RegistrationCtrl {
             if (!check) alphaNumFieldsOk = false;
         })
 
-        if (!alphaNumFieldsOk){
+        if (!alphaNumFieldsOk) {
             res.render('registration.twig', {
                 msg: res.__('ALPHANUM_ONLY'),
             });
@@ -77,7 +78,7 @@ class RegistrationCtrl {
 
         //check birthday
         let birthdayOk = UIV.checkDateFormat(req.body.birthday);
-        if(!birthdayOk){
+        if (!birthdayOk) {
             res.render('registration.twig', {
                 msg: res.__('BIRTHDAY_INVALID'),
             });
@@ -86,7 +87,7 @@ class RegistrationCtrl {
 
         //check mail
         let mailOk = UIV.checkMail(req.body.mail);
-        if(!mailOk){
+        if (!mailOk) {
             res.render('registration.twig', {
                 msg: res.__('MAIL_INVALID'),
             });
@@ -95,7 +96,7 @@ class RegistrationCtrl {
 
         //check langId
         let langIdOk = UIV.checkLangId(req.body.langId);
-        if(!langIdOk){
+        if (!langIdOk) {
             res.render('registration.twig', {
                 msg: res.__('LANGID_INVALID'),
             });
@@ -134,7 +135,13 @@ class RegistrationCtrl {
                 )
                 .then(object => {
                     winston.info(`### user ${object.pseudo} created ! ###`);
-                    res.redirect('/send?to=' + req.body.mail);
+                    const mailService = req.app.get('mailService');
+                    const host = req.get('host');
+                    const to = req.body.mail;
+                    return mailService.send(host, to);
+                })
+                .then(function() {
+                    res.render('mailSent.twig');
                 })
                 .catch(err => {
                     winston.info(`error :  ${err.message}`);
@@ -165,6 +172,21 @@ class RegistrationCtrl {
                     });
                 });
         })
+
+    }
+
+    verify(req, res) {
+        const mail = req.query.mail;
+        const id = req.query.id;
+        const mailService = req.app.get('mailService');
+        mailService.verify(mail, id)
+            .then(function() {
+                res.render('mailConfirmed.twig');
+            })
+            .catch(function(error) {
+                winston.info(error);
+                res.status(500).render('error.twig');
+            })
     }
 
 }
