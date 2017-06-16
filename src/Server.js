@@ -104,7 +104,7 @@ class Server {
     }
 
     run() {
-        
+
         this._setRoutes();
 
         this._server.listen(this._conf.server.port, () => winston.info(`### Server listening on localhost:${this._conf.server.port} ###`));
