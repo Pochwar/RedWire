@@ -38,7 +38,7 @@
 	"DATE_FORMAT": "DATE_FORMAT",
 	"DATEFORMAT": "dd/mm/yyyy",
 	"DEADLINK": "There is a dead Link !",
-	"DEFAULT_LANG": "DEFAULT_LANG",
+	"DEFAULT_LANG": "Default lang",
 	"DELETE_AVATAR": "Delete avatar",
 	"DESCRIPTION": "Description",
 	"DISCONNECT": "Disconnection",
@@ -155,6 +155,6 @@
 	"YOURPASS": "Your password",
 	"ADMIN_CONTACT": "Contact an admin",
 	"NOTE_DETAIL": " ",
-	"DETAILS": "DETAILS",
-	"CLOSE": "CLOSE"
+	"DETAILS": "View details",
+	"CLOSE": "Close"
 }

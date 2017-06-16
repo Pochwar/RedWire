@@ -12,6 +12,7 @@
             {% endif %}
         {% endfor %}
 
+        {#
         {% if followed == true %}
             <button type="button" id="{{ episode._id }}" class="btn btn-success btn-xs viewed">
                 <span style="" id="button-viewed-true">&#10003; {{ __("VIEWED_TRUE") }}</span>
@@ -23,6 +24,7 @@
                 <span id="button-viewed-false">{{ __("VIEWED_FALSE") }}</span>
             </button>
         {% endif %}
+        #}
     </span>
     <p>
         {{ episode.overview }}
