@@ -68,7 +68,7 @@
                 <form action="" id="registrationForm2" method="post" encType="multipart/form-data">
                     <div class="form-group">
                         <label class="ct-txt-white" for="avatar">{{ __("AVATAR") }} * : </label><br/>
-                        {% if user.avatar %}<img src="upload/avatars/{{ user.avatar }}" width="150px" />{% endif %}
+                        {% if user.avatar %}<img src="{{avatarPath}}{{ user.avatar }}" width="150px" />{% endif %}
                         <input type="file" name="avatar" class="form-control" id="avatar" placeholder="{{ __("AVATAR") }}" accept=".gif,.jpg,.jpeg,.png" required>
                         <small id="avatarHelp" class="form-text text-muted">{{ __("AVATAR_TYPE") }}</small>
                     </div>

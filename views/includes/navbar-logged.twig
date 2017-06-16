@@ -85,12 +85,13 @@
                         <a href="/wall" >{{ __("PROFILE") }}</a>
                     </li>
                     
-                    {% if user.roleId >= 2 %}
+                    <!-- onglet modération : for V2 -->
+<!--                     {% if user.roleId >= 2 %}
                         <li>
                             {% include "../includes/moderate.twig" %}
                         </li>
                     {% endif %}
-                    
+ -->                    
                     <li class="hidden-lg">
                         <a href="#modal_lang" data-toggle="modal">{{__("SELECT_LANG") }}</a>
                     </li>

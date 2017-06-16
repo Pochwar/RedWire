@@ -1,5 +1,7 @@
 const winston = require('winston');
 const mongoose = require('mongoose');
+const _ = require('underscore');
+
 
 mongoose.Promise = global.Promise;
 
@@ -92,19 +94,34 @@ class SeriesCtrl {
     post(req, res) {
         const api_id = req.body.api_id || null;
         const overview = req.body.overview || null;
-        const poster = req.body.poster || "/img/default.png";
+        const poster = req.file.filename || null;
         const genres = req.body.genres ? req.body.genres.split(";") : [];
         const actors = req.body.actors ? req.body.actors.split(";") : [];
         const comments = req.body.comments || [];
         const episodes = [];
-        const counter = req.body.counterEpisode;
-        for (let i = 1; i < counter; i++) {
-            if (counter > 0 && !(req.body.episode + i).number && !(req.body.episode + i).season) {
-                return res.render("add.twig", {
+        const counter = req.body.counterEpisode || 0;
+
+
+
+
+
+        for (let i = 0; i < counter; i++) {
+            if (_.isEmpty(req.body["title_"+i]) ||
+            _.isEmpty(req.body["numberEpisode_"+i]) ||
+            _.isEmpty(req.body["overview_"+i]) ||
+            _.isEmpty(req.body["numberSeason_"+i])) {
+                return res.status(400).render("add.twig", {
                     error: res.__('REQUIREDFIELDS'),
                 })
             } else {
-                episodes.push(req.body.episode + i)
+                let episodeObject = {
+                    title: req.body["title_"+i],
+                    number: req.body["numberEpisode_"+ i],
+                    overview: req.body["overview_"+i] ,
+                    season: req.body["numberSeason_"+i],
+                }
+                episodes.push(episodeObject);
+                console.log(episodes);
             }
         }
         const validated = req.body.validated || 0;
@@ -114,7 +131,7 @@ class SeriesCtrl {
                 error: res.__('REQUIREDFIELDS'),
             })
         }
-
+        console.log(episodes);
         this._series.registerSerie(
             req.body.title,
             date,
@@ -136,8 +153,10 @@ class SeriesCtrl {
         )
             .then(serie => {
                 winston.info("Serie registred: " + serie.title)
+                const defaultPoster = req.app.get("conf").site.default.poster;
                 res.render("serie.twig", {
                     series: serie,
+                    defaultPoster: defaultPoster,
                 })
             })
             .catch(e => {

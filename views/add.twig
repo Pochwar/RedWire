@@ -13,7 +13,7 @@
                 <div id="success" class="list-group-item list-group-item-success">
                 	{{ msg }}
                 </div>
-                <form action="" id="addSeriesForm" method="post">
+                <form action="" id="addSeriesForm" method="post" encType="multipart/form-data">
 	                <p class="ct-txt-white">(*) {{__("REQUIREDFIELDS")}}</p>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="title">{{__("TITLE")}} * : </label>
@@ -32,7 +32,7 @@
 	                        </div>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="poster">{{__("POSTER")}} : </label>
-	                            <input type="file" name="poster" class="form-control" id="poster" placeholder="{{ __("POSTER") }}" value="{{ serie.poster }}">
+	                            <input type="file" name="poster" class="form-control" id="poster" placeholder="{{ __("POSTER") }}" value="{{ serie.poster ? serie.poster : defaultPoster }}">
 	                        </div>
 	                        <div class="form-group">
 	                            <label class="ct-txt-white" for="actors">{{__("ACTORS")}} : </label>
@@ -95,13 +95,13 @@ var addEpisode = function(){
 	var labelNumberEpisode = document.createElement('label');
 	labelNumberEpisode.innerText = "{{__('NUMBEREPISODE')}}" + " *";
 	labelNumberEpisode.className = "ct-txt-white";
-	labelNumberEpisode.setAttribute("for", "numberEpisode" + id);
+	labelNumberEpisode.setAttribute("for", "numberEpisode_" + id);
 
 	var inputNumberEpisode = document.createElement('input');
 	inputNumberEpisode.setAttribute("type", "number"); 
-	inputNumberEpisode.setAttribute("name", "numberEpisode" + id); 
+	inputNumberEpisode.setAttribute("name", "numberEpisode_" + id); 
 	inputNumberEpisode.className = "form-control"; 
-	inputNumberEpisode.setAttribute("id", "numberEpisode" + id); 
+	inputNumberEpisode.setAttribute("id", "numberEpisode_" + id); 
 	inputNumberEpisode.setAttribute("placeholder", "{{__('NUMBEREPISODE')}}"); 
 	inputNumberEpisode.setAttribute("value", 0); 
 	inputNumberEpisode.setAttribute("min", 1); 
@@ -110,13 +110,13 @@ var addEpisode = function(){
 	var labelOverview = document.createElement('label');
 	labelOverview.innerText = "{{__('OVERVIEW')}}";
 	labelOverview.className = "ct-txt-white";
-	labelOverview.setAttribute("for", "overview" + id);
+	labelOverview.setAttribute("for", "overview_" + id);
 
 	var inputOverview = document.createElement('input');
 	inputOverview.setAttribute("type", "text"); 
-	inputOverview.setAttribute("name", "overview" + id); 
+	inputOverview.setAttribute("name", "overview_" + id); 
 	inputOverview.className = "form-control"; 
-	inputOverview.setAttribute("id", "overview" + id); 
+	inputOverview.setAttribute("id", "overview_" + id); 
 	inputOverview.setAttribute("placeholder", "{{__('OVERVIEW')}}"); 
 	inputOverview.setAttribute("minlength", 3); 
 
