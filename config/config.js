@@ -19,6 +19,7 @@ const CONF = {
             avatarPath: process.env.CONF_SITE_AVATARPATH,
             resultPerPage: 10,
             poster: '/img/poster-default.png',
+            ageMax : 31556952000 * 13, //13 years
         },
         roles: {
             user: 1,

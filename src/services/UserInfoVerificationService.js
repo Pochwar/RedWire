@@ -21,6 +21,18 @@ class UserInfoVerificationService {
         return ok;
     }
 
+    checkAge(date) {
+        const maxDate = Date.now() - this._conf.site.default.ageMax;
+        const userDateArray = date.split("/");
+        const userDateFormat = new Date(userDateArray[2], (userDateArray[1] - 1), userDateArray[0]);
+        const userDate = new Date(userDateFormat).getTime()
+        let ok = true;
+        if (userDate > maxDate){
+            ok =false;
+        }
+        return ok;
+    }
+
     checkLangId(langId) {
         let ok = true;
         if (!this._conf.site.lang[langId]){
