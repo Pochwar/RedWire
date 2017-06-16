@@ -428,4 +428,26 @@ wall
     background-color: #333;
     color: #e8e8e8;
 }
-    
+
+
+/*
+* index connectec
+*/
+
+#ban-home-1 {
+    background-image: url(../img/ban-home-1.jpg);
+    background-size: cover;
+}
+
+#ban-home-2 {
+    background-image: url(../img/ban-home-2.jpeg);
+    background-size: cover;
+}
+
+.ban-index-connected {
+    text-align: justify;
+    color: #FFF;
+    font-size: 20px;
+    font-weight: bold;
+}
+
