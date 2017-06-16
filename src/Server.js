@@ -177,6 +177,9 @@ class Server {
         //get one serie from its id
         this._app.get('/series/:id', accessGranted.everyone, seriesCtrl.getById);
 
+        // comment serie
+        this._app.post("/series/:id", accessGranted.member, seriesCtrl.postComment);
+
         //follow
         this._app.put('/series/:id/follow', accessGranted.member, seriesCtrl.putUserFollow);
 
@@ -184,8 +187,8 @@ class Server {
         this._app.get('/update/:id', accessGranted.member, seriesCtrl.getModify);
         this._app.post('/update/:id', accessGranted.member, seriesCtrl.post);
 
-        // get one episode from its id
-        this._app.get('/episode/:id', accessGranted.everyone, seriesCtrl.getEpisodeById);
+        // // get one episode from its id
+        // this._app.get('/episode/:id', accessGranted.everyone, seriesCtrl.getEpisodeById);
 
         this._app.get('/', accessGranted.everyone, indexCtrl.get);
 
@@ -229,11 +232,12 @@ class Server {
 
         this._app.get('/user', accessGranted.member, userCtrl.getUserInfo.bind(userCtrl));
         this._app.post('/user', this.upload.single('avatar'), accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
-        this._app.put('/user', accessGranted.member, userCtrl.putUserEpisodes.bind(userCtrl));
 
         //mail
         this._app.get('/verify', accessGranted.everyone, registrationCtrl.verify);
 
+        // add/remove viewed episode from current user
+        this._app.put('/user', accessGranted.member, userCtrl.putUserEpisodes.bind(userCtrl));
 
         //logout
         this._app.get('/logout', accessGranted.member, (req, res) => {

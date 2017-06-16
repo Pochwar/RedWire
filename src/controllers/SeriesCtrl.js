@@ -13,6 +13,7 @@ class SeriesCtrl {
         this.getEpisodeById = this.getEpisodeById.bind(this);
         this.putUserFollow = this.putUserFollow.bind(this);
         this.getModify = this.getModify.bind(this);
+        this.postComment = this.postComment.bind(this);
 
         // this.test();
     }
@@ -207,8 +208,36 @@ class SeriesCtrl {
             res.json({ msg: "OK" });
         })
         .catch((error) => {
+            winston.info(error);
             res.json({ msg: "Error" });
-        })    
+        })
+    }
+
+    postComment(req, res) {
+        winston.info("azetgy")
+        this._series.addComment(
+            res.locals.user._id,
+            res.locals.user.pseudo,
+            res.locals.user.langId,
+            req.params.id,
+            req.body.comment_title,
+            req.body.comment,
+            "5"
+            )
+            .then(serie => {
+                winston.info(serie.toObject())
+                res.render('serie.twig', {
+                    serie: serie,
+                })
+            })
+            .catch((error) => {
+                    winston.info(error);
+                    res.status(500).render('error.twig', {
+                        status: 500,
+                        error: res.__('ERROR_SERVER'),
+                    });
+            })
+
     }
 
     getModify(req, res) {

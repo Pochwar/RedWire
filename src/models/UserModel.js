@@ -78,22 +78,22 @@ class UserModel {
      * @method
      * 
      * @param {String} userId - serie's Id (alpha-numeric string in ObjectId()) in DB
-     * @param {String} value - new value
-     * @param {Boolean} value - is data to be removed ?
+     * @param {ObjectId} episodeId - new value
+     * @param {Boolean} remove - is data to be removed ?
      * 
      * @return {Promise}
      */
-    viewedEpisode(userId, value, remove) {
-        if (remove === "false") {
+    viewedEpisode(userId, episodeId, remove) {
+        if (remove == "false") {
             return new Promise((resolve, reject) => {
-                UserSchema.update({ _id: ObjectId(userId) }, { $addToSet: { episodesViewed: value } })
-                    .then(document => resolve(document))
+                UserSchema.update({_id: ObjectId(userId)}, { $addToSet: { episodesViewed: episodeId }})
+                    .then(result => {resolve(result)})
                     .catch(e => reject(e))
             });
         } else {
             return new Promise((resolve, reject) => {
-                UserSchema.update({ _id: ObjectId(userId) }, { $pull: { episodesViewed: value } })
-                    .then(document => resolve(document))
+                UserSchema.update({_id: ObjectId(userId)}, { $pull: { episodesViewed: episodeId }})
+                    .then(result => resolve(result))
                     .catch(e => reject(e))
             });
         }
