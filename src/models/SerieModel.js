@@ -1,3 +1,4 @@
+const winston = require('winston');
 const mongoose = require('mongoose');
 const SerieSchema = require('./../schemas/SerieSchema');
 const CommentSchema = require('./../schemas/CommentSchema');
@@ -22,22 +23,6 @@ class SerieModel {
         this.transformImagePath = this.transformImagePath.bind(this);
     }
 
-    registerActor(local_id, name, createdAt, updatedAt) {
-        return new Promise((resolve, reject) => {
-            Actor.create({
-                local_id: local_id,
-                name: name,
-                createdAt: createdAt,
-                updatedAt: updatedAt,
-            }, (err, object) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(object)
-                }
-            })
-        })
-    }
 
     /**
      * @method
@@ -65,15 +50,6 @@ class SerieModel {
      * @return {Promise} Should return the registered document
      */
     registerSerie(title, createdAt, langCode, optionals) {
-        // const api_id = optionals.api_id || null;
-        // const overview = optionals.overview || null;
-        // const poster = optionals.poster || "/img/default.png";
-        // const genres = optionals.genres || [];
-        // const actors = optionals.actors || [];
-        // const comments = optionals.comments || [];
-        // const episodes = optionals.episodes || [];
-        // const validated = optionals.validated || 0;
-
         return new Promise((resolve, reject) => {
             let actors = [];
 
@@ -325,6 +301,7 @@ class SerieModel {
         return new Promise((resolve, reject) => {
             Serie.update({ _id: serie }, { $push: { followedBy: user} })
             .then(result => {
+                winston.info("Result of query:" + result)
                 resolve(result);
             })
             .catch(error => {
@@ -332,24 +309,41 @@ class SerieModel {
             });
         });
     }
+
     
-    addComment(userId, userPseudo, langId, serieId, commentTitle, commentBody, note) {
+    /**
+     * @method
+     * 
+     * @param {ObjectId} userId 
+     * @param {String} userPseudo 
+     * @param {Number} langId 
+     * @param {ObjectId} serieId 
+     * @param {String} commentTitle 
+     * @param {String} commentBody 
+     * @param {Number} commentRating 
+     */
+    addComment(userId, userPseudo, langId, serieId, commentTitle, commentBody, commentRating) {
         return new Promise((resolve, reject) => {
-            Comment.create({
-                title: commentTitle,
-                body: commentBody,
-                serie: serieId,
-                note: note,
-                user: userId,
-                userPseudo: userPseudo,
-                langId: langId,
-            })
-            .then(() => {
-                Comment.find({ serie: serieId })
-                    .then(comments => {
-                        resolve(comments)
-                    })
-            })
+            Serie.findOneAndUpdate({ _id: serieId }, { $push:
+                {
+                    comments:
+                        {
+                        title: commentTitle,
+                        body: commentBody,
+                        serie: serieId,
+                        note: commentRating,
+                        user: userId,
+                        userPseudo: userPseudo,
+                        langId: langId,
+                        }   
+                    }
+                }, {
+                    new: true,
+                }
+            )
+            .then((result) => {
+                resolve(result)
+                })
             .catch(error => {
                 reject(error);
             });

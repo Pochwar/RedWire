@@ -49,8 +49,5 @@ const commentSchema = new Schema({
             },
         }, ],
     },
-    serie: {
-        type: Schema.Types.ObjectId,
-    },
 });
 module.exports = commentSchema;

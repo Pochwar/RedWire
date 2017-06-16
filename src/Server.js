@@ -187,8 +187,8 @@ class Server {
         this._app.get('/update/:id', accessGranted.member, seriesCtrl.getModify);
         this._app.post('/update/:id', accessGranted.member, seriesCtrl.post);
 
-        // get one episode from its id
-        this._app.get('/episode/:id', accessGranted.everyone, seriesCtrl.getEpisodeById);
+        // // get one episode from its id
+        // this._app.get('/episode/:id', accessGranted.everyone, seriesCtrl.getEpisodeById);
 
         this._app.get('/', accessGranted.everyone, indexCtrl.get);
 
