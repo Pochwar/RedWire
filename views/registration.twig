@@ -4,16 +4,24 @@
     <div class="container-fluid">
         <div class="row ct-bg-grey">
             <div class="col-md-offset-2 col-md-6">
+                
                 <h2 class="ct-txt-yellow" >
                     {{ __("REGISTRATION") }}
                 </h2>
+                
+                {% if error %}
                 <div id="error" class="list-group-item list-group-item-danger">
-                {{ error }}
+                    {{ error }}
                 </div>
+                {% endif %}
+                
+                {% if msg %}
                 <div id="success" class="list-group-item list-group-item-success">
-                {{ msg }}
+                    {{ msg }}
                 </div>
-                <div class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</p>
+                {% endif %}
+
+                <div class="ct-txt-white">(*) {{ __("REQUIREDFIELDS") }}</div>
                     <form action="" id="registrationForm" method="post">
                         <div class="form-group">
                             <label class="ct-txt-white" for="firstname">{{ __("FIRSTNAME") }} * : </label>
@@ -94,24 +102,5 @@
             }
         });
     </script>
-    <script>
-
-    (function($){
-    jQuery.fn.checkEmpty = function() {
-       return !$.trim(this.html()).length;
-    };
-    }(jQuery));
-
-    if($("#error").checkEmpty()){
-        $('#error').hide();
-    }else{
-        $('#error').show();
-    }
-
-     if($("#success").checkEmpty()){
-        $('#success').hide();
-    }else{
-        $('#success').show();
-    }
-    </script>
+   
 {% endblock %}

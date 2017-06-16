@@ -8,10 +8,10 @@
             	<p class="modifyUser">
             	    <a href="/user" class="ct-txt-white">{{ __("MODIFY") }}</a>
             	</p>
-                {% if user.avatar == "" %}
-				    <img class="avatar" src="img/user.png"/>
+                {% if user.avatar %}
+				    <img class="avatar" src="{{avatarPath}}{{ user.avatar }}"/>
                 {% else %}
-                    <img class="avatar" src="{{avatarPath}}{{ user.avatar }}"/>
+                    <img class="avatar" src="{{ defaultAvatar }}"/>
                 {% endif %}
 
 				<div class="infoUser">

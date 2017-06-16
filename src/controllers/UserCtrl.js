@@ -15,8 +15,10 @@ class UserCtrl {
     }
 
     getWall(req, res) {
+        
         res.render('wall.twig', {
             avatarPath: this._conf.site.default.avatarPath,
+            defaultAvatar :  this._conf.site.default.avatar,
         });
     }
 
@@ -29,9 +31,12 @@ class UserCtrl {
                 i18nMsg = res.__(msg)
             }
         }
+
+        const defaultAvatar = req.app.get('conf').site.default.avatar;
         res.render('user.twig', {
             msg: i18nMsg,
             avatarPath: this._conf.site.default.avatarPath,
+            defaultAvatar :  this._conf.site.default.avatar,
         });
     }
 

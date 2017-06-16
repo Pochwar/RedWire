@@ -89,10 +89,12 @@
 <section>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                {% for page in 1..data.pages %}
-                    <a href="{{currentUrl}}p={{page}}">{{page}}</a>, 
-                {% endfor %}
+            <div class="col-md-12 text-center">
+                {% if data.pages > 1 %}
+                    {% for page in 1..data.pages %}
+                        <a href="{{currentUrl}}p={{page}}">{{page}}</a>, 
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
