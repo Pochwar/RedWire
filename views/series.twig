@@ -30,8 +30,8 @@
             {# add series posters && datas #}
             <div class="col-md-2">
 
-                {# Big screens : poster only#}
-                <div class="poster hidden-sm">
+                {# Big screens : posters only#}
+                <div class="poster hidden-sm hidden-xs">
                     {# poster #}
                     <img src="{{ serie.poster ? serie.poster : defaultPoster }}" alt="{{serie.title}}" title="{{ serie.title }}" onClick="expandPanel({{ loop.index}})" class="w150" id="poster-{{loop.index}}"/>
                 
@@ -41,8 +41,8 @@
                     {% endif %}
                 </div>
 
-                {# small screens : poster & data #}
-                <div class="row visible-sm" id="data-{{loop.index}}">
+                {# medium & small screens : poster & data #}
+                <div class="row visible-sm visible-xs" id="data-{{loop.index}}">
                     
                     {# poster #}
                     <div class="col-sm-4 poster text-center">
@@ -58,7 +58,8 @@
                        </a>
                     </div>
 
-                    <div class="col-sm-7">
+                    {# data for medium screen only#}                    
+                    <div class="col-sm-7 hidden-xs">
                         <p class="data-title">{{ serie.title }}</p>
                         <p class="data-overview">{{ serie.overview }}</p>
                         <p class="data-link"><a href="/series/{{serie._id}}">Voir en détail</a></p>
