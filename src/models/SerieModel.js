@@ -206,7 +206,9 @@ class SerieModel {
             })
             .then(serie => {
                 if (serie) {
-                    resolve(serie.toObject());
+                    serie.toObject();
+                    serie.poster = serie.poster ? this._siteImagePath + serie.poster : null;
+                    resolve(serie);
                 }
                 else {
                     resolve({});

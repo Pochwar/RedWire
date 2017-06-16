@@ -10,10 +10,14 @@ const mongoose = require('mongoose');
 class UserCtrl {
     constructor(conf){
         this._conf = conf;
+
+        this.getWall = this.getWall.bind(this);
     }
 
     getWall(req, res) {
-        res.render('wall.twig');
+        res.render('wall.twig', {
+            avatarPath: this._conf.site.default.avatarPath,
+        });
     }
 
     getUserInfo(req, res) {
@@ -27,6 +31,7 @@ class UserCtrl {
         }
         res.render('user.twig', {
             msg: i18nMsg,
+            avatarPath: this._conf.site.default.avatarPath,
         });
     }
 
@@ -87,7 +92,7 @@ class UserCtrl {
                 user.updateData(userId, "avatar", "")
                     .then( () => {
                         //delete file
-                        return fs.unlink(path.join(this._conf.site.default.avatarPath, fileName));
+                        return fs.unlink(path.join('./public'+this._conf.site.default.avatarPath, fileName));
                     })
                     .then( () => {
                         resolve();

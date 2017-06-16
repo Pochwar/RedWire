@@ -175,7 +175,7 @@ class Server {
         this._app.get('/series/add', accessGranted.member, seriesCtrl.getForm);
 
         // post the form results for creating a serie
-        this._app.post('/series/add', accessGranted.member, seriesCtrl.post);
+        this._app.post('/series/add', accessGranted.member, this.upload.single('poster'), seriesCtrl.post);
 
         //get one serie from its id
         this._app.get('/series/:id', accessGranted.everyone, seriesCtrl.getById);
@@ -236,7 +236,7 @@ class Server {
         this._app.get('/wall', accessGranted.member, userCtrl.getWall);
 
         this._app.get('/user', accessGranted.member, userCtrl.getUserInfo.bind(userCtrl));
-        this._app.post('/user', this.upload.single('avatar'), accessGranted.member, userCtrl.putUserInfo.bind(userCtrl));
+        this._app.post('/user', accessGranted.member, this.upload.single('avatar'), userCtrl.putUserInfo.bind(userCtrl));
 
         //mail
         this._app.get('/verify', accessGranted.everyone, registrationCtrl.verify);

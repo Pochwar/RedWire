@@ -11,7 +11,7 @@ class Multer {
          */
         this.storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, this._conf.site.default.avatarPath)
+                cb(null, './public'+this._conf.site.default.avatarPath)
             },
             filename: (req, file, cb) => {
                 const ext = file.mimetype.replace("image/", "");

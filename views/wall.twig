@@ -11,7 +11,7 @@
                 {% if user.avatar == "" %}
 				    <img class="avatar" src="img/user.png"/>
                 {% else %}
-                    <img class="avatar" src="upload/avatars/{{ user.avatar }}"/>
+                    <img class="avatar" src="{{avatarPath}}{{ user.avatar }}"/>
                 {% endif %}
 
 				<div class="infoUser">
@@ -23,12 +23,14 @@
 	                <p class="ct-txt-white">{{ user.birthday|date("d/m/Y") }}</p>
                 </div>
 
-                {% if user.roleId == 2 %}
+                    
+                <!-- bouton bannir : for V2 -->
+<!--                 {% if user.roleId == 2 %}
                     {% include "includes/banish.twig" %}
                 {% elseif user.roleId == 3 %}
                     {% include "includes/banish.twig" %}
                 {% endif %}
-
+ -->
             </div>
         </div>
     </div>
@@ -36,6 +38,8 @@
     <div class="container-fluid">
         <div class="row ct-fs-block">
             <div class="col-md-offset-2 col-md-6">
+                <p class="ct-txt-white">{{ user.comments }}</p>
+                <p class="ct-txt-white">{{ user.usersLike }}</p>
             </div>
         </div>
     </div>
@@ -43,6 +47,7 @@
     <div class="container-fluid">
         <div class="row ct-bg-grey ct-fs-block">
             <div class="col-md-offset-2 col-md-6">
+                <p class="ct-txt-white">{{ user.followedBy }}</p>
             </div>
         </div>
     </div>
