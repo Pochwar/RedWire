@@ -61,7 +61,8 @@
                     <div class="col-sm-7">
                         <p class="data-title">{{ serie.title }}</p>
                         <p class="data-overview">{{ serie.overview }}</p>
-                        <p class="data-link"><a href="/series/{{serie._id}}">Voir en détail</a></p>
+                        <p class="data-link"><a href="/series/{{serie._id}}">{{ __("DETAILS")}}</a></p>
+
                     </div>
 
                 </div>
@@ -112,8 +113,9 @@
                 <p id="panel-title" class="ct-txt-yellow"></p>
                 <p id="panel-overview" class="ct-txt-white"></p>
                 <p id="panel-link">
-                    <a href="" class="ct-to-left ct-ml-1" id="panel-details">voir en détail</a>
-                    <a href="#" class="ct-to-right ct-mr-1" onClick="closePanel(event)">fermer</a>
+                    <a href="" class="ct-to-left ct-ml-1" id="panel-details">{{ __("DETAILS")}}</a>
+
+                    <a href="#" class="ct-to-right ct-mr-1" onClick="closePanel(event)">{{ __("CLOSE")}}</a>
                 </p>
             </div>
         </div>
