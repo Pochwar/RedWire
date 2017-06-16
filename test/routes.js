@@ -19,7 +19,7 @@ const credentialsToTest = require('./credentials-to-test');
 describe('URL - not authenticated', () => {
 
     routesToTest.notLogged.forEach( route => {
-        it( `${route.name} => ${route.verb}  ${route.path}`, done => {
+        it( `${route.name} => ${route.verb}  ${route.path}`, () => {
             
             let request = chai.request(server);
 
@@ -34,9 +34,8 @@ describe('URL - not authenticated', () => {
                 });
             }
 
-            request.end(function(err, res) {
+            return request.end(function(err, res) {
                 res.should.have.status(route.status);
-                done();
             });
             
         });
@@ -48,12 +47,12 @@ describe('URL - not authenticated', () => {
 describe('URL - as Member', () => {
     
     routesToTest.logged.forEach( route => {
-        it( `${route.name} => ${route.verb} ${route.path}`, done => {
+        it( `${route.name} => ${route.verb} ${route.path}`, () => {
             
             let agent = chai.request.agent(server);
             
             // login with good credentials
-            agent.post('/login')
+            return agent.post('/login')
             .send( credentialsToTest.correct )
             
             // check cookie & send request
@@ -65,12 +64,10 @@ describe('URL - as Member', () => {
             // check server response for valid url
             .then(function (res) {
                 res.should.have.status(route.status);
-                done();
             })
             // check server response for invalid url
             .catch(function (res) {
                 res.should.have.status(route.status);
-                done();
             });
         });
     });

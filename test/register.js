@@ -19,7 +19,7 @@ describe(registerData.route.name, () => {
 
     // invalid credentials
     registerData.dataset.forEach( dataset => {
-        it(`${dataset.name} => ${registerData.route.verb} ${registerData.route.path}`, done => {
+        it(`${dataset.name} => ${registerData.route.verb} ${registerData.route.path}`, () => {
             
             // start request
             let request = chai.request(server);
@@ -36,12 +36,11 @@ describe(registerData.route.name, () => {
             }
 
             // send data (works with get ?)
-            request.send(dataset.data)
+            return request.send(dataset.data)
 
             // check for valid url
             .then( res => {
                 res.should.have.status(dataset.status);
-                done();
             })
             
             // check for invalid url
@@ -53,7 +52,6 @@ describe(registerData.route.name, () => {
                 }
 
                 res.should.have.status(dataset.status);
-                done();
             });
             
         });

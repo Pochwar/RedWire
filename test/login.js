@@ -18,11 +18,11 @@ const credentialsToTest = require('./credentials-to-test');
 describe('Login', () => {
 
     // Valid credentials
-    it("Accepts correct credentials", done => {
+    it("Accepts correct credentials", () => {
         
         let request = chai.request(server);
 
-        request.post('/login')
+        return request.post('/login')
         .send(credentialsToTest.correct)
         
         // check for valid url
@@ -34,10 +34,10 @@ describe('Login', () => {
 
     // invalid credentials
     credentialsToTest.incorrects.forEach( credentials => {
-        it(` ${credentials.name}`, done => {
+        it(` ${credentials.name}`, () => {
             let request = chai.request(server);
 
-            request.post('/login')
+            return request.post('/login')
             .send(credentials.data)
             
             // check for valid url : not good
@@ -48,7 +48,6 @@ describe('Login', () => {
             // check for invalid url : good
             .catch( res => {
                 res.should.have.status(400);
-                done();
             });
         });
     });
