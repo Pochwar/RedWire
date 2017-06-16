@@ -18,27 +18,29 @@ body {
     min-height: 100vh;
 }
 
+
 /*images accueil*/
 
-#ban_index_1{
+#ban_index_1 {
     background-image: url('../img/ban_index_3.png');
     background-size: cover;
 }
 
-#ban_index_2{
+#ban_index_2 {
     background-image: url('../img/ban_index_4.png');
     background-size: cover;
 }
 
-#ban_index_3{
+#ban_index_3 {
     background-image: url('../img/ban_index_5.png');
     background-size: cover;
 }
 
-#ban_index_4{
+#ban_index_4 {
     background-image: url('../img/ban_index_2.png');
     background-size: cover;
 }
+
 
 /* Bootstrap 3 row's  with equal height columns (flexbox)
  * Cols based on flexbox to center content horizontally & vertically
@@ -59,42 +61,54 @@ body {
     }
 }
 
+
 /* visibility*/
+
 .ct-visible-md-table-cell {
     display: none !important;
 }
+
 @media only screen and (min-width: 1050px) {
     .ct-visible-md-table-cell {
         display: table-cell !important;
     }
 }
+
 .ct-visible-sm {}
+
 @media only screen and (min-width: 1050px) {
     .ct-visible-sm {
         display: none;
     }
 }
 
+
 /* navbar logo */
+
 .ct-navbar-brand {
     display: table;
 }
+
 .ct-navbar-brand>a>img {
     display: table-cell;
     height: 100px;
     vertical-align: middle;
 }
+
 .ct-navbar-brand>span {
     display: table-cell;
     vertical-align: top;
 }
+
 .ct-navbar-brand>span>p {
     margin: 15px 0 20px 10px;
 }
+
 #btndeco {
     padding: 10px;
     margin-left: 20px;
 }
+
 .navbar-default .navbar-nav>li .ct-nav-lang {
     top: 4px;
     padding: 5px;
@@ -109,15 +123,55 @@ body {
     }
 }
 
+
+/*MailSent*/
+
+#sent {
+    height: 200px;
+    width: 200px;
+}
+
+#degrade2 {
+    background-image: linear-gradient(#3d99ff, #000);
+}
+
+
+/*MailConfirmation*/
+
+#valid {
+    height: 200px;
+    width: 200px;
+}
+
+#degrade3 {
+    background-image: linear-gradient(#3d99ff, #000);
+}
+
+
+/*Error*/
+
+#err {
+    height: 200px;
+    width: 200px;
+}
+
+#degrade4 {
+    background-image: linear-gradient(#ff6d6d, #000);
+}
+
+
 /* 404 */
+
 #deadurl {
     padding: 50px;
     text-align: center;
     height: 100vh;
 }
+
 #deadurl>h2 {
     color: #fff;
 }
+
 #degrade {
     background-image: linear-gradient(#000, #fff);
 }
@@ -131,14 +185,18 @@ body {
     margin-top: 20px;
 }
 
+
 /*
 registration form
  */
-#registrationForm input[type="submit"]{
+
+#registrationForm input[type="submit"] {
     color: #000;
 }
 
+
 /*messages*/
+
 @media only screen and (min-width: 700px) {
     .list-group-item-success {
         padding: 5px;
@@ -176,6 +234,7 @@ registration form
     margin-left: 1em;
 }
 
+
 /* position */
 
 .ct-to-left {
@@ -187,6 +246,7 @@ registration form
     position: absolute;
     right: 0;
 }
+
 
 /* text */
 
@@ -214,13 +274,14 @@ registration form
     color: #f00;
 }
 
-.show-on-hover{
+.show-on-hover {
     visibility: hidden;
 }
 
 .ct-bg-grey-alpha:hover .show-on-hover {
     visibility: visible;
 }
+
 
 /* bg color */
 
@@ -229,16 +290,17 @@ registration form
 }
 
 .ct-bg-grey-alpha {
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .ct-bg-grey-alpha:hover {
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .ct-bg-yellow {
     background-color: #FFB125;
 }
+
 
 /* borders */
 
@@ -246,23 +308,28 @@ registration form
     border: 1px solid red;
 }
 
+
 /* full screen block */
 
 .ct-fs-block {
     height: 200px;
     max-height: 200px;
 }
+
 @media only screen and (min-width: 700px) {
     .ct-fs-block {
         height: 400px;
         max-height: 400px;
     }
 }
+
+
 /* width / height */
 
 .w150 {
     width: 150px;
 }
+
 
 /*
 chat
@@ -372,6 +439,7 @@ chat
     color: white;
 }
 
+
 /*
 wall
 */
@@ -406,6 +474,7 @@ wall
     height: 270px;
     max-height: 270px;
 }
+
 
 /*
 * Serie & episode
@@ -456,4 +525,3 @@ wall
     font-size: 20px;
     font-weight: bold;
 }
-
