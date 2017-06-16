@@ -1,5 +1,6 @@
 const winston = require('winston');
 const mongoose = require('mongoose');
+const ObjectId = require('mongodb').ObjectID;
 const SerieSchema = require('./../schemas/SerieSchema');
 const CommentSchema = require('./../schemas/CommentSchema');
 const ActorSchema = require('./../schemas/ActorSchema');
@@ -297,17 +298,22 @@ class SerieModel {
         return serie;
     }
 
-    followSerie(user, serie) {
-        return new Promise((resolve, reject) => {
-            Serie.update({ _id: serie }, { $push: { followedBy: user} })
-            .then(result => {
-                winston.info("Result of query:" + result)
-                resolve(result);
-            })
-            .catch(error => {
-                reject(error);
-            });
+    followSerie(user, serie, remove) {
+        winston.info(user)
+        winston.info(serie)
+        if (remove == "false") {
+            return new Promise((resolve, reject) => {
+            Serie.update({ _id: ObjectId(serie) }, { $addToSet: { followedBy: user} })
+            .then(result => resolve(result))
+            .catch(error => reject(error))
         });
+        } else {
+            return new Promise((resolve, reject) => {
+                Serie.update({ _id: ObjectId(serie) }, { $pull: { followedBy: user} })
+                .then(result => resolve(result))
+                .catch(error => reject(error))
+            });
+        }
     }
 
     

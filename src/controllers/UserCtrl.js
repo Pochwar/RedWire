@@ -52,6 +52,28 @@ class UserCtrl {
             })
     }
 
+    putUserSeries(req, res) {
+        const serieId = req.body.serieId;
+        const userId = res.locals.user._id;
+        const remove = req.body.remove;
+
+        const user = new UserModel();
+
+        user.followedSerie(userId, serieId, remove)
+            .then( () => {
+                res.json({
+                    msg: res.__("ADDED_EPISODE"),
+                })
+            })
+            .catch( err => {
+                winston.info(err);
+                res.status(500).json({
+                        status: 500,
+                        error: err,
+                    })
+            })
+    }
+
     putUserInfo(req, res) {
         const userId = req.body.userId;
         const dataToChange = req.body.change;

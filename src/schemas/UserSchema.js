@@ -63,7 +63,7 @@ const userSchema = new Schema({
         required: true,
     },
     seriesFollowed: {
-        type: [Number, ],
+        type: [Schema.Types.ObjectId, ],
     },
     seriesModified: {
         type: [{
