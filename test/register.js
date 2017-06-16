@@ -46,11 +46,11 @@ describe(registerData.route.name, () => {
             // check for invalid url
             .catch( res => {
 
-                // rethrow assertion error (we only catch request bad url)
+                // rethrow assertion error (we only catch bad url)
                 if( res.message && res.showDiff && res.actual) {
                     throw res;
                 }
-
+                
                 res.should.have.status(dataset.status);
             });
             

@@ -13,7 +13,7 @@ module.exports = {
                 "lastname": "toto",
                 "pseudo": "toto",
                 "birthday": "02/06/2017",
-                "email": "toto@mail.com",
+                "mail": "toto@mail.com",
                 "password": "toto",
                 "passwordConf": "toto",
                 "langId": "1"
@@ -21,20 +21,20 @@ module.exports = {
         },
         {
             "name": "empty form",
-            "status": 500,
+            "status": 400,
             "data": {
             }
         },
         {
-            "name": "invalid email",
-            "status": 500,
+            "name": "invalid mail",
+            "status": 400,
             "data": {
                 "firstname": "toto",
                 "firstname": "toto",
                 "lastname": "toto",
                 "pseudo": "toto",
                 "birthday": "02/06/2017",
-                "email": "totail.com",
+                "mail": "totail.com",
                 "password": "toto",
                 "passwordConf": "toto",
                 "langId": "1"
@@ -42,13 +42,13 @@ module.exports = {
         },
         {
             "name": "invalid birthday",
-            "status": 500,
+            "status": 400,
             "data": {
                 "firstname": "toto",
                 "lastname": "toto",
                 "pseudo": "toto",
                 "birthday": "02/067",
-                "email": "toto@mail.com",
+                "mail": "toto@mail.com",
                 "password": "toto",
                 "passwordConf": "toto",
                 "langId": "1"
@@ -56,13 +56,13 @@ module.exports = {
         },
         {
             "name": "invalid firstname",
-            "status": 500,
+            "status": 400,
             "data": {
                 "firstname": "t!lk-5er",
                 "lastname": "toto",
                 "pseudo": "toto",
                 "birthday": "02/06/2017",
-                "email": "toto@mail.com",
+                "mail": "toto@mail.com",
                 "password": "toto",
                 "passwordConf": "toto",
                 "langId": "1"
@@ -70,13 +70,13 @@ module.exports = {
         },
         {
             "name": "invalid lastname",
-            "status": 500,
+            "status": 400,
             "data": {
                 "firstname": "toto",
                 "lastname": "(tr(-5))",
                 "pseudo": "toto",
                 "birthday": "02/06/2017",
-                "email": "toto@mail.com",
+                "mail": "toto@mail.com",
                 "password": "toto",
                 "passwordConf": "toto",
                 "langId": "1"
@@ -84,13 +84,13 @@ module.exports = {
         },
         {
             "name": "invalid pseudo",
-            "status": 500,
+            "status": 400,
             "data": {
                 "firstname": "toto",
                 "lastname": "toto",
                 "pseudo": "3/!:fgf",
                 "birthday": "02/06/2017",
-                "email": "toto@mail.com",
+                "mail": "toto@mail.com",
                 "password": "toto",
                 "passwordConf": "toto",
                 "langId": "1"
@@ -98,13 +98,13 @@ module.exports = {
         },
          {
             "name": "invalid password",
-            "status": 500,
+            "status": 400,
             "data": {
                 "firstname": "toto",
                 "lastname": "toto",
                 "pseudo": "3/!:fgf",
                 "birthday": "02/06/2017",
-                "email": "toto@mail.com",
+                "mail": "toto@mail.com",
                 "password": "tot-3!:d/o",
                 "passwordConf": "toto",
                 "langId": "1"

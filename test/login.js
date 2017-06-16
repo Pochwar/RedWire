@@ -28,7 +28,6 @@ describe('Login', () => {
         // check for valid url
         .then( res => {
             res.should.have.status(200);
-            done();
         });
     });
 

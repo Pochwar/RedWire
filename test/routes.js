@@ -34,7 +34,12 @@ describe('URL - not authenticated', () => {
                 });
             }
 
-            return request.end(function(err, res) {
+            return request.send()
+            .then( res => {
+                res.should.have.status(route.status);
+            })
+            // check server response for invalid url
+            .catch( res => {
                 res.should.have.status(route.status);
             });
             
