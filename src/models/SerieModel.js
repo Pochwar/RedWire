@@ -23,6 +23,7 @@ class SerieModel {
         this.allRequest = this.allRequest.bind(this);
         this.registerSerie = this.registerSerie.bind(this);
         this.transformImagePath = this.transformImagePath.bind(this);
+        this.addComment = this.addComment.bind(this);
         
     }
 
@@ -292,7 +293,7 @@ class SerieModel {
         if (!serie.poster) {
             return serie;
         }
-        console.log(serie.poster);
+        
         if (serie.api_id) {
             serie.poster = this._apiImagePath + serie.poster;
         }
@@ -353,7 +354,9 @@ class SerieModel {
                 }
             )
             .then((result) => {
-                resolve(result.toObject())
+                result = result.toObject()
+                result = this.transformImagePath(result);
+                resolve(result);
                 })
             .catch(error => {
                 reject(error);

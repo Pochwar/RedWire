@@ -157,7 +157,7 @@ class SeriesCtrl {
             }
         )
             .then(serie => {
-                console.log(serie);
+                
                 winston.info("Serie registred: " + serie.title)
                 const defaultPoster = req.app.get("conf").site.default.poster;
                 res.render("serie.twig", {
@@ -187,7 +187,7 @@ class SeriesCtrl {
         this._series.findById(_id)
             .then(serie => {
                 const defaultPoster = req.app.get("conf").site.default.poster;
-                console.log(poster);
+                
                 res.render('serie.twig', {
                     serie: serie,
                     defaultPoster: defaultPoster,
@@ -256,8 +256,10 @@ class SeriesCtrl {
             "5"
             )
             .then(serie => {
+                const defaultPoster = req.app.get("conf").site.default.poster;
                 res.render('serie.twig', {
                     serie: serie,
+                     defaultPoster: defaultPoster,
                 });
                 const episodeId = serie.comments[serie.comments.length - 1]._id
                 this._user.commentedEpisode(res.locals.user._id, episodeId)

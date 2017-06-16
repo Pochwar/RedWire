@@ -5,5 +5,4 @@
 !/public/upload/posters/.gitkeep
 .env
 test.env
-locales/*
 /doc_tech
