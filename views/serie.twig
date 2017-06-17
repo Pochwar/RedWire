@@ -19,7 +19,6 @@
             <div class="media-body">
                 <span class="media-heading h1 serie-title">{{ serie.title }}</span>
                 
-                {#
                 <span class="pull-right">
                     {% set followed = false %}
                     {% for serieFollowed in user.seriesFollowed %}
@@ -39,16 +38,14 @@
                             <span id="button-followed-false">{{ __("FOLLOWED_FALSE") }}</span>
                         </button>
                     {% endif %}
-                
                 </span>
-                #}
+                
                 <p>{{ serie.overview }}</p>
             </div>
         </div>
     </div>
 
     {% set seasons = [] %}
-
     {% for episode in serie.episodes %}
         {% if episode.season not in seasons %}
             {% set seasons = seasons|merge([episode.season]) %}

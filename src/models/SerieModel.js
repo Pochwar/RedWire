@@ -305,8 +305,6 @@ class SerieModel {
     }
 
     followSerie(user, serie, remove) {
-        winston.info(user)
-        winston.info(serie)
         if (remove == "false") {
             return new Promise((resolve, reject) => {
             Serie.update({ _id: ObjectId(serie) }, { $addToSet: { followedBy: user} })

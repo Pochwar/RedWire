@@ -233,7 +233,6 @@ class SeriesCtrl {
         }
 
         const remove = req.body.remove;
-        winston.info('SerieCtrl serieId: ' + req.params.id)
 
         this._series.followSerie(res.locals.user._id, req.params.id, remove)
         .then(() => {

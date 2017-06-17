@@ -10,8 +10,8 @@ $(document).ready(function() {
 			button.removeClass("btn-warning");
 			button.addClass("btn-success");
 			// button.html("&#10003; {{ __(\"VIEWED_TRUE\") }}");
-			$("#button-viewed-false").toggle();
-			$("#button-viewed-true").toggle();
+			$("#"+e.target.id+"-viewed-false").toggle();
+			$("#"+e.target.id+"-viewed-true").toggle();
 
 			data.episodeId = e.target.id;
 			data.remove = false;
@@ -20,8 +20,8 @@ $(document).ready(function() {
 			button.removeClass("btn-success");
 			button.addClass("btn-warning");
 			// button.html("{{ __(VIEWED_FALSE) }}");
-			$("#button-viewed-false").toggle();
-			$("#button-viewed-true").toggle();
+			$("#"+e.target.id+"-viewed-false").toggle();
+			$("#"+e.target.id+"-viewed-true").toggle();
 
 			data.episodeId = e.target.id;
 			data.remove = true;
@@ -33,7 +33,7 @@ $(document).ready(function() {
 			type : 'PUT', 
 			data : data,
 		success: response => {
-			// console.log(response);
+			console.log(response);
 			},
 		error: error => {
 			console.log(error);
@@ -73,7 +73,7 @@ $(document).ready(function() {
 			type : 'PUT', 
 			data : data,
 		success: response => {
-			// console.log(response);
+			console.log(response);
 			},
 		error: error => {
 			console.log(error);
