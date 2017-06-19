@@ -112,7 +112,7 @@ class SeriesCtrl {
         for (let i = 0; i < counter; i++) {
             if (_.isEmpty(req.body["title_"+i]) ||
             _.isEmpty(req.body["numberEpisode_"+i]) ||
-            _.isEmpty(req.body["overview_"+i]) ||
+            // _.isEmpty(req.body["overview_"+i]) ||
             _.isEmpty(req.body["numberSeason_"+i])) {
                 return res.status(400).render("add.twig", {
                     error: res.__('REQUIREDFIELDS'),
