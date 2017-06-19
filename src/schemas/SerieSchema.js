@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ActorSchema = require('./ActorSchema');
-const CommentSchema = require('./commentSchema');
+const CommentSchema = require('./CommentSchema');
 
 // EpisodeSchema is nested (embeded) in seriesSchema
 const EpisodeSchema = new Schema({
